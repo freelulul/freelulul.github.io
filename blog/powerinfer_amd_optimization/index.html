@@ -1,292 +1,571 @@
-<!doctype html><html lang=en data-theme=light><head><title>PowerInfer_AMD_Optimization · Zongze Li</title>
-<meta charset=utf-8><meta name=generator content="Hugo 0.123.8"><meta property="og:title" content="PowerInfer_AMD_Optimization"><meta property="og:description" content="Environment: auprocm@auprocm-System-Product-Name:~$ python3 -m torch.utils.collect_env Collecting environment information&mldr; PyTorch version: 2.1.1+rocm5.6 Is debug build: False CUDA used to build PyTorch: N/A ROCM used to build PyTorch: 5.6.31061-8c743ae5d
-OS: Ubuntu 22.04.4 LTS (x86_64) GCC version: (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0 Clang version: Could not collect CMake version: version 3.22.1 Libc version: glibc-2.35
-Python version: 3.10.12 (main, Nov 20 2023, 15:14:05) [GCC 11.4.0] (64-bit runtime) Python platform: Linux-6.2.0-060200-generic-x86_64-with-glibc2.35 Is CUDA available: True CUDA runtime version: Could not collect CUDA_MODULE_LOADING set to: LAZY GPU models and configuration: Radeon RX 7900 XTX Nvidia driver version: Could not collect cuDNN version: Could not collect HIP runtime version: 5."><meta property="og:type" content="article"><meta property="og:url" content="https://freelulul.github.io/blog/PowerInfer_AMD_Optimization/"><meta property="og:image" content="https://freelulul.github.io/images/profile.png"><meta property="article:section" content="blog"><meta property="article:published_time" content="2024-04-05T01:44:02+08:00"><meta property="article:modified_time" content="2024-04-05T01:44:02+08:00"><meta property="og:site_name" content="Hi! I'm Zongze Li"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name=description content="Call me Zongze"><link rel=stylesheet type=text/css href=https://freelulul.github.io/css/style.min.565d8c479597aa43658922d4b31e286529a7525a22c9546fa1018fc5e5ef6d86.css integrity="sha256-Vl2MR5WXqkNliSLUsx4oZSmnUloiyVRvoQGPxeXvbYY=" crossorigin=anonymous type=text/css><script type=text/javascript src=https://freelulul.github.io/js/heyo-header.min.a3fa728a9f57833a31dfb45c48caaf1e4890c8c97f07bd7133fc2359745edb5d.js integrity="sha256-o/pyip9Xgzox37RcSMqvHkiQyMl/B71xM/wjWXRe210=" crossorigin=anonymous></script><link rel=stylesheet type=text/css href=https://freelulul.github.io/css/fonts.9398921f2d404983c2b7f9a68ddc72e3f5e58a3e38b0a8e4a70d75c12ebfb7c5.css integrity="sha256-k5iSHy1ASYPCt/mmjdxy4/Xlij44sKjkpw11wS6/t8U=" crossorigin=anonymous><script type=text/javascript src=https://freelulul.github.io/js/sidebar-toc.min.788b639e2ec681549740b90b3b865d5f9e1789e3ca9c06ccc45d65655434c954.js integrity="sha256-eItjni7GgVSXQLkLO4ZdX54XiePKnAbMxF1lZVQ0yVQ=" crossorigin=anonymous></script><script src=https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.min.js defer></script><script type=text/javascript src=https://freelulul.github.io/js/sketch-graph.26b92ed9317bdc6f35642d588bdf3283f40998846e01cf4bee22a126907fbf3b.js integrity="sha256-Jrku2TF73G81ZC1Yi98yg/QJmIRuAc9L7iKhJpB/vzs=" crossorigin=anonymous defer></script><script type=text/javascript src=https://freelulul.github.io/js/sketch-digitalRain.af8a7b5c4428cc62d5bf49bf2698d4112c2459ee0c22c1c753ab304aef69888a.js integrity="sha256-r4p7XEQozGLVv0m/JpjUESwkWe4MIsHHU6swSu9piIo=" crossorigin=anonymous defer></script><script type=text/javascript src=https://freelulul.github.io/js/sketch-circleBrushStrokes.fe8fc3ee52e1d90e9236be8c36a27711efa024beb4da304829f95dfbb61d6e84.js integrity="sha256-/o/D7lLh2Q6SNr6MNqJ3Ee+gJL602jBIKfld+7YdboQ=" crossorigin=anonymous defer></script><script type=text/javascript src=https://freelulul.github.io/js/sketch-meta.71b5202ea881c86ac19e4b55414656a5444204a4ba08ff7368a5aa99c0a60949.js integrity="sha256-cbUgLqiByGrBnktVQUZWpURCBKS6CP9zaKWqmcCmCUk=" crossorigin=anonymous defer></script><script type=text/javascript src=https://freelulul.github.io/js/sidebar-sketch.min.2e95015880993ef9abcad62d111decea22406616931bce193254bf8af2339953.js integrity="sha256-LpUBWICZPvmrytYtER3s6iJAZhaTG84ZMlS/ivIzmVM=" crossorigin=anonymous defer></script><link rel="shortcut icon" href=https://freelulul.github.io/favicons/favicon.ico type=image/x-icon><link rel=apple-touch-icon sizes=180x180 href=https://freelulul.github.io/favicons/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=https://freelulul.github.io/favicons/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=https://freelulul.github.io/favicons/favicon-16x16.png><link rel=canonical href=https://freelulul.github.io/blog/PowerInfer_AMD_Optimization/><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://freelulul.github.io/images/profile.png"><meta name=twitter:title content="PowerInfer_AMD_Optimization"><meta name=twitter:description content="Environment: auprocm@auprocm-System-Product-Name:~$ python3 -m torch.utils.collect_env Collecting environment information&mldr; PyTorch version: 2.1.1+rocm5.6 Is debug build: False CUDA used to build PyTorch: N/A ROCM used to build PyTorch: 5.6.31061-8c743ae5d
-OS: Ubuntu 22.04.4 LTS (x86_64) GCC version: (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0 Clang version: Could not collect CMake version: version 3.22.1 Libc version: glibc-2.35
-Python version: 3.10.12 (main, Nov 20 2023, 15:14:05) [GCC 11.4.0] (64-bit runtime) Python platform: Linux-6.2.0-060200-generic-x86_64-with-glibc2.35 Is CUDA available: True CUDA runtime version: Could not collect CUDA_MODULE_LOADING set to: LAZY GPU models and configuration: Radeon RX 7900 XTX Nvidia driver version: Could not collect cuDNN version: Could not collect HIP runtime version: 5."></head><body><div class=main><div class=page-top><a role=button class=navbar-burger data-target=navMenu aria-label=menu aria-expanded=false><span aria-hidden=true></span>
-<span aria-hidden=true></span>
-<span aria-hidden=true></span>
-<span aria-hidden=true></span>
-<span aria-hidden=true></span></a><ul class=nav id=navMenu><li><a href=/ title>About</a></li><li><a href=/publications/ title>Publications</a></li><li><a href=/project/ title>Projects</a></li><li><a href=/blog/ title>Blog</a></li><li><a href=/Doc/CV_Zongze_Li.pdf title>CV</a></li><li class=grow></li><li><a class=theme-switch title="Switch Theme"><i class="fa fa-adjust fa-fw" aria-hidden=true></i></a></li></ul></div><div class=sidebar id=sidebar><div class=top-toc><img src=https://freelulul.github.io/images/profile.png alt="profile picture">
-<a href=/>Hi! I'm Zongze Li</a></div><div class="middle-sidebar grow" id=middle-sidebar><div id=sidebar-sketch data-sketch=Graph data-sketch-starting='{
-    "kind": "katakana",
-    "nStreams": 10
-  }' data-sketch-show-hover=false></div></div><div class=footer><ul class=social-links><li><a href=https://linkedin.com/ target=_blank rel="noopener noreferrer" rel=me aria-label=Linkedin><i class="fab fa-linkedin" aria-hidden=true></i></a></li><li><a href=https://github.com/freelulul target=_blank rel="noopener noreferrer" rel=me aria-label=GitHub><i class="fab fa-github" aria-hidden=true></i></a></li><li><a href=https://www.instagram.com/ target=_blank rel="noopener noreferrer" rel=me aria-label=instagram><i class="fab fa-instagram" aria-hidden=true></i></a></li><li><a href=mailto:zongzel@uchicago.edu target=_blank rel="noopener noreferrer" rel=me aria-label=e-mail><i class="fas fa-envelope" aria-hidden=true></i></a></li></ul><div class=by>by Zongze Li <b>·</b> 2024</div></div></div><div class=content><div class=post><div class=post-title><h1>PowerInfer_AMD_Optimization</h1></div><div class=post-content><h1 id=environment>Environment:</h1><p>auprocm@auprocm-System-Product-Name:~$ python3 -m torch.utils.collect_env
-Collecting environment information&mldr;
-PyTorch version: 2.1.1+rocm5.6
-Is debug build: False
-CUDA used to build PyTorch: N/A
-ROCM used to build PyTorch: 5.6.31061-8c743ae5d</p><p>OS: Ubuntu 22.04.4 LTS (x86_64)
-GCC version: (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-Clang version: Could not collect
-CMake version: version 3.22.1
-Libc version: glibc-2.35</p><p>Python version: 3.10.12 (main, Nov 20 2023, 15:14:05) [GCC 11.4.0] (64-bit runtime)
-Python platform: Linux-6.2.0-060200-generic-x86_64-with-glibc2.35
-Is CUDA available: True
-CUDA runtime version: Could not collect
-CUDA_MODULE_LOADING set to: LAZY
-GPU models and configuration: Radeon RX 7900 XTX
-Nvidia driver version: Could not collect
-cuDNN version: Could not collect
-HIP runtime version: 5.6.31061
-MIOpen runtime version: 2.20.0
-Is XNNPACK available: True</p><p>CPU:
-Architecture: x86_64
-CPU op-mode(s): 32-bit, 64-bit
-Address sizes: 48 bits physical, 48 bits virtual
-Byte Order: Little Endian
-CPU(s): 24
-On-line CPU(s) list: 0-23
-Vendor ID: AuthenticAMD
-Model name: AMD Ryzen 9 7900X 12-Core Processor
-CPU family: 25
-Model: 97
-Thread(s) per core: 2
-Core(s) per socket: 12
-Socket(s): 1
-Stepping: 2
-Frequency boost: enabled
-CPU max MHz: 5732.7139
-CPU min MHz: 3000.0000
-BogoMIPS: 9381.63
-Flags: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good amd_lbr_v2 nopl nonstop_tsc cpuid extd_apicid aperfmperf rapl pni pclmulqdq monitor ssse3 fma cx16 sse4_1 sse4_2 movbe popcnt aes xsave avx f16c rdrand lahf_lm cmp_legacy svm extapic cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw ibs skinit wdt tce topoext perfctr_core perfctr_nb bpext perfctr_llc mwaitx cpb cat_l3 cdp_l3 hw_pstate ssbd mba perfmon_v2 ibrs ibpb stibp vmmcall fsgsbase bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local avx512_bf16 clzero irperf xsaveerptr rdpru wbnoinvd cppc arat npt lbrv svm_lock nrip_save tsc_scale vmcb_clean flushbyasid decodeassists pausefilter pfthreshold avic v_vmsave_vmload vgif x2avic v_spec_ctrl avx512vbmi umip pku ospke avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq rdpid overflow_recov succor smca fsrm flush_l1d
-Virtualization: AMD-V
-L1d cache: 384 KiB (12 instances)
-L1i cache: 384 KiB (12 instances)
-L2 cache: 12 MiB (12 instances)
-L3 cache: 64 MiB (2 instances)
-NUMA node(s): 1
-NUMA node0 CPU(s): 0-23
-Vulnerability Itlb multihit: Not affected
-Vulnerability L1tf: Not affected
-Vulnerability Mds: Not affected
-Vulnerability Meltdown: Not affected
-Vulnerability Mmio stale data: Not affected
-Vulnerability Retbleed: Not affected
-Vulnerability Spec store bypass: Mitigation; Speculative Store Bypass disabled via prctl
-Vulnerability Spectre v1: Mitigation; usercopy/swapgs barriers and __user pointer sanitization
-Vulnerability Spectre v2: Mitigation; Retpolines, IBPB conditional, IBRS_FW, STIBP always-on, RSB filling, PBRSB-eIBRS Not affected
-Vulnerability Srbds: Not affected
-Vulnerability Tsx async abort: Not affected</p><p>Versions of relevant libraries:
-[pip3] numpy==1.26.4
-[pip3] pytorch-triton-rocm==2.1.0
-[pip3] torch==2.1.1+rocm5.6
-[pip3] torch-tb-profiler==0.4.3
-[pip3] torchaudio==2.1.1+rocm5.6
-[pip3] torchvision==0.16.1+rocm5.6</p><h1 id=opt-log>Opt Log</h1><h2 id=1-find-bad-performance-on-7900xtx>1. Find bad performance on 7900XTX</h2><p>7900 result without quant:</p><p>llama_print_timings: load time = 1408.45 ms
-llama_print_timings: sample time = 12.29 ms / 128 runs ( 0.10 ms per token, 10419.21 tokens per second)
-llama_print_timings: prompt eval time = 74.36 ms / 5 tokens ( 14.87 ms per token, 67.24 tokens per second)
-llama_print_timings: eval time = 4499.95 ms / 127 runs ( 35.43 ms per token, <strong>28.22 tokens per second</strong>)
-llama_print_timings: total time = 4601.82 ms</p><p>4090 result without quant:</p><p>llama_print_timings: load time = 6310.50 ms
-llama_print_timings: sample time = 14.17 ms / 128 runs ( 0.11 ms per token, 9034.44 tokens per second)
-llama_print_timings: prompt eval time = 18.50 ms / 5 tokens ( 3.70 ms per token, 270.20 tokens per second)
-llama_print_timings: eval time = 1609.02 ms / 127 runs ( 12.67 ms per token, <strong>78.93 tokens per second</strong>)
-llama_print_timings: total time = 1660.44 ms</p><p>7900 result with Q4 quant:</p><p>llama_print_timings: load time = 495.59 ms
-llama_print_timings: sample time = 12.43 ms / 128 runs ( 0.10 ms per token, 10301.81 tokens per second)
-llama_print_timings: prompt eval time = 80.97 ms / 5 tokens ( 16.19 ms per token, 61.75 tokens per second)
-llama_print_timings: eval time = 2831.35 ms / 127 runs ( 22.29 ms per token, <strong>44.85 tokens per second</strong>)
-llama_print_timings: total time = 2935.92 ms</p><p>4090 result with Q4 quant:</p><p>llama_print_timings: load time = 428.45 ms
-llama_print_timings: sample time = 15.35 ms / 128 runs ( 0.12 ms per token, 8337.68 tokens per second)
-llama_print_timings: prompt eval time = 14.47 ms / 5 tokens ( 2.89 ms per token, 345.57 tokens per second)
-llama_print_timings: eval time = 898.83 ms / 127 runs ( 7.08 ms per token, <strong>141.29 tokens per second</strong>)
-llama_print_timings: total time = 947.09 ms</p><h2 id=2-profile-with-rocprofv2>2. Profile with ROCprofv2</h2><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>$ rocprofv2 -h
-</span></span><span style=display:flex><span>ROCProfilerV2 Run Script Usage:
-</span></span><span style=display:flex><span>-h   | --help                 For showing this message
-</span></span><span style=display:flex><span>--list-counters               For showing all available counters <span style=color:#ff79c6>for</span> the current GPUs
-</span></span><span style=display:flex><span>-m                            For providing an absolute path of a custom metrics file
-</span></span><span style=display:flex><span>--basenames                   For Truncating the kernel names
-</span></span><span style=display:flex><span>--hip-api                     For Collecting HIP API Traces
-</span></span><span style=display:flex><span>--hip-activity | --hip-trace  For Collecting HIP API Activities Traces
-</span></span><span style=display:flex><span>--hsa-api                     For Collecting HSA API Traces
-</span></span><span style=display:flex><span>--hsa-activity | --hsa-trace  For Collecting HSA API Activities Traces
-</span></span><span style=display:flex><span>--roctx-trace                 For Collecting ROCTx Traces
-</span></span><span style=display:flex><span>--kernel-trace                For Collecting Kernel dispatch Traces
-</span></span><span style=display:flex><span>--sys-trace                   For Collecting HIP and HSA APIs and their Activities Traces along ROCTX and Kernel Dispatch traces
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>        <span style=color:#6272a4>#usage e.g: rocprofv2 --[hip-trace|hsa-trace|roctx-trace|kernel-trace|sys-trace]  &lt;executable&gt;</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>--plugin  PLUGIN_NAME         For enabling a plugin <span style=color:#ff79c6>(</span>cli/file/perfetto/att/ctf<span style=color:#ff79c6>)</span>
-</span></span><span style=display:flex><span>        <span style=color:#6272a4># usage(file/perfetto/ctf) e.g: rocprofv2 -i pmc.txt --plugin [file/perfetto/ctf] -d out_dir &lt;executable&gt;</span>
-</span></span><span style=display:flex><span>        <span style=color:#6272a4># usage(att): rocprofv2 &lt;rocprofv2_params&gt; --plugin att &lt;ISA_file&gt; &lt;att_parameters&gt; &lt;executable&gt;</span>
-</span></span><span style=display:flex><span>        <span style=color:#6272a4># use &#34;rocprofv2 --plugin att --help&#34; for ATT-specific parameters help.</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>--plugin-version  &lt;1|2&gt;       For selecting the version <span style=color:#ff79c6>for</span> the plugin <span style=color:#ff79c6>(</span>1/2<span style=color:#ff79c6>)</span>
-</span></span><span style=display:flex><span>        <span style=color:#6272a4># 1 - Legacy output format, 2 - New output format (default)</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>-i   | --input                For adding counters file path <span style=color:#ff79c6>(</span>every line in the text file represents a counter<span style=color:#ff79c6>)</span>
-</span></span><span style=display:flex><span>        <span style=color:#6272a4># usage: rocprofv2 -i pmc.txt -d &lt;executable&gt;</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>-o   | --output-file          For the output file name
-</span></span><span style=display:flex><span>        <span style=color:#6272a4># usage e.g:(with current dir): rocprofv2 --hip-trace -o &lt;file_name&gt; &lt;executable&gt;</span>
-</span></span><span style=display:flex><span>        <span style=color:#6272a4># usage e.g:(with custom dir):  rocprofv2 --hip-trace -d &lt;out_dir&gt; -o &lt;file_name&gt; &lt;executable&gt;</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>-d   | --output-directory     For adding output path where the output files will be saved
-</span></span><span style=display:flex><span>        <span style=color:#6272a4># usage e.g:(with custom dir):  rocprofv2 --hip-trace -d &lt;out_dir&gt; &lt;executable&gt;</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>-fi  | --flush-interval       For adding a flush interval in milliseconds, every <span style=color:#f1fa8c>&#34;flush interval&#34;</span> the buffers will be flushed
-</span></span><span style=display:flex><span>        <span style=color:#6272a4># usage e.g:  rocprofv2 --hip-trace -fi 1000 &lt;executable&gt;</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>-tp  | --trace-period        Specifies a trace period in milliseconds, with format <span style=color:#f1fa8c>&#34;-tp &lt;DELAY&gt;:&lt;ACTIVE_TIME&gt;:&lt;LOOP_RESET_TIME&gt;&#34;</span>.
-</span></span><span style=display:flex><span>        <span style=color:#6272a4># usage e.g:  rocprofv2 --hip-trace -tp 1000:2000:4000 &lt;executable&gt;</span>
-</span></span></code></pre></div><p>I used this script for profiling:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#ff79c6>#!/bin/bash
-</span></span></span><span style=display:flex><span><span style=color:#ff79c6></span>
-</span></span><span style=display:flex><span>rm -rf build
-</span></span><span style=display:flex><span><span style=color:#8be9fd;font-style:italic>CC</span><span style=color:#ff79c6>=</span>/opt/rocm/llvm/bin/clang <span style=color:#8be9fd;font-style:italic>CXX</span><span style=color:#ff79c6>=</span>/opt/rocm/llvm/bin/clang++ cmake -S . -B build -DLLAMA_HIPBLAS<span style=color:#ff79c6>=</span>ON -DAMDGPU_TARGETS<span style=color:#ff79c6>=</span>gfx1100
-</span></span><span style=display:flex><span>cmake --build build --config Release
-</span></span><span style=display:flex><span>rocprofv2 -d ./profile/ --hip-trace --hip-api --plugin perfetto ./build/bin/main -m ./ReluLLaMA-7B/llama-7b-relu.powerinfer.gguf --ignore-eos -n <span style=color:#bd93f9>256</span> --seed <span style=color:#bd93f9>0</span> --top-k <span style=color:#bd93f9>1</span> --reset-gpu-index -t <span style=color:#bd93f9>8</span> -p <span style=color:#f1fa8c>&#34;Once&#34;</span>
-</span></span></code></pre></div><p>First I got this result:</p><p>We can see that <strong>hipMemcpyAsync</strong> hip-api and <strong>CopyHostToDevice</strong> event dominated the program.</p><p>However, as theoretically analysis and contexts show:</p><p>total VRAM used: 22793.02 MB (model: 14195.52 MB, context: 341.50 MB)</p><p>VRAM used &lt; 7900xtx VRAM(24G)</p><p>The model and all info should be loaded to GPU at the beginning rather too many Memcpy invokes at latter stage.</p><p>So we need to confirm whether this happen as we expected.</p><h2 id=3-backend-detection>3. Backend detection</h2><p>I refered with tensor architecture and use the code snippet after the end of the load period to insert and print Tensor backend device information to monitor whether the data has been loaded into the GPU as expected:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=display:flex><span><span style=color:#ff79c6>if</span> (src<span style=color:#ff79c6>-&gt;</span>backend <span style=color:#ff79c6>==</span> GGML_BACKEND_CPU) {printf(src<span style=color:#ff79c6>-&gt;</span>name);printf(<span style=color:#f1fa8c>&#34; src_CPU</span><span style=color:#f1fa8c>\n</span><span style=color:#f1fa8c>&#34;</span>);} 
-</span></span><span style=display:flex><span><span style=color:#ff79c6>else</span> <span style=color:#50fa7b>if</span> (src<span style=color:#ff79c6>-&gt;</span>backend <span style=color:#ff79c6>==</span> GGML_BACKEND_GPU <span style=color:#ff79c6>||</span> src<span style=color:#ff79c6>-&gt;</span>backend <span style=color:#ff79c6>==</span> GGML_BACKEND_GPU_SPLIT) {printf(src<span style=color:#ff79c6>-&gt;</span>name);printf(<span style=color:#f1fa8c>&#34; src_GPU</span><span style=color:#f1fa8c>\n</span><span style=color:#f1fa8c>&#34;</span>);}
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#ff79c6>if</span> (dst<span style=color:#ff79c6>-&gt;</span>backend <span style=color:#ff79c6>==</span> GGML_BACKEND_CPU) {printf(dst<span style=color:#ff79c6>-&gt;</span>name);printf(<span style=color:#f1fa8c>&#34; dst_CPU</span><span style=color:#f1fa8c>\n</span><span style=color:#f1fa8c>&#34;</span>);} 
-</span></span><span style=display:flex><span><span style=color:#ff79c6>else</span> <span style=color:#50fa7b>if</span> (dst<span style=color:#ff79c6>-&gt;</span>backend <span style=color:#ff79c6>==</span> GGML_BACKEND_GPU <span style=color:#ff79c6>||</span> dst<span style=color:#ff79c6>-&gt;</span>backend <span style=color:#ff79c6>==</span> GGML_BACKEND_GPU_SPLIT) {printf(dst<span style=color:#ff79c6>-&gt;</span>name);printf(<span style=color:#f1fa8c>&#34; dst_GPU</span><span style=color:#f1fa8c>\n</span><span style=color:#f1fa8c>&#34;</span>);}
-</span></span></code></pre></div><p>And the result:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>src0_GPU
-</span></span><span style=display:flex><span>src1_GPU
-</span></span><span style=display:flex><span>dst_GPU
-</span></span><span style=display:flex><span>src0_GPU
-</span></span><span style=display:flex><span>src1_GPU
-</span></span><span style=display:flex><span>dst_GPU
-</span></span><span style=display:flex><span>src0_GPU
-</span></span><span style=display:flex><span>src1_GPU
-</span></span><span style=display:flex><span>dst_GPU
-</span></span><span style=display:flex><span>src0_GPU
-</span></span><span style=display:flex><span>src1_GPU
-</span></span><span style=display:flex><span>dst_GPU
-</span></span><span style=display:flex><span>src0_GPU
-</span></span><span style=display:flex><span>src1_GPU
-</span></span><span style=display:flex><span>dst_GPU
-</span></span><span style=display:flex><span>src0_GPU
-</span></span><span style=display:flex><span>src1_GPU
-</span></span><span style=display:flex><span>dst_GPU
-</span></span><span style=display:flex><span>src0_GPU
-</span></span><span style=display:flex><span>src1_GPU
-</span></span><span style=display:flex><span>dst_GPU
-</span></span><span style=display:flex><span>src0_GPU
-</span></span><span style=display:flex><span>src1_GPU
-</span></span><span style=display:flex><span>dst_GPU
-</span></span><span style=display:flex><span>src0_GPU
-</span></span><span style=display:flex><span>src1_GPU
-</span></span><span style=display:flex><span>result_output dst_CPU
-</span></span></code></pre></div><p>This showed that these tensors are indeed loaded to GPU(Last CPU is used to output info).</p><p>Besides, I also analyzed with Computation Graph:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#8be9fd;font-style:italic>7900</span>
-</span></span><span style=display:flex><span><span style=color:#ff79c6>===</span> <span style=color:#8be9fd;font-style:italic>GRAPH</span> <span style=color:#ff79c6>===</span>
-</span></span><span style=display:flex><span><span style=color:#8be9fd;font-style:italic>n_nodes</span> <span style=color:#ff79c6>=</span> <span style=color:#bd93f9>1220</span>
-</span></span><span style=display:flex><span> -   0: <span style=color:#ff79c6>[</span>  4096,     1,     1<span style=color:#ff79c6>]</span>         GET_ROWS                                         inp_embd   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.006 /   0.006 ms
-</span></span><span style=display:flex><span> -   1: <span style=color:#ff79c6>[</span>  4096,     1,     1<span style=color:#ff79c6>]</span>         RMS_NORM                                           norm-0   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.034 /   0.034 ms
-</span></span><span style=display:flex><span> -   2: <span style=color:#ff79c6>[</span>  4096,     1,     1<span style=color:#ff79c6>]</span>              MUL                                      attn_norm-0   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.021 /   0.021 ms
-</span></span><span style=display:flex><span> -   3: <span style=color:#ff79c6>[</span>  4096,     1,     1<span style=color:#ff79c6>]</span>          MUL_MAT                                           Vcur-0   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.097 /   0.097 ms
-</span></span><span style=display:flex><span> -   4: <span style=color:#ff79c6>[</span>  4096,     1,     1<span style=color:#ff79c6>]</span>          RESHAPE                                Vcur-0 <span style=color:#ff79c6>(</span>reshaped<span style=color:#ff79c6>)</span>   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.001 /   0.001 ms
-</span></span><span style=display:flex><span> -   5: <span style=color:#ff79c6>[</span>     1,  4096,     1<span style=color:#ff79c6>]</span>        TRANSPOSE                                        v_cur_t-0   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms
-</span></span><span style=display:flex><span> -   6: <span style=color:#ff79c6>[</span>     1,  4096,     1<span style=color:#ff79c6>]</span>             VIEW                                   v_cache_view-0   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms
-</span></span><span style=display:flex><span> -   7: <span style=color:#ff79c6>[</span>     1,  4096,     1<span style=color:#ff79c6>]</span>              CPY               v_cache_view-0 <span style=color:#ff79c6>(</span>copy of v_cur_t-0<span style=color:#ff79c6>)</span>   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.021 /   0.021 ms
-</span></span><span style=display:flex><span> -   8: <span style=color:#ff79c6>[</span>    32,   128,    32<span style=color:#ff79c6>]</span>             VIEW                                              v-0   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.001 /   0.001 ms
-</span></span><span style=display:flex><span> -   9: <span style=color:#ff79c6>[</span>  4096,     1,     1<span style=color:#ff79c6>]</span>          MUL_MAT                                           Kcur-0   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.088 /   0.088 ms
-</span></span><span style=display:flex><span> -  10: <span style=color:#ff79c6>[</span>   128,    32,     1<span style=color:#ff79c6>]</span>          RESHAPE                                Kcur-0 <span style=color:#ff79c6>(</span>reshaped<span style=color:#ff79c6>)</span>   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms
-</span></span><span style=display:flex><span> -  11: <span style=color:#ff79c6>[</span>   128,    32,     1<span style=color:#ff79c6>]</span>             ROPE                                           Kcur-0   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.021 /   0.021 ms
-</span></span><span style=display:flex><span> -  12: <span style=color:#ff79c6>[</span>  4096,     1,     1<span style=color:#ff79c6>]</span>             VIEW                                   k_cache_view-0   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms
-</span></span><span style=display:flex><span> -  13: <span style=color:#ff79c6>[</span>  4096,     1,     1<span style=color:#ff79c6>]</span>              CPY                  k_cache_view-0 <span style=color:#ff79c6>(</span>copy of Kcur-0<span style=color:#ff79c6>)</span>   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.019 /   0.019 ms
-</span></span><span style=display:flex><span> -  14: <span style=color:#ff79c6>[</span>   128,    32,    32<span style=color:#ff79c6>]</span>             VIEW                                              k-0   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms
-</span></span><span style=display:flex><span> -  15: <span style=color:#ff79c6>[</span>  4096,     1,     1<span style=color:#ff79c6>]</span>          MUL_MAT                                           Qcur-0   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.102 /   0.102 ms
-</span></span><span style=display:flex><span> -  16: <span style=color:#ff79c6>[</span>   128,    32,     1<span style=color:#ff79c6>]</span>          RESHAPE                                Qcur-0 <span style=color:#ff79c6>(</span>reshaped<span style=color:#ff79c6>)</span>   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms
-</span></span><span style=display:flex><span> -  17: <span style=color:#ff79c6>[</span>   128,    32,     1<span style=color:#ff79c6>]</span>             ROPE                                           Qcur-0   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.023 /   0.023 ms
-</span></span><span style=display:flex><span> -  18: <span style=color:#ff79c6>[</span>   128,     1,    32<span style=color:#ff79c6>]</span>          PERMUTE                                              q-0   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms
-</span></span><span style=display:flex><span> -  19: <span style=color:#ff79c6>[</span>    32,     1,    32<span style=color:#ff79c6>]</span>          MUL_MAT                                             kq-0   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.029 /   0.029 ms
-</span></span><span style=display:flex><span> -  20: <span style=color:#ff79c6>[</span>    32,     1,    32<span style=color:#ff79c6>]</span>            SCALE                                      kq_scaled-0   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.029 /   0.029 ms
-</span></span><span style=display:flex><span> -  21: <span style=color:#ff79c6>[</span>    32,     1,    32<span style=color:#ff79c6>]</span>              ADD                                      kq_masked-0   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.021 /   0.021 ms
-</span></span><span style=display:flex><span> -  22: <span style=color:#ff79c6>[</span>    32,     1,    32<span style=color:#ff79c6>]</span>         SOFT_MAX                                    kq_soft_max-0   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.022 /   0.022 ms
-</span></span><span style=display:flex><span> -  23: <span style=color:#ff79c6>[</span>   128,     1,    32<span style=color:#ff79c6>]</span>          MUL_MAT                                            kqv-0   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.030 /   0.030 ms
-</span></span><span style=display:flex><span> -  24: <span style=color:#ff79c6>[</span>   128,    32,     1<span style=color:#ff79c6>]</span>          PERMUTE                                     kqv_merged-0   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms
-</span></span><span style=display:flex><span> -  25: <span style=color:#ff79c6>[</span>  4096,     1,     1<span style=color:#ff79c6>]</span>             CONT                                kqv_merged_cont-0   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.021 /   0.021 ms
-</span></span><span style=display:flex><span> -  26: <span style=color:#ff79c6>[</span>  4096,     1,     1<span style=color:#ff79c6>]</span>          MUL_MAT                                        kqv_out-0   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.090 /   0.090 ms
-</span></span><span style=display:flex><span> -  27: <span style=color:#ff79c6>[</span>  4096,     1,     1<span style=color:#ff79c6>]</span>              ADD                                        ffn_inp-0   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.026 /   0.026 ms
-</span></span><span style=display:flex><span> -  28: <span style=color:#ff79c6>[</span>  4096,     1,     1<span style=color:#ff79c6>]</span>         RMS_NORM                                           norm-0   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.022 /   0.022 ms
-</span></span><span style=display:flex><span> -  29: <span style=color:#ff79c6>[</span>  4096,     1,     1<span style=color:#ff79c6>]</span>              MUL                                       ffn_norm-0   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.029 /   0.029 ms
-</span></span><span style=display:flex><span> -  30: <span style=color:#ff79c6>[</span>  1024,     1,     1<span style=color:#ff79c6>]</span>          MUL_MAT                                 mlp_pre_hidden-0   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.051 /   0.051 ms
-</span></span><span style=display:flex><span> -  31: <span style=color:#ff79c6>[</span>  1024,     1,     1<span style=color:#ff79c6>]</span>            UNARY                                   mlp_pre_relu-0   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.019 /   0.019 ms
-</span></span><span style=display:flex><span> -  32: <span style=color:#ff79c6>[</span> 11008,     1,     1<span style=color:#ff79c6>]</span>          MUL_MAT                                    mlp_pre_out-0   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.117 /   0.117 ms
-</span></span><span style=display:flex><span> -  33: <span style=color:#ff79c6>[</span> 11008,     1,     1<span style=color:#ff79c6>]</span>   MUL_MAT_SPARSE                                ffn_gate_sparse-0   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.061 /   0.061 ms
-</span></span><span style=display:flex><span> -  34: <span style=color:#ff79c6>[</span> 11008,     1,     1<span style=color:#ff79c6>]</span>            UNARY                                   ffn_gate_act-0   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.019 /   0.019 ms
-</span></span><span style=display:flex><span> -  35: <span style=color:#ff79c6>[</span> 11008,     1,     1<span style=color:#ff79c6>]</span>   MUL_MAT_SPARSE                                  ffn_up_sparse-0   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.059 /   0.059 ms
-</span></span><span style=display:flex><span> -  36: <span style=color:#ff79c6>[</span> 11008,     1,     1<span style=color:#ff79c6>]</span>              MUL                                   ffn_gate_par-0   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.021 /   0.021 ms
-</span></span><span style=display:flex><span> -  37: <span style=color:#ff79c6>[</span>  4096,     1,     1<span style=color:#ff79c6>]</span>             AXPY                                ffn_down_sparse-0   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.322 /   0.322 ms
-</span></span><span style=display:flex><span> -  38: <span style=color:#ff79c6>[</span>  4096,     1,     1<span style=color:#ff79c6>]</span>              ADD                                          l_out-0   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.021 /   0.021 ms
-</span></span><span style=display:flex><span> -  39: <span style=color:#ff79c6>[</span>  4096,     1,     1<span style=color:#ff79c6>]</span>         RMS_NORM                                           norm-1   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.020 /   0.020 ms
-</span></span><span style=display:flex><span> -  40: <span style=color:#ff79c6>[</span>  4096,     1,     1<span style=color:#ff79c6>]</span>              MUL                                      attn_norm-1   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.019 /   0.019 ms
-</span></span><span style=display:flex><span> 
-</span></span><span style=display:flex><span>...
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#8be9fd;font-style:italic>4090</span>
-</span></span><span style=display:flex><span><span style=color:#ff79c6>===</span> <span style=color:#8be9fd;font-style:italic>GRAPH</span> <span style=color:#ff79c6>===</span>
-</span></span><span style=display:flex><span><span style=color:#8be9fd;font-style:italic>n_nodes</span> <span style=color:#ff79c6>=</span> <span style=color:#bd93f9>1220</span>
-</span></span><span style=display:flex><span> -   0: <span style=color:#ff79c6>[</span>  4096,     1,     1<span style=color:#ff79c6>]</span>         GET_ROWS                                         inp_embd   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.006 /   0.006 ms
-</span></span><span style=display:flex><span> -   1: <span style=color:#ff79c6>[</span>  4096,     1,     1<span style=color:#ff79c6>]</span>         RMS_NORM                                           norm-0   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.014 /   0.014 ms
-</span></span><span style=display:flex><span> -   2: <span style=color:#ff79c6>[</span>  4096,     1,     1<span style=color:#ff79c6>]</span>              MUL                                      attn_norm-0   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.006 /   0.006 ms
-</span></span><span style=display:flex><span> -   3: <span style=color:#ff79c6>[</span>  4096,     1,     1<span style=color:#ff79c6>]</span>          MUL_MAT                                           Vcur-0   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.052 /   0.052 ms
-</span></span><span style=display:flex><span> -   4: <span style=color:#ff79c6>[</span>  4096,     1,     1<span style=color:#ff79c6>]</span>          RESHAPE                                Vcur-0 <span style=color:#ff79c6>(</span>reshaped<span style=color:#ff79c6>)</span>   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.001 /   0.001 ms
-</span></span><span style=display:flex><span> -   5: <span style=color:#ff79c6>[</span>     1,  4096,     1<span style=color:#ff79c6>]</span>        TRANSPOSE                                        v_cur_t-0   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms
-</span></span><span style=display:flex><span> -   6: <span style=color:#ff79c6>[</span>     1,  4096,     1<span style=color:#ff79c6>]</span>             VIEW                                   v_cache_view-0   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.001 /   0.001 ms
-</span></span><span style=display:flex><span> -   7: <span style=color:#ff79c6>[</span>     1,  4096,     1<span style=color:#ff79c6>]</span>              CPY               v_cache_view-0 <span style=color:#ff79c6>(</span>copy of v_cur_t-0<span style=color:#ff79c6>)</span>   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.005 /   0.005 ms
-</span></span><span style=display:flex><span> -   8: <span style=color:#ff79c6>[</span>    32,   128,    32<span style=color:#ff79c6>]</span>             VIEW                                              v-0   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms
-</span></span><span style=display:flex><span> -   9: <span style=color:#ff79c6>[</span>  4096,     1,     1<span style=color:#ff79c6>]</span>          MUL_MAT                                           Kcur-0   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.048 /   0.048 ms
-</span></span><span style=display:flex><span> -  10: <span style=color:#ff79c6>[</span>   128,    32,     1<span style=color:#ff79c6>]</span>          RESHAPE                                Kcur-0 <span style=color:#ff79c6>(</span>reshaped<span style=color:#ff79c6>)</span>   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms
-</span></span><span style=display:flex><span> -  11: <span style=color:#ff79c6>[</span>   128,    32,     1<span style=color:#ff79c6>]</span>             ROPE                                           Kcur-0   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.005 /   0.005 ms
-</span></span><span style=display:flex><span> -  12: <span style=color:#ff79c6>[</span>  4096,     1,     1<span style=color:#ff79c6>]</span>             VIEW                                   k_cache_view-0   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.001 /   0.001 ms
-</span></span><span style=display:flex><span> -  13: <span style=color:#ff79c6>[</span>  4096,     1,     1<span style=color:#ff79c6>]</span>              CPY                  k_cache_view-0 <span style=color:#ff79c6>(</span>copy of Kcur-0<span style=color:#ff79c6>)</span>   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.005 /   0.005 ms
-</span></span><span style=display:flex><span> -  14: <span style=color:#ff79c6>[</span>   128,    32,    32<span style=color:#ff79c6>]</span>             VIEW                                              k-0   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms
-</span></span><span style=display:flex><span> -  15: <span style=color:#ff79c6>[</span>  4096,     1,     1<span style=color:#ff79c6>]</span>          MUL_MAT                                           Qcur-0   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.048 /   0.048 ms
-</span></span><span style=display:flex><span> -  16: <span style=color:#ff79c6>[</span>   128,    32,     1<span style=color:#ff79c6>]</span>          RESHAPE                                Qcur-0 <span style=color:#ff79c6>(</span>reshaped<span style=color:#ff79c6>)</span>   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms
-</span></span><span style=display:flex><span> -  17: <span style=color:#ff79c6>[</span>   128,    32,     1<span style=color:#ff79c6>]</span>             ROPE                                           Qcur-0   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.005 /   0.005 ms
-</span></span><span style=display:flex><span> -  18: <span style=color:#ff79c6>[</span>   128,     1,    32<span style=color:#ff79c6>]</span>          PERMUTE                                              q-0   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms
-</span></span><span style=display:flex><span> -  19: <span style=color:#ff79c6>[</span>    32,     1,    32<span style=color:#ff79c6>]</span>          MUL_MAT                                             kq-0   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.013 /   0.013 ms
-</span></span><span style=display:flex><span> -  20: <span style=color:#ff79c6>[</span>    32,     1,    32<span style=color:#ff79c6>]</span>            SCALE                                      kq_scaled-0   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.008 /   0.008 ms
-</span></span><span style=display:flex><span> -  21: <span style=color:#ff79c6>[</span>    32,     1,    32<span style=color:#ff79c6>]</span>              ADD                                      kq_masked-0   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.005 /   0.005 ms
-</span></span><span style=display:flex><span> -  22: <span style=color:#ff79c6>[</span>    32,     1,    32<span style=color:#ff79c6>]</span>         SOFT_MAX                                    kq_soft_max-0   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.006 /   0.006 ms
-</span></span><span style=display:flex><span> -  23: <span style=color:#ff79c6>[</span>   128,     1,    32<span style=color:#ff79c6>]</span>          MUL_MAT                                            kqv-0   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.011 /   0.011 ms
-</span></span><span style=display:flex><span> -  24: <span style=color:#ff79c6>[</span>   128,    32,     1<span style=color:#ff79c6>]</span>          PERMUTE                                     kqv_merged-0   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.001 /   0.001 ms
-</span></span><span style=display:flex><span> -  25: <span style=color:#ff79c6>[</span>  4096,     1,     1<span style=color:#ff79c6>]</span>             CONT                                kqv_merged_cont-0   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.004 /   0.004 ms
-</span></span><span style=display:flex><span> -  26: <span style=color:#ff79c6>[</span>  4096,     1,     1<span style=color:#ff79c6>]</span>          MUL_MAT                                        kqv_out-0   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.047 /   0.047 ms
-</span></span><span style=display:flex><span> -  27: <span style=color:#ff79c6>[</span>  4096,     1,     1<span style=color:#ff79c6>]</span>              ADD                                        ffn_inp-0   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.007 /   0.007 ms
-</span></span><span style=display:flex><span> -  28: <span style=color:#ff79c6>[</span>  4096,     1,     1<span style=color:#ff79c6>]</span>         RMS_NORM                                           norm-0   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.005 /   0.005 ms
-</span></span><span style=display:flex><span> -  29: <span style=color:#ff79c6>[</span>  4096,     1,     1<span style=color:#ff79c6>]</span>              MUL                                       ffn_norm-0   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.007 /   0.007 ms
-</span></span><span style=display:flex><span> -  30: <span style=color:#ff79c6>[</span>  1024,     1,     1<span style=color:#ff79c6>]</span>          MUL_MAT                                 mlp_pre_hidden-0   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.022 /   0.022 ms
-</span></span><span style=display:flex><span> -  31: <span style=color:#ff79c6>[</span>  1024,     1,     1<span style=color:#ff79c6>]</span>            UNARY                                   mlp_pre_relu-0   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.005 /   0.005 ms
-</span></span><span style=display:flex><span> -  32: <span style=color:#ff79c6>[</span> 11008,     1,     1<span style=color:#ff79c6>]</span>          MUL_MAT                                    mlp_pre_out-0   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.035 /   0.035 ms
-</span></span><span style=display:flex><span> -  33: <span style=color:#ff79c6>[</span> 11008,     1,     1<span style=color:#ff79c6>]</span>   MUL_MAT_SPARSE                                ffn_gate_sparse-0   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.025 /   0.025 ms
-</span></span><span style=display:flex><span> -  34: <span style=color:#ff79c6>[</span> 11008,     1,     1<span style=color:#ff79c6>]</span>            UNARY                                   ffn_gate_act-0   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.005 /   0.005 ms
-</span></span><span style=display:flex><span> -  35: <span style=color:#ff79c6>[</span> 11008,     1,     1<span style=color:#ff79c6>]</span>   MUL_MAT_SPARSE                                  ffn_up_sparse-0   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.023 /   0.023 ms
-</span></span><span style=display:flex><span> -  36: <span style=color:#ff79c6>[</span> 11008,     1,     1<span style=color:#ff79c6>]</span>              MUL                                   ffn_gate_par-0   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.005 /   0.005 ms
-</span></span><span style=display:flex><span> -  37: <span style=color:#ff79c6>[</span>  4096,     1,     1<span style=color:#ff79c6>]</span>             AXPY                                ffn_down_sparse-0   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.040 /   0.040 ms
-</span></span><span style=display:flex><span> -  38: <span style=color:#ff79c6>[</span>  4096,     1,     1<span style=color:#ff79c6>]</span>              ADD                                          l_out-0   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.005 /   0.005 ms
-</span></span><span style=display:flex><span> -  39: <span style=color:#ff79c6>[</span>  4096,     1,     1<span style=color:#ff79c6>]</span>         RMS_NORM                                           norm-1   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.005 /   0.005 ms
-</span></span><span style=display:flex><span> -  40: <span style=color:#ff79c6>[</span>  4096,     1,     1<span style=color:#ff79c6>]</span>              MUL                                      attn_norm-1   <span style=color:#ff79c6>(</span>  1<span style=color:#ff79c6>)</span> <span style=color:#8be9fd;font-style:italic>cpu</span> <span style=color:#ff79c6>=</span>   0.000 /   0.000 ms, <span style=color:#8be9fd;font-style:italic>wall</span> <span style=color:#ff79c6>=</span>   0.005 /   0.005 ms
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>...
-</span></span></code></pre></div><p>We can see that CPU time always 0, which shows we mostly didn&rsquo;t run something on CPU</p><p>So, go for the next step, we need to figure out where invoke so many unexpected Memcpy call(exact code line).</p><h2 id=4-code-traceability>4. Code traceability</h2><p>First, refered with profiling result, we can see all unexcepted Memcpy are Host2Device. I learned about coda/hip api about memcpy:</p><p><img alt=4 src=/images/hipMemcpy.png></p><p>I used CTRL+F to search all memcpy action and <strong>hipMemcpyKind</strong> <em>kind</em> to locate potential code line.</p><p>Then I inserted some <em>useless</em> hip-api function near them:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=display:flex><span><span style=color:#ff79c6># Use cudaDeviceSynchronize to mark this piece of code for further profiling
-</span></span></span><span style=display:flex><span><span style=color:#ff79c6></span><span style=color:#ff79c6>static</span> <span style=color:#8be9fd>void</span> <span style=color:#50fa7b>ggml_backend_cuda_set_tensor_async</span>(ggml_backend_t backend, ggml_tensor <span style=color:#ff79c6>*</span> tensor, <span style=color:#ff79c6>const</span> <span style=color:#8be9fd>void</span> <span style=color:#ff79c6>*</span> data, size_t offset, size_t size) {
-</span></span><span style=display:flex><span>    GGML_ASSERT(offset <span style=color:#ff79c6>+</span> size <span style=color:#ff79c6>&lt;=</span> ggml_nbytes(tensor) <span style=color:#ff79c6>&amp;&amp;</span> <span style=color:#f1fa8c>&#34;tensor write out of bounds&#34;</span>);
-</span></span><span style=display:flex><span>    GGML_ASSERT(tensor<span style=color:#ff79c6>-&gt;</span>data <span style=color:#ff79c6>!=</span> <span style=color:#8be9fd;font-style:italic>NULL</span> <span style=color:#ff79c6>&amp;&amp;</span> <span style=color:#f1fa8c>&#34;tensor not allocated&#34;</span>);
-</span></span><span style=display:flex><span>    GGML_ASSERT(tensor<span style=color:#ff79c6>-&gt;</span>backend <span style=color:#ff79c6>==</span> GGML_BACKEND_GPU);
-</span></span><span style=display:flex><span>    cudaDeviceSynchronize();
-</span></span><span style=display:flex><span>    CUDA_CHECK(cudaMemcpyAsync((<span style=color:#8be9fd>char</span> <span style=color:#ff79c6>*</span>)tensor<span style=color:#ff79c6>-&gt;</span>data <span style=color:#ff79c6>+</span> offset, data, size, cudaMemcpyHostToDevice, g_cudaStreams[g_main_device][<span style=color:#bd93f9>0</span>]));
-</span></span><span style=display:flex><span>    cudaDeviceSynchronize();
-</span></span><span style=display:flex><span>    UNUSED(backend);
-</span></span><span style=display:flex><span>}
-</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=display:flex><span><span style=color:#ff79c6># Use Malloc&amp;free to mark this piece of code for further profiling
-</span></span></span><span style=display:flex><span><span style=color:#ff79c6></span><span style=color:#8be9fd>void</span><span style=color:#ff79c6>*</span> dummy_ptr <span style=color:#ff79c6>=</span> <span style=color:#ff79c6>nullptr</span>;
-</span></span><span style=display:flex><span>cudaMalloc(<span style=color:#ff79c6>&amp;</span>dummy_ptr, <span style=color:#bd93f9>1</span>);
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#ff79c6>if</span> (dummy_ptr <span style=color:#ff79c6>!=</span> <span style=color:#ff79c6>nullptr</span>) {
-</span></span><span style=display:flex><span>    CUDA_CHECK(cudaFree(dummy_ptr));
-</span></span><span style=display:flex><span>    dummy_ptr <span style=color:#ff79c6>=</span> <span style=color:#ff79c6>nullptr</span>;
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#ff79c6>const</span> <span style=color:#8be9fd>char</span> <span style=color:#ff79c6>*</span> x <span style=color:#ff79c6>=</span> src_ptr <span style=color:#ff79c6>+</span> i1_low<span style=color:#ff79c6>*</span>nb1 <span style=color:#ff79c6>+</span> i2<span style=color:#ff79c6>*</span>nb2 <span style=color:#ff79c6>+</span> i3<span style=color:#ff79c6>*</span>nb3;
-</span></span><span style=display:flex><span><span style=color:#ff79c6>if</span> (nb0 <span style=color:#ff79c6>==</span> ts <span style=color:#ff79c6>&amp;&amp;</span> nb1 <span style=color:#ff79c6>==</span> ts<span style=color:#ff79c6>*</span>ne0<span style=color:#ff79c6>/</span>bs) {<span style=color:#ff79c6>return</span> <span style=color:#50fa7b>cudaMemcpyAsync</span>(dst_ptr, x, i1_diff<span style=color:#ff79c6>*</span>nb1, kind, stream);} 
-</span></span><span style=display:flex><span><span style=color:#ff79c6>else</span> <span style=color:#50fa7b>if</span> (nb0 <span style=color:#ff79c6>==</span> ts) {<span style=color:#ff79c6>return</span> cudaMemcpy2DAsync(dst_ptr, ts<span style=color:#ff79c6>*</span>ne0<span style=color:#ff79c6>/</span>bs, x, nb1, ts<span style=color:#ff79c6>*</span>ne0<span style=color:#ff79c6>/</span>bs, i1_diff, kind, stream);} <span style=color:#ff79c6>else</span> {
-</span></span><span style=display:flex><span>    <span style=color:#ff79c6>for</span> (<span style=color:#8be9fd>int64_t</span> i1 <span style=color:#ff79c6>=</span> <span style=color:#bd93f9>0</span>; i1 <span style=color:#ff79c6>&lt;</span> i1_diff; i1<span style=color:#ff79c6>++</span>) {
-</span></span><span style=display:flex><span>        <span style=color:#ff79c6>const</span> <span style=color:#8be9fd>void</span> <span style=color:#ff79c6>*</span> rx <span style=color:#ff79c6>=</span> (<span style=color:#ff79c6>const</span> <span style=color:#8be9fd>void</span> <span style=color:#ff79c6>*</span>) ((<span style=color:#ff79c6>const</span> <span style=color:#8be9fd>char</span> <span style=color:#ff79c6>*</span>) x <span style=color:#ff79c6>+</span> i1<span style=color:#ff79c6>*</span>nb1);
-</span></span><span style=display:flex><span>        <span style=color:#8be9fd>void</span> <span style=color:#ff79c6>*</span> rd <span style=color:#ff79c6>=</span> (<span style=color:#8be9fd>void</span> <span style=color:#ff79c6>*</span>) (dst_ptr <span style=color:#ff79c6>+</span> i1<span style=color:#ff79c6>*</span>ts<span style=color:#ff79c6>*</span>ne0<span style=color:#ff79c6>/</span>bs);
-</span></span><span style=display:flex><span>        cudaError_t r <span style=color:#ff79c6>=</span> cudaMemcpy2DAsync(rd, ts<span style=color:#ff79c6>/</span>bs, rx, nb0, ts<span style=color:#ff79c6>/</span>bs, ne0, kind, stream);
-</span></span><span style=display:flex><span>        <span style=color:#ff79c6>if</span> (r <span style=color:#ff79c6>!=</span> cudaSuccess) <span style=color:#ff79c6>return</span> r;
-</span></span><span style=display:flex><span>    }
-</span></span><span style=display:flex><span>    <span style=color:#ff79c6>return</span> cudaSuccess;
-</span></span><span style=display:flex><span>}
-</span></span></code></pre></div><p>Then profile it again, I got the following result:</p><p>backend_cuda_set_with_devicesync.pftrace:</p><p>backend_cuda_set_without_devicesync.pftrace:</p><p>cpy_tensor_2d_with_mallocfree.pftrace:</p><p>matmul_src1_cpytensor_mallocfree.pftrace:</p><p>matmul_src0_cpytensor_mallocfree.pftrace:</p><p>src0_cuda_op_flatten_mallocfree.pftrace:</p><p>src1_cuda_op_flatten_mallocfree.pftrace:</p><p>After those tests, I finally find the source code invoke unexpected memcpy.</p></div><div class=post-footer><div class=info></div></div></div><div class=grow></div><div class=built-with>Built with <a href=https://gohugo.io/>Hugo</a> <b>·</b> Using the <a href=https://github.com/LucasVadilho/heyo-hugo-theme>heyo</a> theme</div></div></div><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css integrity="sha512-3M00D/rn8n+2ZVXBO9Hib0GKNpkm8MSUU/e2VNthDyBYxKWG+BftNYYcuEjXlyrSO637tidzMBXfE7sQm0INUg==" crossorigin=anonymous referrerpolicy=no-referrer><script type=text/javascript>window.MathJax={tex:{inlineMath:[["$","$"],["\\(","\\)"]],displayMath:[["$$","$$"],["\\[","\\]"]]},svg:{scale:1.25}}</script><script defer type=text/javascript src=https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.1.0/es5/tex-mml-svg.min.js integrity="sha512-/mL9Gs6E5Bz6NtPOr9eY+T8IIdJbo2JL3TudApzFFelwBXEc3TeFLU6kPq122TJROv7jkktuBRkz5h8vGzrsyA==" crossorigin=anonymous></script></body></html>
+<!DOCTYPE html>
+<html lang="en" data-theme="light"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <title>PowerInfer_AMD_Optimization · Zongze Li</title>
+    <meta charset="utf-8">
+    
+    <meta name="generator" content="Hugo 0.123.8">
+    <meta property="og:title" content="PowerInfer_AMD_Optimization" />
+<meta property="og:description" content="Environment: auprocm@auprocm-System-Product-Name:~$ python3 -m torch.utils.collect_env Collecting environment information... PyTorch version: 2.1.1&#43;rocm5.6 Is debug build: False CUDA used to build PyTorch: N/A ROCM used to build PyTorch: 5.6.31061-8c743ae5d OS: Ubuntu 22.04.4 LTS (x86_64) GCC version: (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0 Clang version: Could not collect CMake version: version 3.22.1 Libc version: glibc-2.35 Python version: 3.10.12 (main, Nov 20 2023, 15:14:05) [GCC 11.4.0] (64-bit runtime) Python platform: Linux-6.2.0-060200-generic-x86_64-with-glibc2.35 Is CUDA available: True CUDA runtime version: Could not collect CUDA_MODULE_LOADING set to: LAZY GPU models and configuration: Radeon RX 7900 XTX Nvidia driver version: Could not collect cuDNN version: Could not collect HIP runtime version: 5." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/blog/PowerInfer_AMD_Optimization/" /><meta property="og:image" content="http://localhost:1313/images/profile.png" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2024-04-05T01:44:02+08:00" />
+<meta property="article:modified_time" content="2024-04-05T01:44:02+08:00" /><meta property="og:site_name" content="Hi! I&#39;m Zongze Li" />
+
+
+
+
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description" content="Call me Zongze">
+    
+    
+    
+    <link rel="stylesheet" type="text/css" href="http://localhost:1313/css/style.min.b4b643e0d4d2eb142b28f87846ca6a17c50a4546d49bd71b148b1444369b32a2.css" integrity="sha256-tLZD4NTS6xQrKPh4RspqF8UKRUbUm9cbFIsURDabMqI=" crossorigin="anonymous" type="text/css">
+
+    
+    
+    
+    <script type="text/javascript" src="http://localhost:1313/js/heyo-header.min.a3fa728a9f57833a31dfb45c48caaf1e4890c8c97f07bd7133fc2359745edb5d.js" integrity="sha256-o/pyip9Xgzox37RcSMqvHkiQyMl/B71xM/wjWXRe210=" crossorigin="anonymous"></script>
+
+    
+    
+    <link rel="stylesheet" type="text/css" href="http://localhost:1313/css/fonts.9398921f2d404983c2b7f9a68ddc72e3f5e58a3e38b0a8e4a70d75c12ebfb7c5.css" integrity="sha256-k5iSHy1ASYPCt/mmjdxy4/Xlij44sKjkpw11wS6/t8U=" crossorigin="anonymous">
+
+    
+    
+    
+    <script type="text/javascript" src="http://localhost:1313/js/sidebar-toc.min.788b639e2ec681549740b90b3b865d5f9e1789e3ca9c06ccc45d65655434c954.js" integrity="sha256-eItjni7GgVSXQLkLO4ZdX54XiePKnAbMxF1lZVQ0yVQ=" crossorigin="anonymous"></script>
+
+    
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.min.js" defer></script>
+
+        
+        
+        <script type="text/javascript" src="http://localhost:1313/js/sketch-graph.26b92ed9317bdc6f35642d588bdf3283f40998846e01cf4bee22a126907fbf3b.js" integrity="sha256-Jrku2TF73G81ZC1Yi98yg/QJmIRuAc9L7iKhJpB/vzs=" crossorigin="anonymous" defer></script>
+
+        
+        
+        <script type="text/javascript" src="http://localhost:1313/js/sketch-digitalRain.af8a7b5c4428cc62d5bf49bf2698d4112c2459ee0c22c1c753ab304aef69888a.js" integrity="sha256-r4p7XEQozGLVv0m/JpjUESwkWe4MIsHHU6swSu9piIo=" crossorigin="anonymous" defer></script>
+
+        
+        
+        <script type="text/javascript" src="http://localhost:1313/js/sketch-circleBrushStrokes.fe8fc3ee52e1d90e9236be8c36a27711efa024beb4da304829f95dfbb61d6e84.js" integrity="sha256-/o/D7lLh2Q6SNr6MNqJ3Ee&#43;gJL602jBIKfld&#43;7YdboQ=" crossorigin="anonymous" defer></script>
+
+        
+        
+        <script type="text/javascript" src="http://localhost:1313/js/sketch-meta.71b5202ea881c86ac19e4b55414656a5444204a4ba08ff7368a5aa99c0a60949.js" integrity="sha256-cbUgLqiByGrBnktVQUZWpURCBKS6CP9zaKWqmcCmCUk=" crossorigin="anonymous" defer></script>
+
+        
+        
+        <script type="text/javascript" src="http://localhost:1313/js/sidebar-sketch.min.2e95015880993ef9abcad62d111decea22406616931bce193254bf8af2339953.js" integrity="sha256-LpUBWICZPvmrytYtER3s6iJAZhaTG84ZMlS/ivIzmVM=" crossorigin="anonymous" defer></script>
+    
+    
+    
+    <link rel="shortcut icon" href="http://localhost:1313/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:1313/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicons/favicon-16x16.png">
+    <link rel="canonical" href="http://localhost:1313/blog/PowerInfer_AMD_Optimization/">
+    
+    
+    
+    
+    
+
+    
+    <meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="http://localhost:1313/images/profile.png" /><meta name="twitter:title" content="PowerInfer_AMD_Optimization"/>
+<meta name="twitter:description" content="Environment: auprocm@auprocm-System-Product-Name:~$ python3 -m torch.utils.collect_env Collecting environment information... PyTorch version: 2.1.1&#43;rocm5.6 Is debug build: False CUDA used to build PyTorch: N/A ROCM used to build PyTorch: 5.6.31061-8c743ae5d OS: Ubuntu 22.04.4 LTS (x86_64) GCC version: (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0 Clang version: Could not collect CMake version: version 3.22.1 Libc version: glibc-2.35 Python version: 3.10.12 (main, Nov 20 2023, 15:14:05) [GCC 11.4.0] (64-bit runtime) Python platform: Linux-6.2.0-060200-generic-x86_64-with-glibc2.35 Is CUDA available: True CUDA runtime version: Could not collect CUDA_MODULE_LOADING set to: LAZY GPU models and configuration: Radeon RX 7900 XTX Nvidia driver version: Could not collect cuDNN version: Could not collect HIP runtime version: 5."/>
+
+</head><body>
+        <div class="main">
+            <div class="page-top">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false" >
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    <ul class="nav" id="navMenu">
+        
+        
+            
+            <li><a  href="/"  title="">About</a></li>
+        
+            
+            <li><a  href="/publications/"  title="">Publications</a></li>
+        
+            
+            <li><a  href="/project/"  title="">Projects</a></li>
+        
+            
+            <li><a  href="/blog/"  title="">Blog</a></li>
+        
+            
+            <li><a  href="/Doc/CV_Zongze_Li.pdf"  title="">CV</a></li>
+        
+        <li class="grow"></li>
+        
+        <li>
+            <a class="theme-switch" title="Switch Theme">
+                <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+            <div class="sidebar" id="sidebar">
+    <div class="top-toc">
+        <img src="http://localhost:1313/images/profile.png" alt="profile picture">
+        
+        <a href="/">Hi! I&#39;m Zongze Li</a>
+    </div>
+    
+    <div class="middle-sidebar grow" id="middle-sidebar">
+        
+            
+            
+                
+            
+
+            
+                
+                
+                
+                
+                <div
+                    id="sidebar-sketch"
+                    data-sketch="Graph"
+                    data-sketch-starting="{
+    &#34;kind&#34;: &#34;katakana&#34;,
+    &#34;nStreams&#34;: 10
+  }"
+                    data-sketch-show-hover="false"></div>
+            
+        
+    </div>
+
+    <div class="footer">
+        <ul class="social-links">
+            
+            <li>
+                <a href="https://www.linkedin.com/in/zongze-li-45710a2a8/" target="_blank" rel="noopener noreferrer" rel="me" aria-label="Linkedin">
+                    <i class="fab fa-linkedin" aria-hidden="true"></i>
+                </a>
+            </li>
+            
+            <li>
+                <a href="https://github.com/freelulul" target="_blank" rel="noopener noreferrer" rel="me" aria-label="GitHub">
+                    <i class="fab fa-github" aria-hidden="true"></i>
+                </a>
+            </li>
+            
+            <li>
+                <a href="https://www.instagram.com/freelulul/" target="_blank" rel="noopener noreferrer" rel="me" aria-label="Instagram">
+                    <i class="fab fa-instagram" aria-hidden="true"></i>
+                </a>
+            </li>
+            
+            <li>
+                <a href="https://t.me/freelulul" target="_blank" rel="noopener noreferrer" rel="me" aria-label="Telegram">
+                    <i class="fab fa-telegram" aria-hidden="true"></i>
+                </a>
+            </li>
+            
+            <li>
+                <a href="mailto:zongzel@uchicago.edu" target="_blank" rel="noopener noreferrer" rel="me" aria-label="E-mail">
+                    <i class="fas fa-envelope" aria-hidden="true"></i>
+                </a>
+            </li>
+            
+        </ul>
+
+        <div class="by">by Zongze Li <b>·</b> 2024</div>
+    </div>
+</div>
+            <div class="content">
+<div class="post">
+    
+    <div class="post-title">
+        <h1>PowerInfer_AMD_Optimization</h1>
+        
+            <div class="post-header">
+    <div style="padding-top: 10px;">
+        <i class="far fa-calendar"></i><span class="date">Apr 5, 2024</span>
+        <i class="far fa-clock"></i><span class="reading-time">17 minutes</span>
+        
+
+
+    </div>
+</div>
+        
+    </div>
+    <div class="post-content">
+        <h1 id="environment">Environment:</h1>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>auprocm@auprocm-System-Product-Name:~$ python3 -m torch.utils.collect_env
+</span></span><span style="display:flex;"><span>Collecting environment information...
+</span></span><span style="display:flex;"><span>PyTorch version: 2.1.1+rocm5.6
+</span></span><span style="display:flex;"><span>Is debug build: False
+</span></span><span style="display:flex;"><span>CUDA used to build PyTorch: N/A
+</span></span><span style="display:flex;"><span>ROCM used to build PyTorch: 5.6.31061-8c743ae5d
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>OS: Ubuntu 22.04.4 LTS <span style="color:#ff79c6">(</span>x86_64<span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>GCC version: <span style="color:#ff79c6">(</span>Ubuntu 11.4.0-1ubuntu1~22.04<span style="color:#ff79c6">)</span> 11.4.0
+</span></span><span style="display:flex;"><span>Clang version: Could not collect
+</span></span><span style="display:flex;"><span>CMake version: version 3.22.1
+</span></span><span style="display:flex;"><span>Libc version: glibc-2.35
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Python version: 3.10.12 <span style="color:#ff79c6">(</span>main, Nov <span style="color:#bd93f9">20</span> 2023, 15:14:05<span style="color:#ff79c6">)</span> <span style="color:#ff79c6">[</span>GCC 11.4.0<span style="color:#ff79c6">]</span> <span style="color:#ff79c6">(</span>64-bit runtime<span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>Python platform: Linux-6.2.0-060200-generic-x86_64-with-glibc2.35
+</span></span><span style="display:flex;"><span>Is CUDA available: True
+</span></span><span style="display:flex;"><span>CUDA runtime version: Could not collect
+</span></span><span style="display:flex;"><span>CUDA_MODULE_LOADING <span style="color:#8be9fd;font-style:italic">set</span> to: LAZY
+</span></span><span style="display:flex;"><span>GPU models and configuration: Radeon RX <span style="color:#bd93f9">7900</span> XTX
+</span></span><span style="display:flex;"><span>Nvidia driver version: Could not collect
+</span></span><span style="display:flex;"><span>cuDNN version: Could not collect
+</span></span><span style="display:flex;"><span>HIP runtime version: 5.6.31061
+</span></span><span style="display:flex;"><span>MIOpen runtime version: 2.20.0
+</span></span><span style="display:flex;"><span>Is XNNPACK available: True
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>CPU:
+</span></span><span style="display:flex;"><span>Architecture:                    x86_64
+</span></span><span style="display:flex;"><span>CPU op-mode<span style="color:#ff79c6">(</span>s<span style="color:#ff79c6">)</span>:                  32-bit, 64-bit
+</span></span><span style="display:flex;"><span>Address sizes:                   <span style="color:#bd93f9">48</span> bits physical, <span style="color:#bd93f9">48</span> bits virtual
+</span></span><span style="display:flex;"><span>Byte Order:                      Little Endian
+</span></span><span style="display:flex;"><span>CPU<span style="color:#ff79c6">(</span>s<span style="color:#ff79c6">)</span>:                          <span style="color:#bd93f9">24</span>
+</span></span><span style="display:flex;"><span>On-line CPU<span style="color:#ff79c6">(</span>s<span style="color:#ff79c6">)</span> list:             0-23
+</span></span><span style="display:flex;"><span>Vendor ID:                       AuthenticAMD
+</span></span><span style="display:flex;"><span>Model name:                      AMD Ryzen <span style="color:#bd93f9">9</span> 7900X 12-Core Processor
+</span></span><span style="display:flex;"><span>CPU family:                      <span style="color:#bd93f9">25</span>
+</span></span><span style="display:flex;"><span>Model:                           <span style="color:#bd93f9">97</span>
+</span></span><span style="display:flex;"><span>Thread<span style="color:#ff79c6">(</span>s<span style="color:#ff79c6">)</span> per core:              <span style="color:#bd93f9">2</span>
+</span></span><span style="display:flex;"><span>Core<span style="color:#ff79c6">(</span>s<span style="color:#ff79c6">)</span> per socket:              <span style="color:#bd93f9">12</span>
+</span></span><span style="display:flex;"><span>Socket<span style="color:#ff79c6">(</span>s<span style="color:#ff79c6">)</span>:                       <span style="color:#bd93f9">1</span>
+</span></span><span style="display:flex;"><span>Stepping:                        <span style="color:#bd93f9">2</span>
+</span></span><span style="display:flex;"><span>Frequency boost:                 enabled
+</span></span><span style="display:flex;"><span>CPU max MHz:                     5732.7139
+</span></span><span style="display:flex;"><span>CPU min MHz:                     3000.0000
+</span></span><span style="display:flex;"><span>BogoMIPS:                        9381.63
+</span></span><span style="display:flex;"><span>Flags:                           fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good amd_lbr_v2 nopl nonstop_tsc cpuid extd_apicid aperfmperf rapl pni pclmulqdq monitor ssse3 fma cx16 sse4_1 sse4_2 movbe popcnt aes xsave avx f16c rdrand lahf_lm cmp_legacy svm extapic cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw ibs skinit wdt tce topoext perfctr_core perfctr_nb bpext perfctr_llc mwaitx cpb cat_l3 cdp_l3 hw_pstate ssbd mba perfmon_v2 ibrs ibpb stibp vmmcall fsgsbase bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local avx512_bf16 clzero irperf xsaveerptr rdpru wbnoinvd cppc arat npt lbrv svm_lock nrip_save tsc_scale vmcb_clean flushbyasid decodeassists pausefilter pfthreshold avic v_vmsave_vmload vgif x2avic v_spec_ctrl avx512vbmi umip pku ospke avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq rdpid overflow_recov succor smca fsrm flush_l1d
+</span></span><span style="display:flex;"><span>Virtualization:                  AMD-V
+</span></span><span style="display:flex;"><span>L1d cache:                       <span style="color:#bd93f9">384</span> KiB <span style="color:#ff79c6">(</span><span style="color:#bd93f9">12</span> instances<span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>L1i cache:                       <span style="color:#bd93f9">384</span> KiB <span style="color:#ff79c6">(</span><span style="color:#bd93f9">12</span> instances<span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>L2 cache:                        <span style="color:#bd93f9">12</span> MiB <span style="color:#ff79c6">(</span><span style="color:#bd93f9">12</span> instances<span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>L3 cache:                        <span style="color:#bd93f9">64</span> MiB <span style="color:#ff79c6">(</span><span style="color:#bd93f9">2</span> instances<span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>NUMA node<span style="color:#ff79c6">(</span>s<span style="color:#ff79c6">)</span>:                    <span style="color:#bd93f9">1</span>
+</span></span><span style="display:flex;"><span>NUMA node0 CPU<span style="color:#ff79c6">(</span>s<span style="color:#ff79c6">)</span>:               0-23
+</span></span><span style="display:flex;"><span>Vulnerability Itlb multihit:     Not affected
+</span></span><span style="display:flex;"><span>Vulnerability L1tf:              Not affected
+</span></span><span style="display:flex;"><span>Vulnerability Mds:               Not affected
+</span></span><span style="display:flex;"><span>Vulnerability Meltdown:          Not affected
+</span></span><span style="display:flex;"><span>Vulnerability Mmio stale data:   Not affected
+</span></span><span style="display:flex;"><span>Vulnerability Retbleed:          Not affected
+</span></span><span style="display:flex;"><span>Vulnerability Spec store bypass: Mitigation; Speculative Store Bypass disabled via prctl
+</span></span><span style="display:flex;"><span>Vulnerability Spectre v1:        Mitigation; usercopy/swapgs barriers and __user pointer sanitization
+</span></span><span style="display:flex;"><span>Vulnerability Spectre v2:        Mitigation; Retpolines, IBPB conditional, IBRS_FW, STIBP always-on, RSB filling, PBRSB-eIBRS Not affected
+</span></span><span style="display:flex;"><span>Vulnerability Srbds:             Not affected
+</span></span><span style="display:flex;"><span>Vulnerability Tsx async abort:   Not affected
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Versions of relevant libraries:
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">[</span>pip3<span style="color:#ff79c6">]</span> <span style="color:#8be9fd;font-style:italic">numpy</span><span style="color:#ff79c6">==</span>1.26.4
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">[</span>pip3<span style="color:#ff79c6">]</span> pytorch-triton-rocm<span style="color:#ff79c6">==</span>2.1.0
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">[</span>pip3<span style="color:#ff79c6">]</span> <span style="color:#8be9fd;font-style:italic">torch</span><span style="color:#ff79c6">==</span>2.1.1+rocm5.6
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">[</span>pip3<span style="color:#ff79c6">]</span> torch-tb-profiler<span style="color:#ff79c6">==</span>0.4.3
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">[</span>pip3<span style="color:#ff79c6">]</span> <span style="color:#8be9fd;font-style:italic">torchaudio</span><span style="color:#ff79c6">==</span>2.1.1+rocm5.6
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">[</span>pip3<span style="color:#ff79c6">]</span> <span style="color:#8be9fd;font-style:italic">torchvision</span><span style="color:#ff79c6">==</span>0.16.1+rocm5.6
+</span></span></code></pre></div><h1 id="opt-log">Opt Log</h1>
+<h2 id="1-find-bad-performance-on-7900xtx">1. Find bad performance on 7900XTX</h2>
+<p>7900 result without quant:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>llama_print_timings:        load <span style="color:#8be9fd;font-style:italic">time</span> <span style="color:#ff79c6">=</span>    1408.45 ms
+</span></span><span style="display:flex;"><span>llama_print_timings:      sample <span style="color:#8be9fd;font-style:italic">time</span> <span style="color:#ff79c6">=</span>      12.29 ms /   <span style="color:#bd93f9">128</span> runs   <span style="color:#ff79c6">(</span>    0.10 ms per token, 10419.21 tokens per second<span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>llama_print_timings: prompt <span style="color:#8be9fd;font-style:italic">eval</span> <span style="color:#8be9fd;font-style:italic">time</span> <span style="color:#ff79c6">=</span>      74.36 ms /     <span style="color:#bd93f9">5</span> tokens <span style="color:#ff79c6">(</span>   14.87 ms per token,    67.24 tokens per second<span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>llama_print_timings:        <span style="color:#8be9fd;font-style:italic">eval</span> <span style="color:#8be9fd;font-style:italic">time</span> <span style="color:#ff79c6">=</span>    4499.95 ms /   <span style="color:#bd93f9">127</span> runs   <span style="color:#ff79c6">(</span>   35.43 ms per token,    **28.22 tokens per second**<span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>llama_print_timings:       total <span style="color:#8be9fd;font-style:italic">time</span> <span style="color:#ff79c6">=</span>    4601.82 ms
+</span></span></code></pre></div><p>4090 result without quant:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>llama_print_timings:        load <span style="color:#8be9fd;font-style:italic">time</span> <span style="color:#ff79c6">=</span>    6310.50 ms
+</span></span><span style="display:flex;"><span>llama_print_timings:      sample <span style="color:#8be9fd;font-style:italic">time</span> <span style="color:#ff79c6">=</span>      14.17 ms /   <span style="color:#bd93f9">128</span> runs   <span style="color:#ff79c6">(</span>    0.11 ms per token,  9034.44 tokens per second<span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>llama_print_timings: prompt <span style="color:#8be9fd;font-style:italic">eval</span> <span style="color:#8be9fd;font-style:italic">time</span> <span style="color:#ff79c6">=</span>      18.50 ms /     <span style="color:#bd93f9">5</span> tokens <span style="color:#ff79c6">(</span>    3.70 ms per token,   270.20 tokens per second<span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>llama_print_timings:        <span style="color:#8be9fd;font-style:italic">eval</span> <span style="color:#8be9fd;font-style:italic">time</span> <span style="color:#ff79c6">=</span>    1609.02 ms /   <span style="color:#bd93f9">127</span> runs   <span style="color:#ff79c6">(</span>   12.67 ms per token,    **78.93 tokens per second**<span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>llama_print_timings:       total <span style="color:#8be9fd;font-style:italic">time</span> <span style="color:#ff79c6">=</span>    1660.44 ms
+</span></span></code></pre></div><p>7900 result with Q4 quant:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>llama_print_timings:        load <span style="color:#8be9fd;font-style:italic">time</span> <span style="color:#ff79c6">=</span>     495.59 ms
+</span></span><span style="display:flex;"><span>llama_print_timings:      sample <span style="color:#8be9fd;font-style:italic">time</span> <span style="color:#ff79c6">=</span>      12.43 ms /   <span style="color:#bd93f9">128</span> runs   <span style="color:#ff79c6">(</span>    0.10 ms per token, 10301.81 tokens per second<span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>llama_print_timings: prompt <span style="color:#8be9fd;font-style:italic">eval</span> <span style="color:#8be9fd;font-style:italic">time</span> <span style="color:#ff79c6">=</span>      80.97 ms /     <span style="color:#bd93f9">5</span> tokens <span style="color:#ff79c6">(</span>   16.19 ms per token,    61.75 tokens per second<span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>llama_print_timings:        <span style="color:#8be9fd;font-style:italic">eval</span> <span style="color:#8be9fd;font-style:italic">time</span> <span style="color:#ff79c6">=</span>    2831.35 ms /   <span style="color:#bd93f9">127</span> runs   <span style="color:#ff79c6">(</span>   22.29 ms per token,    **44.85 tokens per second**<span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>llama_print_timings:       total <span style="color:#8be9fd;font-style:italic">time</span> <span style="color:#ff79c6">=</span>    2935.92 ms
+</span></span></code></pre></div><p>4090 result with Q4 quant:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>llama_print_timings:        load <span style="color:#8be9fd;font-style:italic">time</span> <span style="color:#ff79c6">=</span>     428.45 ms
+</span></span><span style="display:flex;"><span>llama_print_timings:      sample <span style="color:#8be9fd;font-style:italic">time</span> <span style="color:#ff79c6">=</span>      15.35 ms /  <span style="color:#bd93f9">128</span> runs  <span style="color:#ff79c6">(</span>  0.12 ms per token, 8337.68 tokens per second<span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>llama_print_timings: prompt <span style="color:#8be9fd;font-style:italic">eval</span> <span style="color:#8be9fd;font-style:italic">time</span> <span style="color:#ff79c6">=</span>      14.47 ms /   <span style="color:#bd93f9">5</span> tokens <span style="color:#ff79c6">(</span>  2.89 ms per token,  345.57 tokens per second<span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>llama_print_timings:        <span style="color:#8be9fd;font-style:italic">eval</span> <span style="color:#8be9fd;font-style:italic">time</span> <span style="color:#ff79c6">=</span>    898.83 ms /  <span style="color:#bd93f9">127</span> runs  <span style="color:#ff79c6">(</span>  7.08 ms per token,  **141.29 tokens per second**<span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>llama_print_timings:       total <span style="color:#8be9fd;font-style:italic">time</span> <span style="color:#ff79c6">=</span>    947.09 ms
+</span></span></code></pre></div><h2 id="2-profile-with-rocprofv2">2. Profile with ROCprofv2</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ rocprofv2 -h
+</span></span><span style="display:flex;"><span>ROCProfilerV2 Run Script Usage:
+</span></span><span style="display:flex;"><span>-h   | --help                 For showing this message
+</span></span><span style="display:flex;"><span>--list-counters               For showing all available counters <span style="color:#ff79c6">for</span> the current GPUs
+</span></span><span style="display:flex;"><span>-m                            For providing an absolute path of a custom metrics file
+</span></span><span style="display:flex;"><span>--basenames                   For Truncating the kernel names
+</span></span><span style="display:flex;"><span>--hip-api                     For Collecting HIP API Traces
+</span></span><span style="display:flex;"><span>--hip-activity | --hip-trace  For Collecting HIP API Activities Traces
+</span></span><span style="display:flex;"><span>--hsa-api                     For Collecting HSA API Traces
+</span></span><span style="display:flex;"><span>--hsa-activity | --hsa-trace  For Collecting HSA API Activities Traces
+</span></span><span style="display:flex;"><span>--roctx-trace                 For Collecting ROCTx Traces
+</span></span><span style="display:flex;"><span>--kernel-trace                For Collecting Kernel dispatch Traces
+</span></span><span style="display:flex;"><span>--sys-trace                   For Collecting HIP and HSA APIs and their Activities Traces along ROCTX and Kernel Dispatch traces
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4">#usage e.g: rocprofv2 --[hip-trace|hsa-trace|roctx-trace|kernel-trace|sys-trace]  &lt;executable&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>--plugin  PLUGIN_NAME         For enabling a plugin <span style="color:#ff79c6">(</span>cli/file/perfetto/att/ctf<span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4"># usage(file/perfetto/ctf) e.g: rocprofv2 -i pmc.txt --plugin [file/perfetto/ctf] -d out_dir &lt;executable&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4"># usage(att): rocprofv2 &lt;rocprofv2_params&gt; --plugin att &lt;ISA_file&gt; &lt;att_parameters&gt; &lt;executable&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4"># use &#34;rocprofv2 --plugin att --help&#34; for ATT-specific parameters help.</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>--plugin-version  &lt;1|2&gt;       For selecting the version <span style="color:#ff79c6">for</span> the plugin <span style="color:#ff79c6">(</span>1/2<span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4"># 1 - Legacy output format, 2 - New output format (default)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>-i   | --input                For adding counters file path <span style="color:#ff79c6">(</span>every line in the text file represents a counter<span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4"># usage: rocprofv2 -i pmc.txt -d &lt;executable&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>-o   | --output-file          For the output file name
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4"># usage e.g:(with current dir): rocprofv2 --hip-trace -o &lt;file_name&gt; &lt;executable&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4"># usage e.g:(with custom dir):  rocprofv2 --hip-trace -d &lt;out_dir&gt; -o &lt;file_name&gt; &lt;executable&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>-d   | --output-directory     For adding output path where the output files will be saved
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4"># usage e.g:(with custom dir):  rocprofv2 --hip-trace -d &lt;out_dir&gt; &lt;executable&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>-fi  | --flush-interval       For adding a flush interval in milliseconds, every <span style="color:#f1fa8c">&#34;flush interval&#34;</span> the buffers will be flushed
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4"># usage e.g:  rocprofv2 --hip-trace -fi 1000 &lt;executable&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>-tp  | --trace-period        Specifies a trace period in milliseconds, with format <span style="color:#f1fa8c">&#34;-tp &lt;DELAY&gt;:&lt;ACTIVE_TIME&gt;:&lt;LOOP_RESET_TIME&gt;&#34;</span>.
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4"># usage e.g:  rocprofv2 --hip-trace -tp 1000:2000:4000 &lt;executable&gt;</span>
+</span></span></code></pre></div><p>I used this script for profiling:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#ff79c6">#!/bin/bash
+</span></span></span><span style="display:flex;"><span><span style="color:#ff79c6"></span>
+</span></span><span style="display:flex;"><span>rm -rf build
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">CC</span><span style="color:#ff79c6">=</span>/opt/rocm/llvm/bin/clang <span style="color:#8be9fd;font-style:italic">CXX</span><span style="color:#ff79c6">=</span>/opt/rocm/llvm/bin/clang++ cmake -S . -B build -DLLAMA_HIPBLAS<span style="color:#ff79c6">=</span>ON -DAMDGPU_TARGETS<span style="color:#ff79c6">=</span>gfx1100
+</span></span><span style="display:flex;"><span>cmake --build build --config Release
+</span></span><span style="display:flex;"><span>rocprofv2 -d ./profile/ --hip-trace --hip-api --plugin perfetto ./build/bin/main -m ./ReluLLaMA-7B/llama-7b-relu.powerinfer.gguf --ignore-eos -n <span style="color:#bd93f9">256</span> --seed <span style="color:#bd93f9">0</span> --top-k <span style="color:#bd93f9">1</span> --reset-gpu-index -t <span style="color:#bd93f9">8</span> -p <span style="color:#f1fa8c">&#34;Once&#34;</span>
+</span></span></code></pre></div><p>First I got this result:</p>
+<p>We can see that <strong>hipMemcpyAsync</strong> hip-api and <strong>CopyHostToDevice</strong> event dominated the program.</p>
+<p>However, as theoretically analysis and contexts show:</p>
+<p>total VRAM used: 22793.02 MB (model: 14195.52 MB, context: 341.50 MB)</p>
+<p>VRAM used &lt; 7900xtx VRAM(24G)</p>
+<p>The model and all info should be loaded to GPU at the beginning rather too many Memcpy invokes at latter stage.</p>
+<p>So we need to confirm whether this happen as we expected.</p>
+<h2 id="3-backend-detection">3. Backend detection</h2>
+<p>I refered with tensor architecture and use the code snippet after the end of the load period to insert and print Tensor backend device information to monitor whether the data has been loaded into the GPU as expected:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#ff79c6">if</span> (src<span style="color:#ff79c6">-&gt;</span>backend <span style="color:#ff79c6">==</span> GGML_BACKEND_CPU) {printf(src<span style="color:#ff79c6">-&gt;</span>name);printf(<span style="color:#f1fa8c">&#34; src_CPU</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#34;</span>);} 
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">else</span> <span style="color:#50fa7b">if</span> (src<span style="color:#ff79c6">-&gt;</span>backend <span style="color:#ff79c6">==</span> GGML_BACKEND_GPU <span style="color:#ff79c6">||</span> src<span style="color:#ff79c6">-&gt;</span>backend <span style="color:#ff79c6">==</span> GGML_BACKEND_GPU_SPLIT) {printf(src<span style="color:#ff79c6">-&gt;</span>name);printf(<span style="color:#f1fa8c">&#34; src_GPU</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#34;</span>);}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">if</span> (dst<span style="color:#ff79c6">-&gt;</span>backend <span style="color:#ff79c6">==</span> GGML_BACKEND_CPU) {printf(dst<span style="color:#ff79c6">-&gt;</span>name);printf(<span style="color:#f1fa8c">&#34; dst_CPU</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#34;</span>);} 
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">else</span> <span style="color:#50fa7b">if</span> (dst<span style="color:#ff79c6">-&gt;</span>backend <span style="color:#ff79c6">==</span> GGML_BACKEND_GPU <span style="color:#ff79c6">||</span> dst<span style="color:#ff79c6">-&gt;</span>backend <span style="color:#ff79c6">==</span> GGML_BACKEND_GPU_SPLIT) {printf(dst<span style="color:#ff79c6">-&gt;</span>name);printf(<span style="color:#f1fa8c">&#34; dst_GPU</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#34;</span>);}
+</span></span></code></pre></div><p>And the result:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>src0_GPU
+</span></span><span style="display:flex;"><span>src1_GPU
+</span></span><span style="display:flex;"><span>dst_GPU
+</span></span><span style="display:flex;"><span>src0_GPU
+</span></span><span style="display:flex;"><span>src1_GPU
+</span></span><span style="display:flex;"><span>dst_GPU
+</span></span><span style="display:flex;"><span>src0_GPU
+</span></span><span style="display:flex;"><span>src1_GPU
+</span></span><span style="display:flex;"><span>dst_GPU
+</span></span><span style="display:flex;"><span>src0_GPU
+</span></span><span style="display:flex;"><span>src1_GPU
+</span></span><span style="display:flex;"><span>dst_GPU
+</span></span><span style="display:flex;"><span>src0_GPU
+</span></span><span style="display:flex;"><span>src1_GPU
+</span></span><span style="display:flex;"><span>dst_GPU
+</span></span><span style="display:flex;"><span>src0_GPU
+</span></span><span style="display:flex;"><span>src1_GPU
+</span></span><span style="display:flex;"><span>dst_GPU
+</span></span><span style="display:flex;"><span>src0_GPU
+</span></span><span style="display:flex;"><span>src1_GPU
+</span></span><span style="display:flex;"><span>dst_GPU
+</span></span><span style="display:flex;"><span>src0_GPU
+</span></span><span style="display:flex;"><span>src1_GPU
+</span></span><span style="display:flex;"><span>dst_GPU
+</span></span><span style="display:flex;"><span>src0_GPU
+</span></span><span style="display:flex;"><span>src1_GPU
+</span></span><span style="display:flex;"><span>result_output dst_CPU
+</span></span></code></pre></div><p>This showed that these tensors are indeed loaded to GPU(Last CPU is used to output info).</p>
+<p>Besides, I also analyzed with Computation Graph:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">7900</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">===</span> <span style="color:#8be9fd;font-style:italic">GRAPH</span> <span style="color:#ff79c6">===</span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">n_nodes</span> <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">1220</span>
+</span></span><span style="display:flex;"><span> -   0: <span style="color:#ff79c6">[</span>  4096,     1,     1<span style="color:#ff79c6">]</span>         GET_ROWS                                         inp_embd   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.006 /   0.006 ms
+</span></span><span style="display:flex;"><span> -   1: <span style="color:#ff79c6">[</span>  4096,     1,     1<span style="color:#ff79c6">]</span>         RMS_NORM                                           norm-0   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.034 /   0.034 ms
+</span></span><span style="display:flex;"><span> -   2: <span style="color:#ff79c6">[</span>  4096,     1,     1<span style="color:#ff79c6">]</span>              MUL                                      attn_norm-0   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.021 /   0.021 ms
+</span></span><span style="display:flex;"><span> -   3: <span style="color:#ff79c6">[</span>  4096,     1,     1<span style="color:#ff79c6">]</span>          MUL_MAT                                           Vcur-0   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.097 /   0.097 ms
+</span></span><span style="display:flex;"><span> -   4: <span style="color:#ff79c6">[</span>  4096,     1,     1<span style="color:#ff79c6">]</span>          RESHAPE                                Vcur-0 <span style="color:#ff79c6">(</span>reshaped<span style="color:#ff79c6">)</span>   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.001 /   0.001 ms
+</span></span><span style="display:flex;"><span> -   5: <span style="color:#ff79c6">[</span>     1,  4096,     1<span style="color:#ff79c6">]</span>        TRANSPOSE                                        v_cur_t-0   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms
+</span></span><span style="display:flex;"><span> -   6: <span style="color:#ff79c6">[</span>     1,  4096,     1<span style="color:#ff79c6">]</span>             VIEW                                   v_cache_view-0   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms
+</span></span><span style="display:flex;"><span> -   7: <span style="color:#ff79c6">[</span>     1,  4096,     1<span style="color:#ff79c6">]</span>              CPY               v_cache_view-0 <span style="color:#ff79c6">(</span>copy of v_cur_t-0<span style="color:#ff79c6">)</span>   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.021 /   0.021 ms
+</span></span><span style="display:flex;"><span> -   8: <span style="color:#ff79c6">[</span>    32,   128,    32<span style="color:#ff79c6">]</span>             VIEW                                              v-0   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.001 /   0.001 ms
+</span></span><span style="display:flex;"><span> -   9: <span style="color:#ff79c6">[</span>  4096,     1,     1<span style="color:#ff79c6">]</span>          MUL_MAT                                           Kcur-0   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.088 /   0.088 ms
+</span></span><span style="display:flex;"><span> -  10: <span style="color:#ff79c6">[</span>   128,    32,     1<span style="color:#ff79c6">]</span>          RESHAPE                                Kcur-0 <span style="color:#ff79c6">(</span>reshaped<span style="color:#ff79c6">)</span>   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms
+</span></span><span style="display:flex;"><span> -  11: <span style="color:#ff79c6">[</span>   128,    32,     1<span style="color:#ff79c6">]</span>             ROPE                                           Kcur-0   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.021 /   0.021 ms
+</span></span><span style="display:flex;"><span> -  12: <span style="color:#ff79c6">[</span>  4096,     1,     1<span style="color:#ff79c6">]</span>             VIEW                                   k_cache_view-0   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms
+</span></span><span style="display:flex;"><span> -  13: <span style="color:#ff79c6">[</span>  4096,     1,     1<span style="color:#ff79c6">]</span>              CPY                  k_cache_view-0 <span style="color:#ff79c6">(</span>copy of Kcur-0<span style="color:#ff79c6">)</span>   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.019 /   0.019 ms
+</span></span><span style="display:flex;"><span> -  14: <span style="color:#ff79c6">[</span>   128,    32,    32<span style="color:#ff79c6">]</span>             VIEW                                              k-0   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms
+</span></span><span style="display:flex;"><span> -  15: <span style="color:#ff79c6">[</span>  4096,     1,     1<span style="color:#ff79c6">]</span>          MUL_MAT                                           Qcur-0   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.102 /   0.102 ms
+</span></span><span style="display:flex;"><span> -  16: <span style="color:#ff79c6">[</span>   128,    32,     1<span style="color:#ff79c6">]</span>          RESHAPE                                Qcur-0 <span style="color:#ff79c6">(</span>reshaped<span style="color:#ff79c6">)</span>   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms
+</span></span><span style="display:flex;"><span> -  17: <span style="color:#ff79c6">[</span>   128,    32,     1<span style="color:#ff79c6">]</span>             ROPE                                           Qcur-0   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.023 /   0.023 ms
+</span></span><span style="display:flex;"><span> -  18: <span style="color:#ff79c6">[</span>   128,     1,    32<span style="color:#ff79c6">]</span>          PERMUTE                                              q-0   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms
+</span></span><span style="display:flex;"><span> -  19: <span style="color:#ff79c6">[</span>    32,     1,    32<span style="color:#ff79c6">]</span>          MUL_MAT                                             kq-0   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.029 /   0.029 ms
+</span></span><span style="display:flex;"><span> -  20: <span style="color:#ff79c6">[</span>    32,     1,    32<span style="color:#ff79c6">]</span>            SCALE                                      kq_scaled-0   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.029 /   0.029 ms
+</span></span><span style="display:flex;"><span> -  21: <span style="color:#ff79c6">[</span>    32,     1,    32<span style="color:#ff79c6">]</span>              ADD                                      kq_masked-0   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.021 /   0.021 ms
+</span></span><span style="display:flex;"><span> -  22: <span style="color:#ff79c6">[</span>    32,     1,    32<span style="color:#ff79c6">]</span>         SOFT_MAX                                    kq_soft_max-0   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.022 /   0.022 ms
+</span></span><span style="display:flex;"><span> -  23: <span style="color:#ff79c6">[</span>   128,     1,    32<span style="color:#ff79c6">]</span>          MUL_MAT                                            kqv-0   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.030 /   0.030 ms
+</span></span><span style="display:flex;"><span> -  24: <span style="color:#ff79c6">[</span>   128,    32,     1<span style="color:#ff79c6">]</span>          PERMUTE                                     kqv_merged-0   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms
+</span></span><span style="display:flex;"><span> -  25: <span style="color:#ff79c6">[</span>  4096,     1,     1<span style="color:#ff79c6">]</span>             CONT                                kqv_merged_cont-0   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.021 /   0.021 ms
+</span></span><span style="display:flex;"><span> -  26: <span style="color:#ff79c6">[</span>  4096,     1,     1<span style="color:#ff79c6">]</span>          MUL_MAT                                        kqv_out-0   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.090 /   0.090 ms
+</span></span><span style="display:flex;"><span> -  27: <span style="color:#ff79c6">[</span>  4096,     1,     1<span style="color:#ff79c6">]</span>              ADD                                        ffn_inp-0   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.026 /   0.026 ms
+</span></span><span style="display:flex;"><span> -  28: <span style="color:#ff79c6">[</span>  4096,     1,     1<span style="color:#ff79c6">]</span>         RMS_NORM                                           norm-0   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.022 /   0.022 ms
+</span></span><span style="display:flex;"><span> -  29: <span style="color:#ff79c6">[</span>  4096,     1,     1<span style="color:#ff79c6">]</span>              MUL                                       ffn_norm-0   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.029 /   0.029 ms
+</span></span><span style="display:flex;"><span> -  30: <span style="color:#ff79c6">[</span>  1024,     1,     1<span style="color:#ff79c6">]</span>          MUL_MAT                                 mlp_pre_hidden-0   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.051 /   0.051 ms
+</span></span><span style="display:flex;"><span> -  31: <span style="color:#ff79c6">[</span>  1024,     1,     1<span style="color:#ff79c6">]</span>            UNARY                                   mlp_pre_relu-0   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.019 /   0.019 ms
+</span></span><span style="display:flex;"><span> -  32: <span style="color:#ff79c6">[</span> 11008,     1,     1<span style="color:#ff79c6">]</span>          MUL_MAT                                    mlp_pre_out-0   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.117 /   0.117 ms
+</span></span><span style="display:flex;"><span> -  33: <span style="color:#ff79c6">[</span> 11008,     1,     1<span style="color:#ff79c6">]</span>   MUL_MAT_SPARSE                                ffn_gate_sparse-0   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.061 /   0.061 ms
+</span></span><span style="display:flex;"><span> -  34: <span style="color:#ff79c6">[</span> 11008,     1,     1<span style="color:#ff79c6">]</span>            UNARY                                   ffn_gate_act-0   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.019 /   0.019 ms
+</span></span><span style="display:flex;"><span> -  35: <span style="color:#ff79c6">[</span> 11008,     1,     1<span style="color:#ff79c6">]</span>   MUL_MAT_SPARSE                                  ffn_up_sparse-0   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.059 /   0.059 ms
+</span></span><span style="display:flex;"><span> -  36: <span style="color:#ff79c6">[</span> 11008,     1,     1<span style="color:#ff79c6">]</span>              MUL                                   ffn_gate_par-0   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.021 /   0.021 ms
+</span></span><span style="display:flex;"><span> -  37: <span style="color:#ff79c6">[</span>  4096,     1,     1<span style="color:#ff79c6">]</span>             AXPY                                ffn_down_sparse-0   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.322 /   0.322 ms
+</span></span><span style="display:flex;"><span> -  38: <span style="color:#ff79c6">[</span>  4096,     1,     1<span style="color:#ff79c6">]</span>              ADD                                          l_out-0   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.021 /   0.021 ms
+</span></span><span style="display:flex;"><span> -  39: <span style="color:#ff79c6">[</span>  4096,     1,     1<span style="color:#ff79c6">]</span>         RMS_NORM                                           norm-1   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.020 /   0.020 ms
+</span></span><span style="display:flex;"><span> -  40: <span style="color:#ff79c6">[</span>  4096,     1,     1<span style="color:#ff79c6">]</span>              MUL                                      attn_norm-1   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.019 /   0.019 ms
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">4090</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">===</span> <span style="color:#8be9fd;font-style:italic">GRAPH</span> <span style="color:#ff79c6">===</span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">n_nodes</span> <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">1220</span>
+</span></span><span style="display:flex;"><span> -   0: <span style="color:#ff79c6">[</span>  4096,     1,     1<span style="color:#ff79c6">]</span>         GET_ROWS                                         inp_embd   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.006 /   0.006 ms
+</span></span><span style="display:flex;"><span> -   1: <span style="color:#ff79c6">[</span>  4096,     1,     1<span style="color:#ff79c6">]</span>         RMS_NORM                                           norm-0   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.014 /   0.014 ms
+</span></span><span style="display:flex;"><span> -   2: <span style="color:#ff79c6">[</span>  4096,     1,     1<span style="color:#ff79c6">]</span>              MUL                                      attn_norm-0   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.006 /   0.006 ms
+</span></span><span style="display:flex;"><span> -   3: <span style="color:#ff79c6">[</span>  4096,     1,     1<span style="color:#ff79c6">]</span>          MUL_MAT                                           Vcur-0   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.052 /   0.052 ms
+</span></span><span style="display:flex;"><span> -   4: <span style="color:#ff79c6">[</span>  4096,     1,     1<span style="color:#ff79c6">]</span>          RESHAPE                                Vcur-0 <span style="color:#ff79c6">(</span>reshaped<span style="color:#ff79c6">)</span>   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.001 /   0.001 ms
+</span></span><span style="display:flex;"><span> -   5: <span style="color:#ff79c6">[</span>     1,  4096,     1<span style="color:#ff79c6">]</span>        TRANSPOSE                                        v_cur_t-0   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms
+</span></span><span style="display:flex;"><span> -   6: <span style="color:#ff79c6">[</span>     1,  4096,     1<span style="color:#ff79c6">]</span>             VIEW                                   v_cache_view-0   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.001 /   0.001 ms
+</span></span><span style="display:flex;"><span> -   7: <span style="color:#ff79c6">[</span>     1,  4096,     1<span style="color:#ff79c6">]</span>              CPY               v_cache_view-0 <span style="color:#ff79c6">(</span>copy of v_cur_t-0<span style="color:#ff79c6">)</span>   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.005 /   0.005 ms
+</span></span><span style="display:flex;"><span> -   8: <span style="color:#ff79c6">[</span>    32,   128,    32<span style="color:#ff79c6">]</span>             VIEW                                              v-0   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms
+</span></span><span style="display:flex;"><span> -   9: <span style="color:#ff79c6">[</span>  4096,     1,     1<span style="color:#ff79c6">]</span>          MUL_MAT                                           Kcur-0   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.048 /   0.048 ms
+</span></span><span style="display:flex;"><span> -  10: <span style="color:#ff79c6">[</span>   128,    32,     1<span style="color:#ff79c6">]</span>          RESHAPE                                Kcur-0 <span style="color:#ff79c6">(</span>reshaped<span style="color:#ff79c6">)</span>   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms
+</span></span><span style="display:flex;"><span> -  11: <span style="color:#ff79c6">[</span>   128,    32,     1<span style="color:#ff79c6">]</span>             ROPE                                           Kcur-0   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.005 /   0.005 ms
+</span></span><span style="display:flex;"><span> -  12: <span style="color:#ff79c6">[</span>  4096,     1,     1<span style="color:#ff79c6">]</span>             VIEW                                   k_cache_view-0   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.001 /   0.001 ms
+</span></span><span style="display:flex;"><span> -  13: <span style="color:#ff79c6">[</span>  4096,     1,     1<span style="color:#ff79c6">]</span>              CPY                  k_cache_view-0 <span style="color:#ff79c6">(</span>copy of Kcur-0<span style="color:#ff79c6">)</span>   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.005 /   0.005 ms
+</span></span><span style="display:flex;"><span> -  14: <span style="color:#ff79c6">[</span>   128,    32,    32<span style="color:#ff79c6">]</span>             VIEW                                              k-0   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms
+</span></span><span style="display:flex;"><span> -  15: <span style="color:#ff79c6">[</span>  4096,     1,     1<span style="color:#ff79c6">]</span>          MUL_MAT                                           Qcur-0   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.048 /   0.048 ms
+</span></span><span style="display:flex;"><span> -  16: <span style="color:#ff79c6">[</span>   128,    32,     1<span style="color:#ff79c6">]</span>          RESHAPE                                Qcur-0 <span style="color:#ff79c6">(</span>reshaped<span style="color:#ff79c6">)</span>   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms
+</span></span><span style="display:flex;"><span> -  17: <span style="color:#ff79c6">[</span>   128,    32,     1<span style="color:#ff79c6">]</span>             ROPE                                           Qcur-0   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.005 /   0.005 ms
+</span></span><span style="display:flex;"><span> -  18: <span style="color:#ff79c6">[</span>   128,     1,    32<span style="color:#ff79c6">]</span>          PERMUTE                                              q-0   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms
+</span></span><span style="display:flex;"><span> -  19: <span style="color:#ff79c6">[</span>    32,     1,    32<span style="color:#ff79c6">]</span>          MUL_MAT                                             kq-0   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.013 /   0.013 ms
+</span></span><span style="display:flex;"><span> -  20: <span style="color:#ff79c6">[</span>    32,     1,    32<span style="color:#ff79c6">]</span>            SCALE                                      kq_scaled-0   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.008 /   0.008 ms
+</span></span><span style="display:flex;"><span> -  21: <span style="color:#ff79c6">[</span>    32,     1,    32<span style="color:#ff79c6">]</span>              ADD                                      kq_masked-0   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.005 /   0.005 ms
+</span></span><span style="display:flex;"><span> -  22: <span style="color:#ff79c6">[</span>    32,     1,    32<span style="color:#ff79c6">]</span>         SOFT_MAX                                    kq_soft_max-0   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.006 /   0.006 ms
+</span></span><span style="display:flex;"><span> -  23: <span style="color:#ff79c6">[</span>   128,     1,    32<span style="color:#ff79c6">]</span>          MUL_MAT                                            kqv-0   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.011 /   0.011 ms
+</span></span><span style="display:flex;"><span> -  24: <span style="color:#ff79c6">[</span>   128,    32,     1<span style="color:#ff79c6">]</span>          PERMUTE                                     kqv_merged-0   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.001 /   0.001 ms
+</span></span><span style="display:flex;"><span> -  25: <span style="color:#ff79c6">[</span>  4096,     1,     1<span style="color:#ff79c6">]</span>             CONT                                kqv_merged_cont-0   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.004 /   0.004 ms
+</span></span><span style="display:flex;"><span> -  26: <span style="color:#ff79c6">[</span>  4096,     1,     1<span style="color:#ff79c6">]</span>          MUL_MAT                                        kqv_out-0   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.047 /   0.047 ms
+</span></span><span style="display:flex;"><span> -  27: <span style="color:#ff79c6">[</span>  4096,     1,     1<span style="color:#ff79c6">]</span>              ADD                                        ffn_inp-0   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.007 /   0.007 ms
+</span></span><span style="display:flex;"><span> -  28: <span style="color:#ff79c6">[</span>  4096,     1,     1<span style="color:#ff79c6">]</span>         RMS_NORM                                           norm-0   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.005 /   0.005 ms
+</span></span><span style="display:flex;"><span> -  29: <span style="color:#ff79c6">[</span>  4096,     1,     1<span style="color:#ff79c6">]</span>              MUL                                       ffn_norm-0   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.007 /   0.007 ms
+</span></span><span style="display:flex;"><span> -  30: <span style="color:#ff79c6">[</span>  1024,     1,     1<span style="color:#ff79c6">]</span>          MUL_MAT                                 mlp_pre_hidden-0   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.022 /   0.022 ms
+</span></span><span style="display:flex;"><span> -  31: <span style="color:#ff79c6">[</span>  1024,     1,     1<span style="color:#ff79c6">]</span>            UNARY                                   mlp_pre_relu-0   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.005 /   0.005 ms
+</span></span><span style="display:flex;"><span> -  32: <span style="color:#ff79c6">[</span> 11008,     1,     1<span style="color:#ff79c6">]</span>          MUL_MAT                                    mlp_pre_out-0   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.035 /   0.035 ms
+</span></span><span style="display:flex;"><span> -  33: <span style="color:#ff79c6">[</span> 11008,     1,     1<span style="color:#ff79c6">]</span>   MUL_MAT_SPARSE                                ffn_gate_sparse-0   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.025 /   0.025 ms
+</span></span><span style="display:flex;"><span> -  34: <span style="color:#ff79c6">[</span> 11008,     1,     1<span style="color:#ff79c6">]</span>            UNARY                                   ffn_gate_act-0   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.005 /   0.005 ms
+</span></span><span style="display:flex;"><span> -  35: <span style="color:#ff79c6">[</span> 11008,     1,     1<span style="color:#ff79c6">]</span>   MUL_MAT_SPARSE                                  ffn_up_sparse-0   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.023 /   0.023 ms
+</span></span><span style="display:flex;"><span> -  36: <span style="color:#ff79c6">[</span> 11008,     1,     1<span style="color:#ff79c6">]</span>              MUL                                   ffn_gate_par-0   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.005 /   0.005 ms
+</span></span><span style="display:flex;"><span> -  37: <span style="color:#ff79c6">[</span>  4096,     1,     1<span style="color:#ff79c6">]</span>             AXPY                                ffn_down_sparse-0   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.040 /   0.040 ms
+</span></span><span style="display:flex;"><span> -  38: <span style="color:#ff79c6">[</span>  4096,     1,     1<span style="color:#ff79c6">]</span>              ADD                                          l_out-0   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.005 /   0.005 ms
+</span></span><span style="display:flex;"><span> -  39: <span style="color:#ff79c6">[</span>  4096,     1,     1<span style="color:#ff79c6">]</span>         RMS_NORM                                           norm-1   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.005 /   0.005 ms
+</span></span><span style="display:flex;"><span> -  40: <span style="color:#ff79c6">[</span>  4096,     1,     1<span style="color:#ff79c6">]</span>              MUL                                      attn_norm-1   <span style="color:#ff79c6">(</span>  1<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">cpu</span> <span style="color:#ff79c6">=</span>   0.000 /   0.000 ms, <span style="color:#8be9fd;font-style:italic">wall</span> <span style="color:#ff79c6">=</span>   0.005 /   0.005 ms
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p>We can see that CPU time always 0, which shows we mostly didn&rsquo;t run something on CPU</p>
+<p>So, go for the next step, we need to figure out where invoke so many unexpected Memcpy call(exact code line).</p>
+<h2 id="4-code-traceability">4. Code traceability</h2>
+<p>First, refered with profiling result, we can see all unexcepted Memcpy are Host2Device. I learned about coda/hip api about memcpy:</p>
+<p><img alt="4" src="/images/hipMemcpy.png"></p>
+<p>I used CTRL+F to search all memcpy action and <strong>hipMemcpyKind</strong> <em>kind</em> to locate potential code line.</p>
+<p>Then I inserted some <em>useless</em> hip-api function near them:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#ff79c6"># Use cudaDeviceSynchronize to mark this piece of code for further profiling
+</span></span></span><span style="display:flex;"><span><span style="color:#ff79c6"></span><span style="color:#ff79c6">static</span> <span style="color:#8be9fd">void</span> <span style="color:#50fa7b">ggml_backend_cuda_set_tensor_async</span>(ggml_backend_t backend, ggml_tensor <span style="color:#ff79c6">*</span> tensor, <span style="color:#ff79c6">const</span> <span style="color:#8be9fd">void</span> <span style="color:#ff79c6">*</span> data, size_t offset, size_t size) {
+</span></span><span style="display:flex;"><span>    GGML_ASSERT(offset <span style="color:#ff79c6">+</span> size <span style="color:#ff79c6">&lt;=</span> ggml_nbytes(tensor) <span style="color:#ff79c6">&amp;&amp;</span> <span style="color:#f1fa8c">&#34;tensor write out of bounds&#34;</span>);
+</span></span><span style="display:flex;"><span>    GGML_ASSERT(tensor<span style="color:#ff79c6">-&gt;</span>data <span style="color:#ff79c6">!=</span> <span style="color:#8be9fd;font-style:italic">NULL</span> <span style="color:#ff79c6">&amp;&amp;</span> <span style="color:#f1fa8c">&#34;tensor not allocated&#34;</span>);
+</span></span><span style="display:flex;"><span>    GGML_ASSERT(tensor<span style="color:#ff79c6">-&gt;</span>backend <span style="color:#ff79c6">==</span> GGML_BACKEND_GPU);
+</span></span><span style="display:flex;"><span>    cudaDeviceSynchronize();
+</span></span><span style="display:flex;"><span>    CUDA_CHECK(cudaMemcpyAsync((<span style="color:#8be9fd">char</span> <span style="color:#ff79c6">*</span>)tensor<span style="color:#ff79c6">-&gt;</span>data <span style="color:#ff79c6">+</span> offset, data, size, cudaMemcpyHostToDevice, g_cudaStreams[g_main_device][<span style="color:#bd93f9">0</span>]));
+</span></span><span style="display:flex;"><span>    cudaDeviceSynchronize();
+</span></span><span style="display:flex;"><span>    UNUSED(backend);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#ff79c6"># Use Malloc&amp;free to mark this piece of code for further profiling
+</span></span></span><span style="display:flex;"><span><span style="color:#ff79c6"></span><span style="color:#8be9fd">void</span><span style="color:#ff79c6">*</span> dummy_ptr <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">nullptr</span>;
+</span></span><span style="display:flex;"><span>cudaMalloc(<span style="color:#ff79c6">&amp;</span>dummy_ptr, <span style="color:#bd93f9">1</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">if</span> (dummy_ptr <span style="color:#ff79c6">!=</span> <span style="color:#ff79c6">nullptr</span>) {
+</span></span><span style="display:flex;"><span>    CUDA_CHECK(cudaFree(dummy_ptr));
+</span></span><span style="display:flex;"><span>    dummy_ptr <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">nullptr</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">const</span> <span style="color:#8be9fd">char</span> <span style="color:#ff79c6">*</span> x <span style="color:#ff79c6">=</span> src_ptr <span style="color:#ff79c6">+</span> i1_low<span style="color:#ff79c6">*</span>nb1 <span style="color:#ff79c6">+</span> i2<span style="color:#ff79c6">*</span>nb2 <span style="color:#ff79c6">+</span> i3<span style="color:#ff79c6">*</span>nb3;
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">if</span> (nb0 <span style="color:#ff79c6">==</span> ts <span style="color:#ff79c6">&amp;&amp;</span> nb1 <span style="color:#ff79c6">==</span> ts<span style="color:#ff79c6">*</span>ne0<span style="color:#ff79c6">/</span>bs) {<span style="color:#ff79c6">return</span> <span style="color:#50fa7b">cudaMemcpyAsync</span>(dst_ptr, x, i1_diff<span style="color:#ff79c6">*</span>nb1, kind, stream);} 
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">else</span> <span style="color:#50fa7b">if</span> (nb0 <span style="color:#ff79c6">==</span> ts) {<span style="color:#ff79c6">return</span> cudaMemcpy2DAsync(dst_ptr, ts<span style="color:#ff79c6">*</span>ne0<span style="color:#ff79c6">/</span>bs, x, nb1, ts<span style="color:#ff79c6">*</span>ne0<span style="color:#ff79c6">/</span>bs, i1_diff, kind, stream);} <span style="color:#ff79c6">else</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd">int64_t</span> i1 <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; i1 <span style="color:#ff79c6">&lt;</span> i1_diff; i1<span style="color:#ff79c6">++</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">const</span> <span style="color:#8be9fd">void</span> <span style="color:#ff79c6">*</span> rx <span style="color:#ff79c6">=</span> (<span style="color:#ff79c6">const</span> <span style="color:#8be9fd">void</span> <span style="color:#ff79c6">*</span>) ((<span style="color:#ff79c6">const</span> <span style="color:#8be9fd">char</span> <span style="color:#ff79c6">*</span>) x <span style="color:#ff79c6">+</span> i1<span style="color:#ff79c6">*</span>nb1);
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd">void</span> <span style="color:#ff79c6">*</span> rd <span style="color:#ff79c6">=</span> (<span style="color:#8be9fd">void</span> <span style="color:#ff79c6">*</span>) (dst_ptr <span style="color:#ff79c6">+</span> i1<span style="color:#ff79c6">*</span>ts<span style="color:#ff79c6">*</span>ne0<span style="color:#ff79c6">/</span>bs);
+</span></span><span style="display:flex;"><span>        cudaError_t r <span style="color:#ff79c6">=</span> cudaMemcpy2DAsync(rd, ts<span style="color:#ff79c6">/</span>bs, rx, nb0, ts<span style="color:#ff79c6">/</span>bs, ne0, kind, stream);
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">if</span> (r <span style="color:#ff79c6">!=</span> cudaSuccess) <span style="color:#ff79c6">return</span> r;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">return</span> cudaSuccess;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Then profile it again, I got the following result:</p>
+<p>backend_cuda_set_with_devicesync.pftrace:</p>
+<p>backend_cuda_set_without_devicesync.pftrace:</p>
+<p>cpy_tensor_2d_with_mallocfree.pftrace:</p>
+<p>matmul_src1_cpytensor_mallocfree.pftrace:</p>
+<p>matmul_src0_cpytensor_mallocfree.pftrace:</p>
+<p>src0_cuda_op_flatten_mallocfree.pftrace:</p>
+<p>src1_cuda_op_flatten_mallocfree.pftrace:</p>
+<p>After those tests, I finally find the source code invoke unexpected memcpy.</p>
+
+    </div>
+    <div class="post-footer">
+        <div class="info">
+            
+            
+        </div>
+        
+
+
+    </div>
+    
+        
+    
+</div>
+
+                <div class="grow"></div>
+                <div class="built-with">
+    Built with <a href="https://gohugo.io/">Hugo</a> <b>·</b> Using the <a href="https://github.com/LucasVadilho/heyo-hugo-theme">heyo</a> theme
+</div>
+            </div>
+        </div>
+        
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha512-3M00D/rn8n+2ZVXBO9Hib0GKNpkm8MSUU/e2VNthDyBYxKWG+BftNYYcuEjXlyrSO637tidzMBXfE7sQm0INUg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<script type="text/javascript">
+            
+            
+            window.MathJax = {
+                tex: {
+                    inlineMath: [['$', '$'], ['\\(', '\\)']],
+                    displayMath: [['$$','$$'], ['\\[', '\\]']]
+                },
+                svg: {
+                    scale: 1.25,
+                }
+            };
+        </script><script defer type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.1.0/es5/tex-mml-svg.min.js" integrity="sha512-/mL9Gs6E5Bz6NtPOr9eY&#43;T8IIdJbo2JL3TudApzFFelwBXEc3TeFLU6kPq122TJROv7jkktuBRkz5h8vGzrsyA==" crossorigin="anonymous"></script>
+    </body>
+</html>

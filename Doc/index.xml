@@ -1,4 +1,21 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Docs on heyo</title><link>https://freelulul.github.io/Doc/</link><description>Recent content in Docs on heyo</description><generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>zongzel@uchicago.edu (Zongze Li)</managingEditor><webMaster>zongzel@uchicago.edu (Zongze Li)</webMaster><lastBuildDate>Tue, 01 Aug 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://freelulul.github.io/Doc/index.xml" rel="self" type="application/rss+xml"/><item><title>About</title><link>https://freelulul.github.io/Doc/about/</link><pubDate>Tue, 01 Aug 2023 00:00:00 +0000</pubDate><author>zongzel@uchicago.edu (Zongze Li)</author><guid>https://freelulul.github.io/Doc/about/</guid><description>heyo is a responsive, minimalist, and pretty theme built for hugo, based on Alexander Bilz&amp;rsquo;s Anatole.
-Features Cover images Pretty visualizations in the sidebar Table of Contents in the sidebar Callout shortcode Badges shortcode Dark theme Support for custom CSS and JS Multilingual support (english and brazilian portuguese, for now) Open Graph support Soon™ Quickstart To try the exampleSite you just need to:
-git clone https://github.com/LucasVadilho/heyo-hugo-theme heyo cd heyo/exampleSite &amp;amp;&amp;amp; hugo server --themesDir ../.. Live preview You can check a live preview at heyo-theme.oioipio.com.
-Credits All the images in exampleSite were graciously provided by TD Vadilho, you should checkout his website and YouTube!</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Docs on heyo</title>
+    <link>http://localhost:1313/Doc/</link>
+    <description>Recent content in Docs on heyo</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <managingEditor>zongzel@uchicago.edu (Zongze Li)</managingEditor>
+    <webMaster>zongzel@uchicago.edu (Zongze Li)</webMaster>
+    <lastBuildDate>Tue, 01 Aug 2023 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/Doc/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>About</title>
+      <link>http://localhost:1313/Doc/about/</link>
+      <pubDate>Tue, 01 Aug 2023 00:00:00 +0000</pubDate><author>zongzel@uchicago.edu (Zongze Li)</author>
+      <guid>http://localhost:1313/Doc/about/</guid>
+      <description>heyo is a responsive, minimalist, and pretty theme built for hugo, based on Alexander Bilz&amp;rsquo;s Anatole.&#xA;Features Cover images Pretty visualizations in the sidebar Table of Contents in the sidebar Callout shortcode Badges shortcode Dark theme Support for custom CSS and JS Multilingual support (english and brazilian portuguese, for now) Open Graph support Soon™ Quickstart To try the exampleSite you just need to:&#xA;git clone https://github.com/LucasVadilho/heyo-hugo-theme heyo cd heyo/exampleSite &amp;amp;&amp;amp; hugo server --themesDir ../.. Live preview You can check a live preview at heyo-theme.oioipio.com.&#xA;Credits All the images in exampleSite were graciously provided by TD Vadilho, you should checkout his website and YouTube!</description>
+    </item>
+  </channel>
+</rss>

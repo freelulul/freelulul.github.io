@@ -1,1 +1,21 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Javascript on heyo</title><link>https://freelulul.github.io/tags/javascript/</link><description>Recent content in Javascript on heyo</description><generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>zongzel@uchicago.edu (Zongze Li)</managingEditor><webMaster>zongzel@uchicago.edu (Zongze Li)</webMaster><lastBuildDate>Mon, 07 Aug 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://freelulul.github.io/tags/javascript/index.xml" rel="self" type="application/rss+xml"/><item><title>Sketches!</title><link>https://freelulul.github.io/project/sketches/</link><pubDate>Mon, 07 Aug 2023 00:00:00 +0000</pubDate><author>zongzel@uchicago.edu (Zongze Li)</author><guid>https://freelulul.github.io/project/sketches/</guid><description>&lt;p>Sketches are the pretty visualizations in &lt;a href="https://github.com/LucasVadilho/heyo-hugo-theme">heyo&lt;/a>&amp;rsquo;s sidebar. The default ones were built using &lt;a href="https://p5js.org/">p5.js&lt;/a> &amp;ndash; a javascript library for creative coding.&lt;/p></description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Javascript on heyo</title>
+    <link>http://localhost:1313/tags/javascript/</link>
+    <description>Recent content in Javascript on heyo</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <managingEditor>zongzel@uchicago.edu (Zongze Li)</managingEditor>
+    <webMaster>zongzel@uchicago.edu (Zongze Li)</webMaster>
+    <lastBuildDate>Mon, 07 Aug 2023 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Sketches!</title>
+      <link>http://localhost:1313/project/sketches/</link>
+      <pubDate>Mon, 07 Aug 2023 00:00:00 +0000</pubDate><author>zongzel@uchicago.edu (Zongze Li)</author>
+      <guid>http://localhost:1313/project/sketches/</guid>
+      <description>&lt;p&gt;Sketches are the pretty visualizations in &lt;a href=&#34;https://github.com/LucasVadilho/heyo-hugo-theme&#34;&gt;heyo&lt;/a&gt;&amp;rsquo;s sidebar. The default ones were built using &lt;a href=&#34;https://p5js.org/&#34;&gt;p5.js&lt;/a&gt; &amp;ndash; a javascript library for creative coding.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
