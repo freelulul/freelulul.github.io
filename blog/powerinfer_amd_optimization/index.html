@@ -5,21 +5,21 @@
     
     <meta name="generator" content="Hugo 0.123.8">
     <meta property="og:title" content="PowerInfer_AMD_Optimization" />
-<meta property="og:description" content="Environment: auprocm@auprocm-System-Product-Name:~$ python3 -m torch.utils.collect_env Collecting environment information... PyTorch version: 2.1.1&#43;rocm5.6 Is debug build: False CUDA used to build PyTorch: N/A ROCM used to build PyTorch: 5.6.31061-8c743ae5d OS: Ubuntu 22.04.4 LTS (x86_64) GCC version: (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0 Clang version: Could not collect CMake version: version 3.22.1 Libc version: glibc-2.35 Python version: 3.10.12 (main, Nov 20 2023, 15:14:05) [GCC 11.4.0] (64-bit runtime) Python platform: Linux-6.2.0-060200-generic-x86_64-with-glibc2.35 Is CUDA available: True CUDA runtime version: Could not collect CUDA_MODULE_LOADING set to: LAZY GPU models and configuration: Radeon RX 7900 XTX Nvidia driver version: Could not collect cuDNN version: Could not collect HIP runtime version: 5." />
+<meta property="og:description" content="Environment: aupxtx@aupxtx:~$ python3 -m torch.utils.collect_env Collecting environment information... PyTorch version: 2.3.0&#43;rocm5.7 Is debug build: False CUDA used to build PyTorch: N/A ROCM used to build PyTorch: 5.7.31921-d1770ee1b OS: Ubuntu 22.04.3 LTS (x86_64) GCC version: (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0 Clang version: 17.0.0 (https://github.com/RadeonOpenCompute/llvm-project roc-6.0.2 24012 af27734ed982b52a9f1be0f035ac91726fc697e4) CMake version: version 3.22.1 Libc version: glibc-2.35 Python version: 3.10.12 (main, Nov 20 2023, 15:14:05) [GCC 11.4.0] (64-bit runtime) Python platform: Linux-6.2.0-26-generic-x86_64-with-glibc2.35 Is CUDA available: True CUDA runtime version: Could not collect CUDA_MODULE_LOADING set to: LAZY GPU models and configuration: Radeon RX 7900 XTX (gfx1100) Nvidia driver version: Could not collect cuDNN version: Could not collect HIP runtime version: 5." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://localhost:1313/blog/PowerInfer_AMD_Optimization/" /><meta property="og:image" content="http://localhost:1313/images/profile.png" /><meta property="article:section" content="blog" />
-<meta property="article:published_time" content="2024-04-05T01:44:02+08:00" />
-<meta property="article:modified_time" content="2024-04-05T01:44:02+08:00" /><meta property="og:site_name" content="Hi! I&#39;m Zongze Li" />
+<meta property="article:published_time" content="2024-04-15T01:44:02+08:00" />
+<meta property="article:modified_time" content="2024-04-15T01:44:02+08:00" /><meta property="og:site_name" content="Zongze Li(李宗泽)" />
 
 
 
 
     <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-    <meta name="description" content="Call me Zongze">
+    <meta name="description" content="">
     
     
     
-    <link rel="stylesheet" type="text/css" href="http://localhost:1313/css/style.min.b4b643e0d4d2eb142b28f87846ca6a17c50a4546d49bd71b148b1444369b32a2.css" integrity="sha256-tLZD4NTS6xQrKPh4RspqF8UKRUbUm9cbFIsURDabMqI=" crossorigin="anonymous" type="text/css">
+    <link rel="stylesheet" type="text/css" href="http://localhost:1313/css/style.min.e461821b5d6b458c9ced36a9610ec2335c1a1fd5b1233aed405ed17881935188.css" integrity="sha256-5GGCG11rRYyc7TapYQ7CM1waH9WxIzrtQF7ReIGTUYg=" crossorigin="anonymous" type="text/css">
 
     
     
@@ -75,7 +75,7 @@
     
     <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:image" content="http://localhost:1313/images/profile.png" /><meta name="twitter:title" content="PowerInfer_AMD_Optimization"/>
-<meta name="twitter:description" content="Environment: auprocm@auprocm-System-Product-Name:~$ python3 -m torch.utils.collect_env Collecting environment information... PyTorch version: 2.1.1&#43;rocm5.6 Is debug build: False CUDA used to build PyTorch: N/A ROCM used to build PyTorch: 5.6.31061-8c743ae5d OS: Ubuntu 22.04.4 LTS (x86_64) GCC version: (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0 Clang version: Could not collect CMake version: version 3.22.1 Libc version: glibc-2.35 Python version: 3.10.12 (main, Nov 20 2023, 15:14:05) [GCC 11.4.0] (64-bit runtime) Python platform: Linux-6.2.0-060200-generic-x86_64-with-glibc2.35 Is CUDA available: True CUDA runtime version: Could not collect CUDA_MODULE_LOADING set to: LAZY GPU models and configuration: Radeon RX 7900 XTX Nvidia driver version: Could not collect cuDNN version: Could not collect HIP runtime version: 5."/>
+<meta name="twitter:description" content="Environment: aupxtx@aupxtx:~$ python3 -m torch.utils.collect_env Collecting environment information... PyTorch version: 2.3.0&#43;rocm5.7 Is debug build: False CUDA used to build PyTorch: N/A ROCM used to build PyTorch: 5.7.31921-d1770ee1b OS: Ubuntu 22.04.3 LTS (x86_64) GCC version: (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0 Clang version: 17.0.0 (https://github.com/RadeonOpenCompute/llvm-project roc-6.0.2 24012 af27734ed982b52a9f1be0f035ac91726fc697e4) CMake version: version 3.22.1 Libc version: glibc-2.35 Python version: 3.10.12 (main, Nov 20 2023, 15:14:05) [GCC 11.4.0] (64-bit runtime) Python platform: Linux-6.2.0-26-generic-x86_64-with-glibc2.35 Is CUDA available: True CUDA runtime version: Could not collect CUDA_MODULE_LOADING set to: LAZY GPU models and configuration: Radeon RX 7900 XTX (gfx1100) Nvidia driver version: Could not collect cuDNN version: Could not collect HIP runtime version: 5."/>
 
 </head><body>
         <div class="main">
@@ -92,9 +92,6 @@
         
             
             <li><a  href="/"  title="">About</a></li>
-        
-            
-            <li><a  href="/publications/"  title="">Publications</a></li>
         
             
             <li><a  href="/project/"  title="">Projects</a></li>
@@ -115,11 +112,7 @@
     </ul>
 </div>
             <div class="sidebar" id="sidebar">
-    <div class="top-toc">
-        <img src="http://localhost:1313/images/profile.png" alt="profile picture">
-        
-        <a href="/">Hi! I&#39;m Zongze Li</a>
-    </div>
+    
     
     <div class="middle-sidebar grow" id="middle-sidebar">
         
@@ -180,7 +173,7 @@
             
         </ul>
 
-        <div class="by">by Zongze Li <b>·</b> 2024</div>
+        <div class="by">2024 <b>·</b> Zongze Li</div>
     </div>
 </div>
             <div class="content">
@@ -191,39 +184,41 @@
         
             <div class="post-header">
     <div style="padding-top: 10px;">
-        <i class="far fa-calendar"></i><span class="date">Apr 5, 2024</span>
-        <i class="far fa-clock"></i><span class="reading-time">17 minutes</span>
+        <i class="far fa-calendar"></i><span class="date">Apr 15, 2024</span>
+        <i class="far fa-clock"></i><span class="reading-time">33 minutes</span>
         
 
 
     </div>
 </div>
+            
+            
         
     </div>
     <div class="post-content">
         <h1 id="environment">Environment:</h1>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>auprocm@auprocm-System-Product-Name:~$ python3 -m torch.utils.collect_env
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>aupxtx@aupxtx:~$ python3 -m torch.utils.collect_env
 </span></span><span style="display:flex;"><span>Collecting environment information...
-</span></span><span style="display:flex;"><span>PyTorch version: 2.1.1+rocm5.6
+</span></span><span style="display:flex;"><span>PyTorch version: 2.3.0+rocm5.7
 </span></span><span style="display:flex;"><span>Is debug build: False
 </span></span><span style="display:flex;"><span>CUDA used to build PyTorch: N/A
-</span></span><span style="display:flex;"><span>ROCM used to build PyTorch: 5.6.31061-8c743ae5d
+</span></span><span style="display:flex;"><span>ROCM used to build PyTorch: 5.7.31921-d1770ee1b
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>OS: Ubuntu 22.04.4 LTS <span style="color:#ff79c6">(</span>x86_64<span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>OS: Ubuntu 22.04.3 LTS <span style="color:#ff79c6">(</span>x86_64<span style="color:#ff79c6">)</span>
 </span></span><span style="display:flex;"><span>GCC version: <span style="color:#ff79c6">(</span>Ubuntu 11.4.0-1ubuntu1~22.04<span style="color:#ff79c6">)</span> 11.4.0
-</span></span><span style="display:flex;"><span>Clang version: Could not collect
+</span></span><span style="display:flex;"><span>Clang version: 17.0.0 <span style="color:#ff79c6">(</span>https://github.com/RadeonOpenCompute/llvm-project roc-6.0.2 <span style="color:#bd93f9">24012</span> af27734ed982b52a9f1be0f035ac91726fc697e4<span style="color:#ff79c6">)</span>
 </span></span><span style="display:flex;"><span>CMake version: version 3.22.1
 </span></span><span style="display:flex;"><span>Libc version: glibc-2.35
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>Python version: 3.10.12 <span style="color:#ff79c6">(</span>main, Nov <span style="color:#bd93f9">20</span> 2023, 15:14:05<span style="color:#ff79c6">)</span> <span style="color:#ff79c6">[</span>GCC 11.4.0<span style="color:#ff79c6">]</span> <span style="color:#ff79c6">(</span>64-bit runtime<span style="color:#ff79c6">)</span>
-</span></span><span style="display:flex;"><span>Python platform: Linux-6.2.0-060200-generic-x86_64-with-glibc2.35
+</span></span><span style="display:flex;"><span>Python platform: Linux-6.2.0-26-generic-x86_64-with-glibc2.35
 </span></span><span style="display:flex;"><span>Is CUDA available: True
 </span></span><span style="display:flex;"><span>CUDA runtime version: Could not collect
 </span></span><span style="display:flex;"><span>CUDA_MODULE_LOADING <span style="color:#8be9fd;font-style:italic">set</span> to: LAZY
-</span></span><span style="display:flex;"><span>GPU models and configuration: Radeon RX <span style="color:#bd93f9">7900</span> XTX
+</span></span><span style="display:flex;"><span>GPU models and configuration: Radeon RX <span style="color:#bd93f9">7900</span> XTX <span style="color:#ff79c6">(</span>gfx1100<span style="color:#ff79c6">)</span>
 </span></span><span style="display:flex;"><span>Nvidia driver version: Could not collect
 </span></span><span style="display:flex;"><span>cuDNN version: Could not collect
-</span></span><span style="display:flex;"><span>HIP runtime version: 5.6.31061
+</span></span><span style="display:flex;"><span>HIP runtime version: 5.7.31921
 </span></span><span style="display:flex;"><span>MIOpen runtime version: 2.20.0
 </span></span><span style="display:flex;"><span>Is XNNPACK available: True
 </span></span><span style="display:flex;"><span>
@@ -232,28 +227,28 @@
 </span></span><span style="display:flex;"><span>CPU op-mode<span style="color:#ff79c6">(</span>s<span style="color:#ff79c6">)</span>:                  32-bit, 64-bit
 </span></span><span style="display:flex;"><span>Address sizes:                   <span style="color:#bd93f9">48</span> bits physical, <span style="color:#bd93f9">48</span> bits virtual
 </span></span><span style="display:flex;"><span>Byte Order:                      Little Endian
-</span></span><span style="display:flex;"><span>CPU<span style="color:#ff79c6">(</span>s<span style="color:#ff79c6">)</span>:                          <span style="color:#bd93f9">24</span>
-</span></span><span style="display:flex;"><span>On-line CPU<span style="color:#ff79c6">(</span>s<span style="color:#ff79c6">)</span> list:             0-23
+</span></span><span style="display:flex;"><span>CPU<span style="color:#ff79c6">(</span>s<span style="color:#ff79c6">)</span>:                          <span style="color:#bd93f9">16</span>
+</span></span><span style="display:flex;"><span>On-line CPU<span style="color:#ff79c6">(</span>s<span style="color:#ff79c6">)</span> list:             0-15
 </span></span><span style="display:flex;"><span>Vendor ID:                       AuthenticAMD
-</span></span><span style="display:flex;"><span>Model name:                      AMD Ryzen <span style="color:#bd93f9">9</span> 7900X 12-Core Processor
+</span></span><span style="display:flex;"><span>Model name:                      AMD Ryzen <span style="color:#bd93f9">7</span> 7800X3D 8-Core Processor
 </span></span><span style="display:flex;"><span>CPU family:                      <span style="color:#bd93f9">25</span>
 </span></span><span style="display:flex;"><span>Model:                           <span style="color:#bd93f9">97</span>
 </span></span><span style="display:flex;"><span>Thread<span style="color:#ff79c6">(</span>s<span style="color:#ff79c6">)</span> per core:              <span style="color:#bd93f9">2</span>
-</span></span><span style="display:flex;"><span>Core<span style="color:#ff79c6">(</span>s<span style="color:#ff79c6">)</span> per socket:              <span style="color:#bd93f9">12</span>
+</span></span><span style="display:flex;"><span>Core<span style="color:#ff79c6">(</span>s<span style="color:#ff79c6">)</span> per socket:              <span style="color:#bd93f9">8</span>
 </span></span><span style="display:flex;"><span>Socket<span style="color:#ff79c6">(</span>s<span style="color:#ff79c6">)</span>:                       <span style="color:#bd93f9">1</span>
 </span></span><span style="display:flex;"><span>Stepping:                        <span style="color:#bd93f9">2</span>
 </span></span><span style="display:flex;"><span>Frequency boost:                 enabled
-</span></span><span style="display:flex;"><span>CPU max MHz:                     5732.7139
+</span></span><span style="display:flex;"><span>CPU max MHz:                     5049.0229
 </span></span><span style="display:flex;"><span>CPU min MHz:                     3000.0000
-</span></span><span style="display:flex;"><span>BogoMIPS:                        9381.63
+</span></span><span style="display:flex;"><span>BogoMIPS:                        8399.69
 </span></span><span style="display:flex;"><span>Flags:                           fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good amd_lbr_v2 nopl nonstop_tsc cpuid extd_apicid aperfmperf rapl pni pclmulqdq monitor ssse3 fma cx16 sse4_1 sse4_2 movbe popcnt aes xsave avx f16c rdrand lahf_lm cmp_legacy svm extapic cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw ibs skinit wdt tce topoext perfctr_core perfctr_nb bpext perfctr_llc mwaitx cpb cat_l3 cdp_l3 hw_pstate ssbd mba perfmon_v2 ibrs ibpb stibp vmmcall fsgsbase bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local avx512_bf16 clzero irperf xsaveerptr rdpru wbnoinvd cppc arat npt lbrv svm_lock nrip_save tsc_scale vmcb_clean flushbyasid decodeassists pausefilter pfthreshold avic v_vmsave_vmload vgif x2avic v_spec_ctrl avx512vbmi umip pku ospke avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq rdpid overflow_recov succor smca fsrm flush_l1d
 </span></span><span style="display:flex;"><span>Virtualization:                  AMD-V
-</span></span><span style="display:flex;"><span>L1d cache:                       <span style="color:#bd93f9">384</span> KiB <span style="color:#ff79c6">(</span><span style="color:#bd93f9">12</span> instances<span style="color:#ff79c6">)</span>
-</span></span><span style="display:flex;"><span>L1i cache:                       <span style="color:#bd93f9">384</span> KiB <span style="color:#ff79c6">(</span><span style="color:#bd93f9">12</span> instances<span style="color:#ff79c6">)</span>
-</span></span><span style="display:flex;"><span>L2 cache:                        <span style="color:#bd93f9">12</span> MiB <span style="color:#ff79c6">(</span><span style="color:#bd93f9">12</span> instances<span style="color:#ff79c6">)</span>
-</span></span><span style="display:flex;"><span>L3 cache:                        <span style="color:#bd93f9">64</span> MiB <span style="color:#ff79c6">(</span><span style="color:#bd93f9">2</span> instances<span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>L1d cache:                       <span style="color:#bd93f9">256</span> KiB <span style="color:#ff79c6">(</span><span style="color:#bd93f9">8</span> instances<span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>L1i cache:                       <span style="color:#bd93f9">256</span> KiB <span style="color:#ff79c6">(</span><span style="color:#bd93f9">8</span> instances<span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>L2 cache:                        <span style="color:#bd93f9">8</span> MiB <span style="color:#ff79c6">(</span><span style="color:#bd93f9">8</span> instances<span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>L3 cache:                        <span style="color:#bd93f9">96</span> MiB <span style="color:#ff79c6">(</span><span style="color:#bd93f9">1</span> instance<span style="color:#ff79c6">)</span>
 </span></span><span style="display:flex;"><span>NUMA node<span style="color:#ff79c6">(</span>s<span style="color:#ff79c6">)</span>:                    <span style="color:#bd93f9">1</span>
-</span></span><span style="display:flex;"><span>NUMA node0 CPU<span style="color:#ff79c6">(</span>s<span style="color:#ff79c6">)</span>:               0-23
+</span></span><span style="display:flex;"><span>NUMA node0 CPU<span style="color:#ff79c6">(</span>s<span style="color:#ff79c6">)</span>:               0-15
 </span></span><span style="display:flex;"><span>Vulnerability Itlb multihit:     Not affected
 </span></span><span style="display:flex;"><span>Vulnerability L1tf:              Not affected
 </span></span><span style="display:flex;"><span>Vulnerability Mds:               Not affected
@@ -267,39 +262,66 @@
 </span></span><span style="display:flex;"><span>Vulnerability Tsx async abort:   Not affected
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>Versions of relevant libraries:
-</span></span><span style="display:flex;"><span><span style="color:#ff79c6">[</span>pip3<span style="color:#ff79c6">]</span> <span style="color:#8be9fd;font-style:italic">numpy</span><span style="color:#ff79c6">==</span>1.26.4
-</span></span><span style="display:flex;"><span><span style="color:#ff79c6">[</span>pip3<span style="color:#ff79c6">]</span> pytorch-triton-rocm<span style="color:#ff79c6">==</span>2.1.0
-</span></span><span style="display:flex;"><span><span style="color:#ff79c6">[</span>pip3<span style="color:#ff79c6">]</span> <span style="color:#8be9fd;font-style:italic">torch</span><span style="color:#ff79c6">==</span>2.1.1+rocm5.6
-</span></span><span style="display:flex;"><span><span style="color:#ff79c6">[</span>pip3<span style="color:#ff79c6">]</span> torch-tb-profiler<span style="color:#ff79c6">==</span>0.4.3
-</span></span><span style="display:flex;"><span><span style="color:#ff79c6">[</span>pip3<span style="color:#ff79c6">]</span> <span style="color:#8be9fd;font-style:italic">torchaudio</span><span style="color:#ff79c6">==</span>2.1.1+rocm5.6
-</span></span><span style="display:flex;"><span><span style="color:#ff79c6">[</span>pip3<span style="color:#ff79c6">]</span> <span style="color:#8be9fd;font-style:italic">torchvision</span><span style="color:#ff79c6">==</span>0.16.1+rocm5.6
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">[</span>pip3<span style="color:#ff79c6">]</span> <span style="color:#8be9fd;font-style:italic">numpy</span><span style="color:#ff79c6">==</span>1.26.3
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">[</span>pip3<span style="color:#ff79c6">]</span> pytorch-triton-rocm<span style="color:#ff79c6">==</span>2.3.0
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">[</span>pip3<span style="color:#ff79c6">]</span> <span style="color:#8be9fd;font-style:italic">torch</span><span style="color:#ff79c6">==</span>2.3.0+rocm5.7
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">[</span>pip3<span style="color:#ff79c6">]</span> <span style="color:#8be9fd;font-style:italic">torchaudio</span><span style="color:#ff79c6">==</span>2.3.0+rocm5.7
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">[</span>pip3<span style="color:#ff79c6">]</span> <span style="color:#8be9fd;font-style:italic">torchvision</span><span style="color:#ff79c6">==</span>0.18.0+rocm5.7
 </span></span></code></pre></div><h1 id="opt-log">Opt Log</h1>
 <h2 id="1-find-bad-performance-on-7900xtx">1. Find bad performance on 7900XTX</h2>
+<p>Test with llama-7b-relu.powerinfer.gguf and llama-7b-relu.q4.powerinfer.gguf</p>
 <p>7900 result without quant:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>llama_print_timings:        load <span style="color:#8be9fd;font-style:italic">time</span> <span style="color:#ff79c6">=</span>    1408.45 ms
 </span></span><span style="display:flex;"><span>llama_print_timings:      sample <span style="color:#8be9fd;font-style:italic">time</span> <span style="color:#ff79c6">=</span>      12.29 ms /   <span style="color:#bd93f9">128</span> runs   <span style="color:#ff79c6">(</span>    0.10 ms per token, 10419.21 tokens per second<span style="color:#ff79c6">)</span>
 </span></span><span style="display:flex;"><span>llama_print_timings: prompt <span style="color:#8be9fd;font-style:italic">eval</span> <span style="color:#8be9fd;font-style:italic">time</span> <span style="color:#ff79c6">=</span>      74.36 ms /     <span style="color:#bd93f9">5</span> tokens <span style="color:#ff79c6">(</span>   14.87 ms per token,    67.24 tokens per second<span style="color:#ff79c6">)</span>
-</span></span><span style="display:flex;"><span>llama_print_timings:        <span style="color:#8be9fd;font-style:italic">eval</span> <span style="color:#8be9fd;font-style:italic">time</span> <span style="color:#ff79c6">=</span>    4499.95 ms /   <span style="color:#bd93f9">127</span> runs   <span style="color:#ff79c6">(</span>   35.43 ms per token,    **28.22 tokens per second**<span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>llama_print_timings:        <span style="color:#8be9fd;font-style:italic">eval</span> <span style="color:#8be9fd;font-style:italic">time</span> <span style="color:#ff79c6">=</span>    4499.95 ms /   <span style="color:#bd93f9">127</span> runs   <span style="color:#ff79c6">(</span>   35.43 ms per token,    28.22 tokens per second<span style="color:#ff79c6">)</span>
 </span></span><span style="display:flex;"><span>llama_print_timings:       total <span style="color:#8be9fd;font-style:italic">time</span> <span style="color:#ff79c6">=</span>    4601.82 ms
 </span></span></code></pre></div><p>4090 result without quant:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>llama_print_timings:        load <span style="color:#8be9fd;font-style:italic">time</span> <span style="color:#ff79c6">=</span>    6310.50 ms
 </span></span><span style="display:flex;"><span>llama_print_timings:      sample <span style="color:#8be9fd;font-style:italic">time</span> <span style="color:#ff79c6">=</span>      14.17 ms /   <span style="color:#bd93f9">128</span> runs   <span style="color:#ff79c6">(</span>    0.11 ms per token,  9034.44 tokens per second<span style="color:#ff79c6">)</span>
 </span></span><span style="display:flex;"><span>llama_print_timings: prompt <span style="color:#8be9fd;font-style:italic">eval</span> <span style="color:#8be9fd;font-style:italic">time</span> <span style="color:#ff79c6">=</span>      18.50 ms /     <span style="color:#bd93f9">5</span> tokens <span style="color:#ff79c6">(</span>    3.70 ms per token,   270.20 tokens per second<span style="color:#ff79c6">)</span>
-</span></span><span style="display:flex;"><span>llama_print_timings:        <span style="color:#8be9fd;font-style:italic">eval</span> <span style="color:#8be9fd;font-style:italic">time</span> <span style="color:#ff79c6">=</span>    1609.02 ms /   <span style="color:#bd93f9">127</span> runs   <span style="color:#ff79c6">(</span>   12.67 ms per token,    **78.93 tokens per second**<span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>llama_print_timings:        <span style="color:#8be9fd;font-style:italic">eval</span> <span style="color:#8be9fd;font-style:italic">time</span> <span style="color:#ff79c6">=</span>    1609.02 ms /   <span style="color:#bd93f9">127</span> runs   <span style="color:#ff79c6">(</span>   12.67 ms per token,    78.93 tokens per second<span style="color:#ff79c6">)</span>
 </span></span><span style="display:flex;"><span>llama_print_timings:       total <span style="color:#8be9fd;font-style:italic">time</span> <span style="color:#ff79c6">=</span>    1660.44 ms
 </span></span></code></pre></div><p>7900 result with Q4 quant:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>llama_print_timings:        load <span style="color:#8be9fd;font-style:italic">time</span> <span style="color:#ff79c6">=</span>     495.59 ms
 </span></span><span style="display:flex;"><span>llama_print_timings:      sample <span style="color:#8be9fd;font-style:italic">time</span> <span style="color:#ff79c6">=</span>      12.43 ms /   <span style="color:#bd93f9">128</span> runs   <span style="color:#ff79c6">(</span>    0.10 ms per token, 10301.81 tokens per second<span style="color:#ff79c6">)</span>
 </span></span><span style="display:flex;"><span>llama_print_timings: prompt <span style="color:#8be9fd;font-style:italic">eval</span> <span style="color:#8be9fd;font-style:italic">time</span> <span style="color:#ff79c6">=</span>      80.97 ms /     <span style="color:#bd93f9">5</span> tokens <span style="color:#ff79c6">(</span>   16.19 ms per token,    61.75 tokens per second<span style="color:#ff79c6">)</span>
-</span></span><span style="display:flex;"><span>llama_print_timings:        <span style="color:#8be9fd;font-style:italic">eval</span> <span style="color:#8be9fd;font-style:italic">time</span> <span style="color:#ff79c6">=</span>    2831.35 ms /   <span style="color:#bd93f9">127</span> runs   <span style="color:#ff79c6">(</span>   22.29 ms per token,    **44.85 tokens per second**<span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>llama_print_timings:        <span style="color:#8be9fd;font-style:italic">eval</span> <span style="color:#8be9fd;font-style:italic">time</span> <span style="color:#ff79c6">=</span>    2831.35 ms /   <span style="color:#bd93f9">127</span> runs   <span style="color:#ff79c6">(</span>   22.29 ms per token,    44.85 tokens per second<span style="color:#ff79c6">)</span>
 </span></span><span style="display:flex;"><span>llama_print_timings:       total <span style="color:#8be9fd;font-style:italic">time</span> <span style="color:#ff79c6">=</span>    2935.92 ms
 </span></span></code></pre></div><p>4090 result with Q4 quant:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>llama_print_timings:        load <span style="color:#8be9fd;font-style:italic">time</span> <span style="color:#ff79c6">=</span>     428.45 ms
 </span></span><span style="display:flex;"><span>llama_print_timings:      sample <span style="color:#8be9fd;font-style:italic">time</span> <span style="color:#ff79c6">=</span>      15.35 ms /  <span style="color:#bd93f9">128</span> runs  <span style="color:#ff79c6">(</span>  0.12 ms per token, 8337.68 tokens per second<span style="color:#ff79c6">)</span>
 </span></span><span style="display:flex;"><span>llama_print_timings: prompt <span style="color:#8be9fd;font-style:italic">eval</span> <span style="color:#8be9fd;font-style:italic">time</span> <span style="color:#ff79c6">=</span>      14.47 ms /   <span style="color:#bd93f9">5</span> tokens <span style="color:#ff79c6">(</span>  2.89 ms per token,  345.57 tokens per second<span style="color:#ff79c6">)</span>
-</span></span><span style="display:flex;"><span>llama_print_timings:        <span style="color:#8be9fd;font-style:italic">eval</span> <span style="color:#8be9fd;font-style:italic">time</span> <span style="color:#ff79c6">=</span>    898.83 ms /  <span style="color:#bd93f9">127</span> runs  <span style="color:#ff79c6">(</span>  7.08 ms per token,  **141.29 tokens per second**<span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>llama_print_timings:        <span style="color:#8be9fd;font-style:italic">eval</span> <span style="color:#8be9fd;font-style:italic">time</span> <span style="color:#ff79c6">=</span>    898.83 ms /  <span style="color:#bd93f9">127</span> runs  <span style="color:#ff79c6">(</span>  7.08 ms per token,  141.29 tokens per second<span style="color:#ff79c6">)</span>
 </span></span><span style="display:flex;"><span>llama_print_timings:       total <span style="color:#8be9fd;font-style:italic">time</span> <span style="color:#ff79c6">=</span>    947.09 ms
-</span></span></code></pre></div><h2 id="2-profile-with-rocprofv2">2. Profile with ROCprofv2</h2>
+</span></span></code></pre></div><table>
+<thead>
+<tr>
+<th></th>
+<th>Llama + 4090</th>
+<th>Llama + 7900</th>
+<th>PowerInfer + 4090</th>
+<th>PowerInfer + 7900</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Performance</td>
+<td>79 tokens/s</td>
+<td>61 tokens/s</td>
+<td>78.93 tokens/s</td>
+<td>28.22 tokens/s</td>
+</tr>
+<tr>
+<td>Performance with Q4 quant</td>
+<td>140 tokens/s</td>
+<td>110 tokens/s</td>
+<td>141.29 tokens/s</td>
+<td>44.85 tokens/s</td>
+</tr>
+</tbody>
+</table>
+<h2 id="2-profile-with-rocprofv2">2. Profile with ROCprofv2</h2>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ rocprofv2 -h
 </span></span><span style="display:flex;"><span>ROCProfilerV2 Run Script Usage:
 </span></span><span style="display:flex;"><span>-h   | --help                 For showing this message
@@ -347,6 +369,8 @@
 </span></span><span style="display:flex;"><span>cmake --build build --config Release
 </span></span><span style="display:flex;"><span>rocprofv2 -d ./profile/ --hip-trace --hip-api --plugin perfetto ./build/bin/main -m ./ReluLLaMA-7B/llama-7b-relu.powerinfer.gguf --ignore-eos -n <span style="color:#bd93f9">256</span> --seed <span style="color:#bd93f9">0</span> --top-k <span style="color:#bd93f9">1</span> --reset-gpu-index -t <span style="color:#bd93f9">8</span> -p <span style="color:#f1fa8c">&#34;Once&#34;</span>
 </span></span></code></pre></div><p>First I got this result:</p>
+<p><img alt="Opt1" src="/images/Opt1.png"></p>
+<p><img alt="Opt2" src="/images/Opt2.png"></p>
 <p>We can see that <strong>hipMemcpyAsync</strong> hip-api and <strong>CopyHostToDevice</strong> event dominated the program.</p>
 <p>However, as theoretically analysis and contexts show:</p>
 <p>total VRAM used: 22793.02 MB (model: 14195.52 MB, context: 341.50 MB)</p>
@@ -487,7 +511,7 @@
 <p>So, go for the next step, we need to figure out where invoke so many unexpected Memcpy call(exact code line).</p>
 <h2 id="4-code-traceability">4. Code traceability</h2>
 <p>First, refered with profiling result, we can see all unexcepted Memcpy are Host2Device. I learned about coda/hip api about memcpy:</p>
-<p><img alt="4" src="/images/hipMemcpy.png"></p>
+<p><img alt="hipMemcpy" src="/images/hipMemcpy.png"></p>
 <p>I used CTRL+F to search all memcpy action and <strong>hipMemcpyKind</strong> <em>kind</em> to locate potential code line.</p>
 <p>Then I inserted some <em>useless</em> hip-api function near them:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#ff79c6"># Use cudaDeviceSynchronize to mark this piece of code for further profiling
@@ -521,14 +545,576 @@
 </span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">return</span> cudaSuccess;
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>Then profile it again, I got the following result:</p>
-<p>backend_cuda_set_with_devicesync.pftrace:</p>
-<p>backend_cuda_set_without_devicesync.pftrace:</p>
-<p>cpy_tensor_2d_with_mallocfree.pftrace:</p>
-<p>matmul_src1_cpytensor_mallocfree.pftrace:</p>
-<p>matmul_src0_cpytensor_mallocfree.pftrace:</p>
-<p>src0_cuda_op_flatten_mallocfree.pftrace:</p>
-<p>src1_cuda_op_flatten_mallocfree.pftrace:</p>
-<p>After those tests, I finally find the source code invoke unexpected memcpy.</p>
+<p><em>backend_cuda_set_with_devicesync.pftrace:</em></p>
+<p><img alt="backend_cuda_set_with_devicesync" src="/images/backend_cuda_set_with_devicesync.png"></p>
+<p><em>backend_cuda_set_without_devicesync.pftrace:</em></p>
+<p><img alt="backend_cuda_set_without_devicesync" src="/images/backend_cuda_set_without_devicesync.png"></p>
+<p><em>cpy_tensor_2d_with_mallocfree.pftrace:</em></p>
+<p><img alt="cpy_tensor_2d_with_mallocfree" src="/images/cpy_tensor_2d_with_mallocfree.png"></p>
+<p><strong>We can see HipFree label showed in this test, which means this function caused unexpected memcpy:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#ff79c6">static</span> cudaError_t <span style="color:#50fa7b">ggml_cuda_cpy_tensor_2d</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd">void</span> <span style="color:#ff79c6">*</span> dst, <span style="color:#ff79c6">const</span> <span style="color:#ff79c6">struct</span> <span style="color:#50fa7b">ggml_tensor</span> <span style="color:#ff79c6">*</span> src, <span style="color:#8be9fd">int64_t</span> i3, <span style="color:#8be9fd">int64_t</span> i2, <span style="color:#8be9fd">int64_t</span> i1_low, <span style="color:#8be9fd">int64_t</span> i1_high, cudaStream_t stream) {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    cudaMemcpyKind kind;
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd">char</span> <span style="color:#ff79c6">*</span> src_ptr;
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">if</span> (src<span style="color:#ff79c6">-&gt;</span>backend <span style="color:#ff79c6">==</span> GGML_BACKEND_CPU) {
+</span></span><span style="display:flex;"><span>        kind <span style="color:#ff79c6">=</span> cudaMemcpyHostToDevice;
+</span></span><span style="display:flex;"><span>        src_ptr <span style="color:#ff79c6">=</span> (<span style="color:#8be9fd">char</span> <span style="color:#ff79c6">*</span>) src<span style="color:#ff79c6">-&gt;</span>data;
+</span></span><span style="display:flex;"><span>    } <span style="color:#ff79c6">else</span> <span style="color:#ff79c6">if</span> (src<span style="color:#ff79c6">-&gt;</span>backend <span style="color:#ff79c6">==</span> GGML_BACKEND_GPU <span style="color:#ff79c6">||</span> src<span style="color:#ff79c6">-&gt;</span>backend <span style="color:#ff79c6">==</span> GGML_BACKEND_GPU_SPLIT) {
+</span></span><span style="display:flex;"><span>        GGML_ASSERT(src<span style="color:#ff79c6">-&gt;</span>backend <span style="color:#ff79c6">!=</span> GGML_BACKEND_GPU_SPLIT <span style="color:#ff79c6">||</span> (i1_low <span style="color:#ff79c6">==</span> <span style="color:#bd93f9">0</span> <span style="color:#ff79c6">&amp;&amp;</span> i1_high <span style="color:#ff79c6">==</span> src<span style="color:#ff79c6">-&gt;</span>ne[<span style="color:#bd93f9">1</span>]));
+</span></span><span style="display:flex;"><span>        kind <span style="color:#ff79c6">=</span> cudaMemcpyDeviceToDevice;
+</span></span><span style="display:flex;"><span>        ggml_tensor_extra_gpu <span style="color:#ff79c6">*</span> extra <span style="color:#ff79c6">=</span> (ggml_tensor_extra_gpu <span style="color:#ff79c6">*</span>) src<span style="color:#ff79c6">-&gt;</span>extra;
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd">int</span> id;
+</span></span><span style="display:flex;"><span>        CUDA_CHECK(cudaGetDevice(<span style="color:#ff79c6">&amp;</span>id));
+</span></span><span style="display:flex;"><span>        src_ptr <span style="color:#ff79c6">=</span> (<span style="color:#8be9fd">char</span> <span style="color:#ff79c6">*</span>) extra<span style="color:#ff79c6">-&gt;</span>data_device[id];
+</span></span><span style="display:flex;"><span>    } <span style="color:#ff79c6">else</span> {
+</span></span><span style="display:flex;"><span>        GGML_ASSERT(<span style="color:#8be9fd;font-style:italic">false</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd">char</span> <span style="color:#ff79c6">*</span> dst_ptr <span style="color:#ff79c6">=</span> (<span style="color:#8be9fd">char</span> <span style="color:#ff79c6">*</span>) dst;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">const</span> <span style="color:#8be9fd">int64_t</span> ne0 <span style="color:#ff79c6">=</span> src<span style="color:#ff79c6">-&gt;</span>ne[<span style="color:#bd93f9">0</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">const</span> <span style="color:#8be9fd">int64_t</span> nb0 <span style="color:#ff79c6">=</span> src<span style="color:#ff79c6">-&gt;</span>nb[<span style="color:#bd93f9">0</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">const</span> <span style="color:#8be9fd">int64_t</span> nb1 <span style="color:#ff79c6">=</span> src<span style="color:#ff79c6">-&gt;</span>nb[<span style="color:#bd93f9">1</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">const</span> <span style="color:#8be9fd">int64_t</span> nb2 <span style="color:#ff79c6">=</span> src<span style="color:#ff79c6">-&gt;</span>nb[<span style="color:#bd93f9">2</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">const</span> <span style="color:#8be9fd">int64_t</span> nb3 <span style="color:#ff79c6">=</span> src<span style="color:#ff79c6">-&gt;</span>nb[<span style="color:#bd93f9">3</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">const</span> <span style="color:#ff79c6">enum</span> <span style="color:#50fa7b">ggml_type</span> type <span style="color:#ff79c6">=</span> src<span style="color:#ff79c6">-&gt;</span>type;
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">const</span> <span style="color:#8be9fd">int64_t</span> ts <span style="color:#ff79c6">=</span> ggml_type_size(type);
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">const</span> <span style="color:#8be9fd">int64_t</span> bs <span style="color:#ff79c6">=</span> ggml_blck_size(type);
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd">int64_t</span> i1_diff <span style="color:#ff79c6">=</span> i1_high <span style="color:#ff79c6">-</span> i1_low;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">const</span> <span style="color:#8be9fd">char</span> <span style="color:#ff79c6">*</span> x <span style="color:#ff79c6">=</span> src_ptr <span style="color:#ff79c6">+</span> i1_low<span style="color:#ff79c6">*</span>nb1 <span style="color:#ff79c6">+</span> i2<span style="color:#ff79c6">*</span>nb2 <span style="color:#ff79c6">+</span> i3<span style="color:#ff79c6">*</span>nb3;
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">if</span> (nb0 <span style="color:#ff79c6">==</span> ts <span style="color:#ff79c6">&amp;&amp;</span> nb1 <span style="color:#ff79c6">==</span> ts<span style="color:#ff79c6">*</span>ne0<span style="color:#ff79c6">/</span>bs) {
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> cudaMemcpyAsync(dst_ptr, x, i1_diff<span style="color:#ff79c6">*</span>nb1, kind, stream);
+</span></span><span style="display:flex;"><span>    } <span style="color:#ff79c6">else</span> <span style="color:#ff79c6">if</span> (nb0 <span style="color:#ff79c6">==</span> ts) {
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> cudaMemcpy2DAsync(dst_ptr, ts<span style="color:#ff79c6">*</span>ne0<span style="color:#ff79c6">/</span>bs, x, nb1, ts<span style="color:#ff79c6">*</span>ne0<span style="color:#ff79c6">/</span>bs, i1_diff, kind, stream);
+</span></span><span style="display:flex;"><span>    } <span style="color:#ff79c6">else</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd">int64_t</span> i1 <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; i1 <span style="color:#ff79c6">&lt;</span> i1_diff; i1<span style="color:#ff79c6">++</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">const</span> <span style="color:#8be9fd">void</span> <span style="color:#ff79c6">*</span> rx <span style="color:#ff79c6">=</span> (<span style="color:#ff79c6">const</span> <span style="color:#8be9fd">void</span> <span style="color:#ff79c6">*</span>) ((<span style="color:#ff79c6">const</span> <span style="color:#8be9fd">char</span> <span style="color:#ff79c6">*</span>) x <span style="color:#ff79c6">+</span> i1<span style="color:#ff79c6">*</span>nb1);
+</span></span><span style="display:flex;"><span>            <span style="color:#8be9fd">void</span> <span style="color:#ff79c6">*</span> rd <span style="color:#ff79c6">=</span> (<span style="color:#8be9fd">void</span> <span style="color:#ff79c6">*</span>) (dst_ptr <span style="color:#ff79c6">+</span> i1<span style="color:#ff79c6">*</span>ts<span style="color:#ff79c6">*</span>ne0<span style="color:#ff79c6">/</span>bs);
+</span></span><span style="display:flex;"><span>            <span style="color:#6272a4">// pretend the row is a matrix with cols=1
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>            cudaError_t r <span style="color:#ff79c6">=</span> cudaMemcpy2DAsync(rd, ts<span style="color:#ff79c6">/</span>bs, rx, nb0, ts<span style="color:#ff79c6">/</span>bs, ne0, kind, stream);
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">if</span> (r <span style="color:#ff79c6">!=</span> cudaSuccess) <span style="color:#ff79c6">return</span> r;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> cudaSuccess;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>To get finer-grain result, I profiled deeper for two functions:</p>
+<p><em>matmul_src1_cpytensor_mallocfree.pftrace:</em></p>
+<p><img alt="matmul_src1_cpytensor_mallocfree" src="/images/matmul_src1_cpytensor_mallocfree.png"></p>
+<p><strong>No HipFree label, which means not this function caused unexpected memcpy.</strong></p>
+<p><em>matmul_src0_cpytensor_mallocfree.pftrace:</em></p>
+<p><img alt="matmul_src0_cpytensor_mallocfree" src="/images/matmul_src0_cpytensor_mallocfree.png"></p>
+<p><strong>No HipFree label, which means not this function caused unexpected memcpy.</strong></p>
+<p><em>src0_cuda_op_flatten_mallocfree.pftrace:</em></p>
+<p><img alt="src0_cuda_op_flatten_mallocfree" src="/images/src0_cuda_op_flatten_mallocfree.png"></p>
+<p><strong>No HipFree label, which means not this function caused unexpected memcpy.</strong></p>
+<p><em>src1_cuda_op_flatten_mallocfree.pftrace:</em></p>
+<p><img alt="src1_cuda_op_flatten_mallocfree" src="/images/src1_cuda_op_flatten_mallocfree.png"></p>
+<p><strong>We can see HipFree label showed in this test, which means this piece of code caused unexpected memcpy:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#ff79c6">if</span> (use_src1 <span style="color:#ff79c6">&amp;&amp;</span> <span style="color:#ff79c6">!</span>src1_stays_on_host) {
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">if</span> (src1_on_device) {
+</span></span><span style="display:flex;"><span>            src1_ddf <span style="color:#ff79c6">=</span> (<span style="color:#8be9fd">float</span> <span style="color:#ff79c6">*</span>) src1_extra<span style="color:#ff79c6">-&gt;</span>data_device[g_main_device];
+</span></span><span style="display:flex;"><span>        } <span style="color:#ff79c6">else</span> {
+</span></span><span style="display:flex;"><span>            src1_ddf <span style="color:#ff79c6">=</span> (<span style="color:#8be9fd">float</span> <span style="color:#ff79c6">*</span>) ggml_cuda_pool_malloc(ggml_nbytes(src1), <span style="color:#ff79c6">&amp;</span>src1_asf);
+</span></span><span style="display:flex;"><span>            CUDA_CHECK(ggml_cuda_cpy_tensor_2d(src1_ddf, src1, <span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">0</span>, nrows1, main_stream));
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span></code></pre></div><h2 id="5-unexpected-memcpy-eliminate">5. Unexpected memcpy eliminate</h2>
+<p>This exception is mainly caused by the ffn_norm_weight, which is a bug in the project itself. The project logic automatically selects which parameters to put on the GPU based on the size of the graphics memory. However, the norm weight was previously placed in a specific class, and everything in that class will be placed on the CPU no matter what. Therefore, this leads to memcpy behavior from the CPU to the GPU every time these parameters are used.
+The corresponding solution is to change the storage in the class to a different location so that it can also enter the GPU during the initial load, instead of using memcpy from the CPU every time it is used.</p>
+<p>After bug fix, we got the following result:</p>
+<p><img alt="Memcpy_afterfix" src="/images/Memcpy_afterfix.png"></p>
+<p>Unfortunately, the problem remains unresolved. But specifically, we have identified the essence of the problem: operators. From HipStream, we can see that the operation of the kernel is continuous, which proves that the reason for poor performance is not in the MemcpyAsync we have verified, but in the poor implementation of the operator. To solve this problem, we must find the typical operator with the worst performance and optimize the corresponding operator.</p>
+<h2 id="6-operator-optimization">6. Operator optimization</h2>
+<p>Operator optimization is a heavy work, so we first structed a statistical data for running time:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>                                                 Name  Calls  Percentage  TotalDurationMs  AverageMs
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">0</span>   Cijk_Alik_Bljk_HB_MT32x32x32_MI16x16x16x1_SN_1...   <span style="color:#bd93f9">5888</span>   56.977682       492.232145   0.083599
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">1</span>   void dequantize_mul_mat_vec&lt;1, 1, &amp;<span style="color:#ff79c6">(</span>convert_f1...   <span style="color:#bd93f9">1452</span>   14.746984       127.399699   0.087740
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">2</span>   Cijk_Alik_Bljk_HB_MT32x32x32_MI16x16x16x1_SN_1...   <span style="color:#bd93f9">1288</span>    9.408184        81.277628   0.063103
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">3</span>   void dequantize_block&lt;1, 1, &amp;<span style="color:#ff79c6">(</span>convert_f32<span style="color:#ff79c6">(</span>void...  <span style="color:#bd93f9">10370</span>    3.461931        29.907737   0.002884
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">4</span>   void dequantize_block&lt;1, 1, &amp;<span style="color:#ff79c6">(</span>convert_f16<span style="color:#ff79c6">(</span>void...  <span style="color:#bd93f9">10370</span>    2.742961        23.696530   0.002285
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">5</span>   void rms_norm_f32&lt;1024&gt;<span style="color:#ff79c6">(</span>float const*, float*, ...   <span style="color:#bd93f9">2990</span>    1.774599        15.330825   0.005127
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">6</span>   add_f32<span style="color:#ff79c6">(</span>float const*, float const*, float*, in...   <span style="color:#bd93f9">4416</span>    1.403729        12.126866   0.002746
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">7</span>   void rope&lt;float, true&gt;<span style="color:#ff79c6">(</span>float const*, float*, i...   <span style="color:#bd93f9">2944</span>    1.329179        11.482825   0.003900
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">8</span>   Cijk_Alik_Bljk_HB_MT32x32x32_MI16x16x16x1_SN_1...    <span style="color:#bd93f9">184</span>    1.019050         8.803607   0.047845
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">9</span>   void cpy_f32_f16&lt;&amp;<span style="color:#ff79c6">(</span>cpy_1_f32_f16<span style="color:#ff79c6">(</span>char const*, ...   <span style="color:#bd93f9">2944</span>    1.014060         8.760496   0.002975
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">10</span>  Cijk_Alik_Bljk_HB_MT32x32x16_MI16x16x16x1_SN_1...   <span style="color:#bd93f9">1472</span>    1.012366         8.745866   0.005941
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">11</span>  mul_f32<span style="color:#ff79c6">(</span>float const*, float const*, float*, in...   <span style="color:#bd93f9">2990</span>    0.999206         8.632172   0.002887
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">12</span>  Cijk_Alik_Bljk_HB_MT32x32x32_MI16x16x16x1_SN_1...   <span style="color:#bd93f9">1408</span>    0.798503         6.898291   0.004899
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">13</span>  Cijk_Alik_Bljk_HB_MT64x64x32_MI16x16x16x1_SN_1...     <span style="color:#bd93f9">52</span>    0.734857         6.348453   0.122085
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">14</span>  soft_max_f32<span style="color:#ff79c6">(</span>float const*, float*, int<span style="color:#ff79c6">)</span> <span style="color:#ff79c6">[</span>clone...   <span style="color:#bd93f9">1472</span>    0.642171         5.547740   0.003768
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">15</span>  void cpy_f32_f16&lt;&amp;<span style="color:#ff79c6">(</span>cpy_1_f32_f32<span style="color:#ff79c6">(</span>char const*, ...   <span style="color:#bd93f9">1472</span>    0.444675         3.841566   0.002609
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">16</span>  scale_f32<span style="color:#ff79c6">(</span>float const*, float*, float, int<span style="color:#ff79c6">)</span> <span style="color:#ff79c6">[</span>c...   <span style="color:#bd93f9">1472</span>    0.429947         3.714326   0.002523
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">17</span>    relu_f32<span style="color:#ff79c6">(</span>float const*, float*, int<span style="color:#ff79c6">)</span> <span style="color:#ff79c6">[</span>clone .kd<span style="color:#ff79c6">]</span>   <span style="color:#bd93f9">1472</span>    0.391271         3.380202   0.002296
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">18</span>                  __amd_rocclr_fillBufferAligned.kd      <span style="color:#bd93f9">6</span>    0.328644         2.839166   0.473194
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">19</span>  Cijk_Alik_Bljk_HB_MT64x64x32_MI16x16x16x1_SN_1...      <span style="color:#bd93f9">2</span>    0.153582         1.326803   0.663401
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">20</span>  Cijk_Alik_Bljk_HB_MT64x64x32_MI16x16x16x1_SN_1...     <span style="color:#bd93f9">12</span>    0.123283         1.065044   0.088753
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">21</span>  Cijk_Alik_Bljk_HB_GB_MT32x32x32_MI16x16x16x1_S...     <span style="color:#bd93f9">64</span>    0.040560         0.350400   0.005475
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">22</span>  k_compute_batched_ptrs<span style="color:#ff79c6">(</span>__half const*, __half c...     <span style="color:#bd93f9">64</span>    0.022577         0.195040   0.003047
+</span></span></code></pre></div><p>Cijk_Alik_Bljk&hellip; functions are internal <code>rocblas/hipblas</code> calls, which come from AMD&rsquo;s Tensile library: <a href="https://github.com/ROCm/Tensile">https://github.com/ROCm/Tensile</a>. It&rsquo;s realatively hard to optimize directly. So we targeted the operator about <code>mul_mat_vec</code>, that is, attention part. To be more specific, <code>mul_mat_vec_q4_0_q8_1_cuda()</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#ff79c6">static</span> <span style="color:#8be9fd">void</span> <span style="color:#50fa7b">mul_mat_vec_q4_0_q8_1_cuda</span>(<span style="color:#ff79c6">const</span> <span style="color:#8be9fd">void</span> <span style="color:#ff79c6">*</span> vx, <span style="color:#ff79c6">const</span> <span style="color:#8be9fd">void</span> <span style="color:#ff79c6">*</span> vy, <span style="color:#8be9fd">float</span> <span style="color:#ff79c6">*</span> dst, <span style="color:#ff79c6">const</span> <span style="color:#8be9fd">int</span> ncols, <span style="color:#ff79c6">const</span> <span style="color:#8be9fd">int</span> nrows, cudaStream_t stream) {
+</span></span><span style="display:flex;"><span>    GGML_ASSERT(ncols <span style="color:#ff79c6">%</span> QK4_0 <span style="color:#ff79c6">==</span> <span style="color:#bd93f9">0</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">const</span> <span style="color:#8be9fd">int</span> block_num_y <span style="color:#ff79c6">=</span> (nrows <span style="color:#ff79c6">+</span> GGML_CUDA_MMV_Y <span style="color:#ff79c6">-</span> <span style="color:#bd93f9">1</span>) <span style="color:#ff79c6">/</span> GGML_CUDA_MMV_Y;
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">const</span> dim3 block_nums(block_num_y, <span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">1</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">const</span> dim3 block_dims(WARP_SIZE, GGML_CUDA_MMV_Y, <span style="color:#bd93f9">1</span>);
+</span></span><span style="display:flex;"><span>    mul_mat_vec_q<span style="color:#ff79c6">&lt;</span>QK4_0, QI4_0, block_q4_0, VDR_Q4_0_Q8_1_MMVQ, vec_dot_q4_0_q8_1<span style="color:#ff79c6">&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">&lt;&lt;&lt;</span>block_nums, block_dims, <span style="color:#bd93f9">0</span>, stream<span style="color:#ff79c6">&gt;&gt;&gt;</span>(vx, vy, dst, ncols, nrows);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">static</span> <span style="color:#8be9fd">void</span> <span style="color:#50fa7b">mul_mat_vec_q4_0_q8_1_cuda</span>(<span style="color:#ff79c6">const</span> <span style="color:#8be9fd">void</span> <span style="color:#ff79c6">*</span> vx, <span style="color:#ff79c6">const</span> <span style="color:#8be9fd">void</span> <span style="color:#ff79c6">*</span> vy, <span style="color:#8be9fd">float</span> <span style="color:#ff79c6">*</span> dst, <span style="color:#ff79c6">const</span> <span style="color:#8be9fd">int</span> ncols, <span style="color:#ff79c6">const</span> <span style="color:#8be9fd">int</span> nrows, cudaStream_t stream, <span style="color:#ff79c6">const</span> <span style="color:#8be9fd">int</span> <span style="color:#ff79c6">*</span>lst, <span style="color:#ff79c6">const</span> <span style="color:#8be9fd">float</span> <span style="color:#ff79c6">*</span>idx) {
+</span></span><span style="display:flex;"><span>    GGML_ASSERT(ncols <span style="color:#ff79c6">%</span> QK4_0 <span style="color:#ff79c6">==</span> <span style="color:#bd93f9">0</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">const</span> <span style="color:#8be9fd">int</span> block_num_y <span style="color:#ff79c6">=</span> (nrows <span style="color:#ff79c6">+</span> GGML_CUDA_MMV_Y <span style="color:#ff79c6">-</span> <span style="color:#bd93f9">1</span>) <span style="color:#ff79c6">/</span> GGML_CUDA_MMV_Y;
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">const</span> dim3 block_nums(block_num_y, <span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">1</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">const</span> dim3 block_dims(WARP_SIZE, GGML_CUDA_MMV_Y, <span style="color:#bd93f9">1</span>);
+</span></span><span style="display:flex;"><span>    mul_mat_vec_q<span style="color:#ff79c6">&lt;</span>QK4_0, QI4_0, block_q4_0, VDR_Q4_0_Q8_1_MMVQ, vec_dot_q4_0_q8_1<span style="color:#ff79c6">&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">&lt;&lt;&lt;</span>block_nums, block_dims, <span style="color:#bd93f9">0</span>, stream<span style="color:#ff79c6">&gt;&gt;&gt;</span>(vx, vy, dst, ncols, nrows, lst, idx);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Then we insert some timing code for both 4090 and 7900 on both Llama.cpp project and PowerInfer project to compare the results:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#ff79c6">static</span> <span style="color:#8be9fd">void</span> <span style="color:#50fa7b">ggml_cuda_op_mul_mat</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">const</span> ggml_tensor <span style="color:#ff79c6">*</span> src0, <span style="color:#ff79c6">const</span> ggml_tensor <span style="color:#ff79c6">*</span> src1, ggml_tensor <span style="color:#ff79c6">*</span> dst, ggml_cuda_op_mul_mat_t op,
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">const</span> <span style="color:#8be9fd">bool</span> convert_src1_to_q8_1) {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd">uint64_t</span> t1 <span style="color:#ff79c6">=</span> ggml_time_us();
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd">uint64_t</span> t2 <span style="color:#ff79c6">=</span> ggml_time_us();
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd">uint64_t</span> t3 <span style="color:#ff79c6">=</span> ggml_time_us();
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd">uint64_t</span> t4 <span style="color:#ff79c6">=</span> ggml_time_us();
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span> 		...
+</span></span><span style="display:flex;"><span>      
+</span></span><span style="display:flex;"><span>      
+</span></span><span style="display:flex;"><span>    cudaDeviceSynchronize();
+</span></span><span style="display:flex;"><span>    t2 <span style="color:#ff79c6">=</span> ggml_time_us();
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4">// do the computation
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>    op(src0, src1, dst, src0_dd_i, src1_ddf_i, src1_ddq_i, dst_dd_i,
+</span></span><span style="display:flex;"><span>       row_low[id], row_high[id], src1_ncols, src1_padded_col_size, stream);
+</span></span><span style="display:flex;"><span>    CUDA_CHECK(cudaGetLastError());
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>    cudaDeviceSynchronize();
+</span></span><span style="display:flex;"><span>    t3 <span style="color:#ff79c6">=</span> ggml_time_us();
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  	...
+</span></span><span style="display:flex;"><span>      
+</span></span><span style="display:flex;"><span>    cudaDeviceSynchronize();
+</span></span><span style="display:flex;"><span>    t4 <span style="color:#ff79c6">=</span> ggml_time_us();
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">if</span> (dst<span style="color:#ff79c6">-&gt;</span>ne[<span style="color:#bd93f9">0</span>] <span style="color:#ff79c6">==</span> <span style="color:#bd93f9">4096</span> <span style="color:#ff79c6">&amp;&amp;</span> dst<span style="color:#ff79c6">-&gt;</span>ne[<span style="color:#bd93f9">1</span>] <span style="color:#ff79c6">==</span> <span style="color:#bd93f9">1</span> <span style="color:#ff79c6">&amp;&amp;</span> dst<span style="color:#ff79c6">-&gt;</span>src[<span style="color:#bd93f9">0</span>]<span style="color:#ff79c6">-&gt;</span>ne[<span style="color:#bd93f9">0</span>] <span style="color:#ff79c6">==</span> <span style="color:#bd93f9">4096</span>) {
+</span></span><span style="display:flex;"><span>        printf(<span style="color:#f1fa8c">&#34;transfer src to gpu %ld us</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#34;</span>, t2<span style="color:#ff79c6">-</span>t1); 
+</span></span><span style="display:flex;"><span>        printf(<span style="color:#f1fa8c">&#34;computation on gpu %ld us</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#34;</span>, t3<span style="color:#ff79c6">-</span>t2);
+</span></span><span style="display:flex;"><span>        printf(<span style="color:#f1fa8c">&#34;write back %ld us</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#34;</span>, t4<span style="color:#ff79c6">-</span>t3);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>The result are as follows(Both on Q4 model, mistral-7b with llama, bamboo-base-7b with PowerInfer):</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Llama + 4090</th>
+<th>Llama + 7900</th>
+<th>PowerInfer + 4090</th>
+<th>PowerInfer + 7900</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Transfer to GPU</td>
+<td>4us</td>
+<td>25us</td>
+<td>0us</td>
+<td>17-71us</td>
+</tr>
+<tr>
+<td>Computation on G</td>
+<td>14us</td>
+<td>31us</td>
+<td>7us</td>
+<td>33-308us</td>
+</tr>
+<tr>
+<td>Write back</td>
+<td>1us</td>
+<td>0us</td>
+<td>14us</td>
+<td>0-1us</td>
+</tr>
+</tbody>
+</table>
+<p>This is consistent with the results we obtained from our previous tests, where 7900 performed stably and fast in the llama.cpp project and had no significant fluctuations in running time. However, the computation time fluctuation of 7900 in the PowerInfer project is severe, which is the root cause of its poor performance.</p>
+<p>Next step is to analyze why this significant fluctuations happened on the 7900 and PowerInfer project.</p>
+<p>We consider that the most likely reason is the difference caused by the different parameters passed in each op operation, so we added loop runs with the same parameters to the op operation to verify our hypothesis:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#ff79c6">static</span> <span style="color:#8be9fd">void</span> <span style="color:#50fa7b">ggml_cuda_op_mul_mat</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">const</span> ggml_tensor <span style="color:#ff79c6">*</span> src0, <span style="color:#ff79c6">const</span> ggml_tensor <span style="color:#ff79c6">*</span> src1, ggml_tensor <span style="color:#ff79c6">*</span> dst, ggml_cuda_op_mul_mat_t op,
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">const</span> <span style="color:#8be9fd">bool</span> convert_src1_to_q8_1) {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd">uint64_t</span> t1 <span style="color:#ff79c6">=</span> ggml_time_us();
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd">uint64_t</span> t2 <span style="color:#ff79c6">=</span> ggml_time_us();
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd">uint64_t</span> t3 <span style="color:#ff79c6">=</span> ggml_time_us();
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd">uint64_t</span> t4 <span style="color:#ff79c6">=</span> ggml_time_us();
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span> 		...
+</span></span><span style="display:flex;"><span>      
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4">// do the computation
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>    <span style="color:#ff79c6">for</span>(<span style="color:#8be9fd">int</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; i <span style="color:#ff79c6">&lt;</span> <span style="color:#bd93f9">7</span>; i<span style="color:#ff79c6">++</span>)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        printf(<span style="color:#f1fa8c">&#34;round %d</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#34;</span>,i);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        cudaDeviceSynchronize();
+</span></span><span style="display:flex;"><span>        t2 <span style="color:#ff79c6">=</span> ggml_time_us();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        op(src0, src1, dst, src0_dd_i, src1_ddf_i, src1_ddq_i, dst_dd_i,
+</span></span><span style="display:flex;"><span>        row_low[id], row_high[id], src1_ncols, src1_padded_col_size, stream);
+</span></span><span style="display:flex;"><span>        CUDA_CHECK(cudaGetLastError());
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        cudaDeviceSynchronize();
+</span></span><span style="display:flex;"><span>        t3 <span style="color:#ff79c6">=</span> ggml_time_us();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        printf(<span style="color:#f1fa8c">&#34;computation on gpu %ld us, src0_name: %s, src1_name: %s</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#34;</span>, t3<span style="color:#ff79c6">-</span>t2, src0<span style="color:#ff79c6">-&gt;</span>name, src1<span style="color:#ff79c6">-&gt;</span>name);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  	...
+</span></span><span style="display:flex;"><span>      
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>We got the following result:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>round <span style="color:#bd93f9">0</span>
+</span></span><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">118</span> us, src0_name: blk.0.attn_v.weight, src1_name: attn_norm-0
+</span></span><span style="display:flex;"><span>round <span style="color:#bd93f9">1</span>
+</span></span><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">35</span> us, src0_name: blk.0.attn_v.weight, src1_name: attn_norm-0
+</span></span><span style="display:flex;"><span>round <span style="color:#bd93f9">2</span>
+</span></span><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">34</span> us, src0_name: blk.0.attn_v.weight, src1_name: attn_norm-0
+</span></span><span style="display:flex;"><span>round <span style="color:#bd93f9">3</span>
+</span></span><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">34</span> us, src0_name: blk.0.attn_v.weight, src1_name: attn_norm-0
+</span></span><span style="display:flex;"><span>round <span style="color:#bd93f9">4</span>
+</span></span><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">34</span> us, src0_name: blk.0.attn_v.weight, src1_name: attn_norm-0
+</span></span><span style="display:flex;"><span>round <span style="color:#bd93f9">5</span>
+</span></span><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">34</span> us, src0_name: blk.0.attn_v.weight, src1_name: attn_norm-0
+</span></span><span style="display:flex;"><span>round <span style="color:#bd93f9">6</span>
+</span></span><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">35</span> us, src0_name: blk.0.attn_v.weight, src1_name: attn_norm-0
+</span></span><span style="display:flex;"><span>round <span style="color:#bd93f9">0</span>
+</span></span><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">97</span> us, src0_name: blk.0.attn_k.weight, src1_name: attn_norm-0
+</span></span><span style="display:flex;"><span>round <span style="color:#bd93f9">1</span>
+</span></span><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">34</span> us, src0_name: blk.0.attn_k.weight, src1_name: attn_norm-0
+</span></span><span style="display:flex;"><span>round <span style="color:#bd93f9">2</span>
+</span></span><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">34</span> us, src0_name: blk.0.attn_k.weight, src1_name: attn_norm-0
+</span></span><span style="display:flex;"><span>round <span style="color:#bd93f9">3</span>
+</span></span><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">34</span> us, src0_name: blk.0.attn_k.weight, src1_name: attn_norm-0
+</span></span><span style="display:flex;"><span>round <span style="color:#bd93f9">4</span>
+</span></span><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">34</span> us, src0_name: blk.0.attn_k.weight, src1_name: attn_norm-0
+</span></span><span style="display:flex;"><span>round <span style="color:#bd93f9">5</span>
+</span></span><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">33</span> us, src0_name: blk.0.attn_k.weight, src1_name: attn_norm-0
+</span></span><span style="display:flex;"><span>round <span style="color:#bd93f9">6</span>
+</span></span><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">34</span> us, src0_name: blk.0.attn_k.weight, src1_name: attn_norm-0
+</span></span><span style="display:flex;"><span>round <span style="color:#bd93f9">0</span>
+</span></span><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">122</span> us, src0_name: blk.0.attn_q.weight, src1_name: attn_norm-0
+</span></span><span style="display:flex;"><span>round <span style="color:#bd93f9">1</span>
+</span></span><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">26</span> us, src0_name: blk.0.attn_q.weight, src1_name: attn_norm-0
+</span></span><span style="display:flex;"><span>round <span style="color:#bd93f9">2</span>
+</span></span><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">26</span> us, src0_name: blk.0.attn_q.weight, src1_name: attn_norm-0
+</span></span><span style="display:flex;"><span>round <span style="color:#bd93f9">3</span>
+</span></span><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">25</span> us, src0_name: blk.0.attn_q.weight, src1_name: attn_norm-0
+</span></span><span style="display:flex;"><span>round <span style="color:#bd93f9">4</span>
+</span></span><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">25</span> us, src0_name: blk.0.attn_q.weight, src1_name: attn_norm-0
+</span></span><span style="display:flex;"><span>round <span style="color:#bd93f9">5</span>
+</span></span><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">25</span> us, src0_name: blk.0.attn_q.weight, src1_name: attn_norm-0
+</span></span><span style="display:flex;"><span>round <span style="color:#bd93f9">6</span>
+</span></span><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">25</span> us, src0_name: blk.0.attn_q.weight, src1_name: attn_norm-0
+</span></span><span style="display:flex;"><span>round <span style="color:#bd93f9">0</span>
+</span></span><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">67</span> us, src0_name: blk.0.attn_output.weight, src1_name: kqv_merged_cont-0
+</span></span><span style="display:flex;"><span>round <span style="color:#bd93f9">1</span>
+</span></span><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">25</span> us, src0_name: blk.0.attn_output.weight, src1_name: kqv_merged_cont-0
+</span></span><span style="display:flex;"><span>round <span style="color:#bd93f9">2</span>
+</span></span><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">24</span> us, src0_name: blk.0.attn_output.weight, src1_name: kqv_merged_cont-0
+</span></span><span style="display:flex;"><span>round <span style="color:#bd93f9">3</span>
+</span></span><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">25</span> us, src0_name: blk.0.attn_output.weight, src1_name: kqv_merged_cont-0
+</span></span><span style="display:flex;"><span>round <span style="color:#bd93f9">4</span>
+</span></span><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">25</span> us, src0_name: blk.0.attn_output.weight, src1_name: kqv_merged_cont-0
+</span></span><span style="display:flex;"><span>round <span style="color:#bd93f9">5</span>
+</span></span><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">25</span> us, src0_name: blk.0.attn_output.weight, src1_name: kqv_merged_cont-0
+</span></span><span style="display:flex;"><span>round <span style="color:#bd93f9">6</span>
+</span></span><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">25</span> us, src0_name: blk.0.attn_output.weight, src1_name: kqv_merged_cont-0
+</span></span><span style="display:flex;"><span>round <span style="color:#bd93f9">0</span>
+</span></span><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">34</span> us, src0_name: blk.0.fc1.weight, src1_name: ffn_inp-0
+</span></span><span style="display:flex;"><span>round <span style="color:#bd93f9">1</span>
+</span></span><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">21</span> us, src0_name: blk.0.fc1.weight, src1_name: ffn_inp-0
+</span></span><span style="display:flex;"><span>round <span style="color:#bd93f9">2</span>
+</span></span><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">21</span> us, src0_name: blk.0.fc1.weight, src1_name: ffn_inp-0
+</span></span><span style="display:flex;"><span>round <span style="color:#bd93f9">3</span>
+</span></span><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">21</span> us, src0_name: blk.0.fc1.weight, src1_name: ffn_inp-0
+</span></span><span style="display:flex;"><span>round <span style="color:#bd93f9">4</span>
+</span></span><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">21</span> us, src0_name: blk.0.fc1.weight, src1_name: ffn_inp-0
+</span></span><span style="display:flex;"><span>round <span style="color:#bd93f9">5</span>
+</span></span><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">21</span> us, src0_name: blk.0.fc1.weight, src1_name: ffn_inp-0
+</span></span><span style="display:flex;"><span>round <span style="color:#bd93f9">6</span>
+</span></span><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">20</span> us, src0_name: blk.0.fc1.weight, src1_name: ffn_inp-0
+</span></span><span style="display:flex;"><span>round <span style="color:#bd93f9">0</span>
+</span></span><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">49</span> us, src0_name: blk.0.fc2.weight, src1_name: mlp_pre_relu-0
+</span></span><span style="display:flex;"><span>round <span style="color:#bd93f9">1</span>
+</span></span><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">23</span> us, src0_name: blk.0.fc2.weight, src1_name: mlp_pre_relu-0
+</span></span><span style="display:flex;"><span>round <span style="color:#bd93f9">2</span>
+</span></span><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">23</span> us, src0_name: blk.0.fc2.weight, src1_name: mlp_pre_relu-0
+</span></span><span style="display:flex;"><span>round <span style="color:#bd93f9">3</span>
+</span></span><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">23</span> us, src0_name: blk.0.fc2.weight, src1_name: mlp_pre_relu-0
+</span></span><span style="display:flex;"><span>round <span style="color:#bd93f9">4</span>
+</span></span><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">23</span> us, src0_name: blk.0.fc2.weight, src1_name: mlp_pre_relu-0
+</span></span><span style="display:flex;"><span>round <span style="color:#bd93f9">5</span>
+</span></span><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">23</span> us, src0_name: blk.0.fc2.weight, src1_name: mlp_pre_relu-0
+</span></span><span style="display:flex;"><span>round <span style="color:#bd93f9">6</span>
+</span></span><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">23</span> us, src0_name: blk.0.fc2.weight, src1_name: mlp_pre_relu-0
+</span></span><span style="display:flex;"><span>round <span style="color:#bd93f9">0</span>
+</span></span><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">48</span> us, src0_name: blk.0.ffn_gate.weight, src1_name: ffn_norm-0
+</span></span><span style="display:flex;"><span>round <span style="color:#bd93f9">1</span>
+</span></span><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">27</span> us, src0_name: blk.0.ffn_gate.weight, src1_name: ffn_norm-0
+</span></span><span style="display:flex;"><span>round <span style="color:#bd93f9">2</span>
+</span></span><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">27</span> us, src0_name: blk.0.ffn_gate.weight, src1_name: ffn_norm-0
+</span></span><span style="display:flex;"><span>round <span style="color:#bd93f9">3</span>
+</span></span><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">29</span> us, src0_name: blk.0.ffn_gate.weight, src1_name: ffn_norm-0
+</span></span><span style="display:flex;"><span>round <span style="color:#bd93f9">4</span>
+</span></span><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">27</span> us, src0_name: blk.0.ffn_gate.weight, src1_name: ffn_norm-0
+</span></span><span style="display:flex;"><span>round <span style="color:#bd93f9">5</span>
+</span></span><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">27</span> us, src0_name: blk.0.ffn_gate.weight, src1_name: ffn_norm-0
+</span></span><span style="display:flex;"><span>round <span style="color:#bd93f9">6</span>
+</span></span><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">27</span> us, src0_name: blk.0.ffn_gate.weight, src1_name: ffn_norm-0
+</span></span><span style="display:flex;"><span>round <span style="color:#bd93f9">0</span>
+</span></span><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">44</span> us, src0_name: blk.0.ffn_up.weight, src1_name: ffn_norm-0
+</span></span><span style="display:flex;"><span>round <span style="color:#bd93f9">1</span>
+</span></span><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">29</span> us, src0_name: blk.0.ffn_up.weight, src1_name: ffn_norm-0
+</span></span><span style="display:flex;"><span>round <span style="color:#bd93f9">2</span>
+</span></span><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">28</span> us, src0_name: blk.0.ffn_up.weight, src1_name: ffn_norm-0
+</span></span><span style="display:flex;"><span>round <span style="color:#bd93f9">3</span>
+</span></span><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">27</span> us, src0_name: blk.0.ffn_up.weight, src1_name: ffn_norm-0
+</span></span><span style="display:flex;"><span>round <span style="color:#bd93f9">4</span>
+</span></span><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">28</span> us, src0_name: blk.0.ffn_up.weight, src1_name: ffn_norm-0
+</span></span><span style="display:flex;"><span>round <span style="color:#bd93f9">5</span>
+</span></span><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">28</span> us, src0_name: blk.0.ffn_up.weight, src1_name: ffn_norm-0
+</span></span><span style="display:flex;"><span>round <span style="color:#bd93f9">6</span>
+</span></span><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">27</span> us, src0_name: blk.0.ffn_up.weight, src1_name: ffn_norm-0
+</span></span><span style="display:flex;"><span>round <span style="color:#bd93f9">0</span>
+</span></span><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">310</span> us, src0_name: blk.0.ffn_down_t.weight, src1_name: ffn_gate_par-0
+</span></span><span style="display:flex;"><span>round <span style="color:#bd93f9">1</span>
+</span></span><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">302</span> us, src0_name: blk.0.ffn_down_t.weight, src1_name: ffn_gate_par-0
+</span></span><span style="display:flex;"><span>round <span style="color:#bd93f9">2</span>
+</span></span><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">323</span> us, src0_name: blk.0.ffn_down_t.weight, src1_name: ffn_gate_par-0
+</span></span><span style="display:flex;"><span>round <span style="color:#bd93f9">3</span>
+</span></span><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">330</span> us, src0_name: blk.0.ffn_down_t.weight, src1_name: ffn_gate_par-0
+</span></span><span style="display:flex;"><span>round <span style="color:#bd93f9">4</span>
+</span></span><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">281</span> us, src0_name: blk.0.ffn_down_t.weight, src1_name: ffn_gate_par-0
+</span></span><span style="display:flex;"><span>round <span style="color:#bd93f9">5</span>
+</span></span><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">326</span> us, src0_name: blk.0.ffn_down_t.weight, src1_name: ffn_gate_par-0
+</span></span><span style="display:flex;"><span>round <span style="color:#bd93f9">6</span>
+</span></span><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">285</span> us, src0_name: blk.0.ffn_down_t.weight, src1_name: ffn_gate_par-0
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">35</span> us, src0_name: blk.0.attn_v.weight, src1_name: attn_norm-0
+</span></span><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">34</span> us, src0_name: blk.0.attn_k.weight, src1_name: attn_norm-0
+</span></span><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">26</span> us, src0_name: blk.0.attn_q.weight, src1_name: attn_norm-0
+</span></span><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">25</span> us, src0_name: blk.0.attn_output.weight, src1_name: kqv_merged_cont-0
+</span></span><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">21</span> us, src0_name: blk.0.fc1.weight, src1_name: ffn_inp-0
+</span></span><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">23</span> us, src0_name: blk.0.fc2.weight, src1_name: mlp_pre_relu-0
+</span></span><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">27</span> us, src0_name: blk.0.ffn_gate.weight, src1_name: ffn_norm-0
+</span></span><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">29</span> us, src0_name: blk.0.ffn_up.weight, src1_name: ffn_norm-0
+</span></span><span style="display:flex;"><span>computation on gpu <span style="color:#bd93f9">302</span> us, src0_name: blk.0.ffn_down_t.weight, src1_name: ffn_gate_par-0
+</span></span></code></pre></div><p>At this point, the problem has finally narrowed down to the specific operator problem, which is the sparse operator problem independently implemented in the PowerInfer project.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#ff79c6">static</span> <span style="color:#8be9fd">void</span> <span style="color:#50fa7b">dequantize_axpy_vec_q4_0_cuda</span>(<span style="color:#ff79c6">const</span> <span style="color:#8be9fd">void</span> <span style="color:#ff79c6">*</span> vx, <span style="color:#ff79c6">const</span> dfloat <span style="color:#ff79c6">*</span> y, <span style="color:#8be9fd">float</span> <span style="color:#ff79c6">*</span> dst, <span style="color:#ff79c6">const</span> <span style="color:#8be9fd">int</span> ncols, <span style="color:#ff79c6">const</span> <span style="color:#8be9fd">int</span> nrows, cudaStream_t stream) {
+</span></span><span style="display:flex;"><span>    GGML_ASSERT(ncols <span style="color:#ff79c6">%</span> GGML_CUDA_DMMV_X <span style="color:#ff79c6">==</span> <span style="color:#bd93f9">0</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">const</span> <span style="color:#8be9fd">int</span> block_num_y <span style="color:#ff79c6">=</span> (nrows <span style="color:#ff79c6">+</span> GGML_CUDA_MMV_Y <span style="color:#ff79c6">-</span> <span style="color:#bd93f9">1</span>) <span style="color:#ff79c6">/</span> GGML_CUDA_MMV_Y;
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">const</span> dim3 block_nums(<span style="color:#bd93f9">1</span>, block_num_y, <span style="color:#bd93f9">1</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">const</span> dim3 block_dims(WARP_SIZE, GGML_CUDA_MMV_Y, <span style="color:#bd93f9">1</span>);
+</span></span><span style="display:flex;"><span>    dequantize_mul_mat_axpy<span style="color:#ff79c6">&lt;</span>QK4_0, QR4_0, dequantize_q4_0<span style="color:#ff79c6">&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">&lt;&lt;&lt;</span>block_nums, block_dims, ncols<span style="color:#ff79c6">*</span><span style="color:#ff79c6">sizeof</span>(<span style="color:#8be9fd">float</span>), stream<span style="color:#ff79c6">&gt;&gt;&gt;</span>(vx, y, dst, ncols, nrows);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">static</span> <span style="color:#8be9fd">void</span> <span style="color:#50fa7b">dequantize_axpy_sparse_vec_q4_0_cuda</span>(<span style="color:#ff79c6">const</span> <span style="color:#8be9fd">void</span> <span style="color:#ff79c6">*</span> vx, <span style="color:#ff79c6">const</span> dfloat <span style="color:#ff79c6">*</span> y, <span style="color:#8be9fd">float</span> <span style="color:#ff79c6">*</span> dst, <span style="color:#ff79c6">const</span> <span style="color:#8be9fd">int</span> ncols, <span style="color:#ff79c6">const</span> <span style="color:#8be9fd">int</span> nrows, cudaStream_t stream, <span style="color:#8be9fd">int</span> <span style="color:#ff79c6">*</span>lst, <span style="color:#8be9fd">float</span> <span style="color:#ff79c6">*</span>idx)  {
+</span></span><span style="display:flex;"><span>    GGML_ASSERT(ncols <span style="color:#ff79c6">%</span> GGML_CUDA_DMMV_X <span style="color:#ff79c6">==</span> <span style="color:#bd93f9">0</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">const</span> <span style="color:#8be9fd">int</span> block_num_y <span style="color:#ff79c6">=</span> (nrows <span style="color:#ff79c6">+</span> GGML_CUDA_MMV_Y <span style="color:#ff79c6">-</span> <span style="color:#bd93f9">1</span>) <span style="color:#ff79c6">/</span> GGML_CUDA_MMV_Y;
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">const</span> dim3 block_nums(<span style="color:#bd93f9">1</span>, block_num_y, <span style="color:#bd93f9">1</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">const</span> dim3 block_dims(WARP_SIZE, GGML_CUDA_MMV_Y, <span style="color:#bd93f9">1</span>);
+</span></span><span style="display:flex;"><span>    dequantize_mul_mat_axpy_sparse<span style="color:#ff79c6">&lt;</span>QK4_0, QR4_0, dequantize_q4_0<span style="color:#ff79c6">&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">&lt;&lt;&lt;</span>block_nums, block_dims, ncols<span style="color:#ff79c6">*</span><span style="color:#ff79c6">sizeof</span>(<span style="color:#8be9fd">float</span>), stream<span style="color:#ff79c6">&gt;&gt;&gt;</span>(vx, y, dst, ncols, nrows, lst, idx);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>kernel function is:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#ff79c6">template</span> <span style="color:#ff79c6">&lt;</span><span style="color:#8be9fd">int</span> qk, <span style="color:#8be9fd">int</span> qr, dequantize_kernel_t dequantize_kernel<span style="color:#ff79c6">&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">static</span> __global__ <span style="color:#8be9fd">void</span> dequantize_mul_mat_axpy_sparse(<span style="color:#ff79c6">const</span> <span style="color:#8be9fd">void</span> <span style="color:#ff79c6">*</span> __restrict__ vx, <span style="color:#ff79c6">const</span> dfloat <span style="color:#ff79c6">*</span> __restrict__ y, <span style="color:#8be9fd">float</span> <span style="color:#ff79c6">*</span> __restrict__ dst, <span style="color:#ff79c6">const</span> <span style="color:#8be9fd">int</span> ncols, <span style="color:#ff79c6">const</span> <span style="color:#8be9fd">int</span> nrows, <span style="color:#8be9fd">int</span> <span style="color:#ff79c6">*</span>lst, <span style="color:#8be9fd">float</span> <span style="color:#ff79c6">*</span>idx) {
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">const</span> <span style="color:#8be9fd">int</span> gpu_row <span style="color:#ff79c6">=</span> blockIdx.y<span style="color:#ff79c6">*</span>blockDim.y <span style="color:#ff79c6">+</span> threadIdx.y;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">if</span> (gpu_row <span style="color:#ff79c6">&gt;=</span> nrows) {
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd">int</span> row <span style="color:#ff79c6">=</span> lst <span style="color:#ff79c6">?</span> lst[gpu_row] <span style="color:#ff79c6">:</span> gpu_row;
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">const</span> <span style="color:#8be9fd">int</span> tid <span style="color:#ff79c6">=</span> threadIdx.x;
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd">short</span> <span style="color:#ff79c6">*</span>d <span style="color:#ff79c6">=</span> (<span style="color:#8be9fd">short</span> <span style="color:#ff79c6">*</span>)((<span style="color:#8be9fd">char</span> <span style="color:#ff79c6">*</span>)vx <span style="color:#ff79c6">+</span> ncols <span style="color:#ff79c6">*</span> gpu_row <span style="color:#ff79c6">*</span> <span style="color:#bd93f9">2</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">if</span> (y[row] <span style="color:#ff79c6">==</span> <span style="color:#bd93f9">0</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">if</span> (idx[row] <span style="color:#ff79c6">&lt;</span> dev_sparse_threshold) {
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">const</span> <span style="color:#8be9fd">int</span> bid <span style="color:#ff79c6">=</span> blockIdx.y;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">extern</span> __shared__ <span style="color:#8be9fd">float</span> shared_dst[];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">const</span> <span style="color:#8be9fd">int</span> iter_stride <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">2</span><span style="color:#ff79c6">*</span>GGML_CUDA_DMMV_X;
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">const</span> <span style="color:#8be9fd">int</span> vals_per_iter <span style="color:#ff79c6">=</span> iter_stride <span style="color:#ff79c6">/</span> WARP_SIZE;
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">const</span> <span style="color:#8be9fd">int</span> y_offset <span style="color:#ff79c6">=</span> qr <span style="color:#ff79c6">==</span> <span style="color:#bd93f9">1</span> <span style="color:#ff79c6">?</span> <span style="color:#bd93f9">1</span> <span style="color:#ff79c6">:</span> qk<span style="color:#ff79c6">/</span><span style="color:#bd93f9">2</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">// partial sum for each thread
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>    <span style="color:#8be9fd">float</span> tmp <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0.0f</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd">int</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; i <span style="color:#ff79c6">&lt;</span> ncols; i <span style="color:#ff79c6">+=</span> GGML_CUDA_DMMV_X) {
+</span></span><span style="display:flex;"><span>        shared_dst[i<span style="color:#ff79c6">+</span>tid] <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    __syncthreads();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd">int</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; i <span style="color:#ff79c6">&lt;</span> ncols; i <span style="color:#ff79c6">+=</span> iter_stride) {
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">const</span> <span style="color:#8be9fd">int</span> col <span style="color:#ff79c6">=</span> i <span style="color:#ff79c6">+</span> vals_per_iter<span style="color:#ff79c6">*</span>tid;
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">const</span> <span style="color:#8be9fd">int</span> ib <span style="color:#ff79c6">=</span> (gpu_row<span style="color:#ff79c6">*</span>ncols <span style="color:#ff79c6">+</span> col)<span style="color:#ff79c6">/</span>qk; <span style="color:#6272a4">// x block index
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>        <span style="color:#ff79c6">const</span> <span style="color:#8be9fd">int</span> iqs <span style="color:#ff79c6">=</span> (col<span style="color:#ff79c6">%</span>qk)<span style="color:#ff79c6">/</span>qr; <span style="color:#6272a4">// x quant index
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>        <span style="color:#ff79c6">const</span> <span style="color:#8be9fd">int</span> iybs <span style="color:#ff79c6">=</span> col <span style="color:#ff79c6">-</span> col<span style="color:#ff79c6">%</span>qk; <span style="color:#6272a4">// y block start index
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">// processing &gt;2 values per i iter is faster for fast GPUs
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span><span style="color:#ff79c6">#pragma unroll
+</span></span></span><span style="display:flex;"><span><span style="color:#ff79c6"></span>        <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd">int</span> j <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; j <span style="color:#ff79c6">&lt;</span> vals_per_iter; j <span style="color:#ff79c6">+=</span> <span style="color:#bd93f9">2</span>) {
+</span></span><span style="display:flex;"><span>            dfloat2 v;
+</span></span><span style="display:flex;"><span>            dequantize_kernel(vx, ib, iqs <span style="color:#ff79c6">+</span> j<span style="color:#ff79c6">/</span>qr, v);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            tmp <span style="color:#ff79c6">=</span> v.x <span style="color:#ff79c6">*</span> y[row];
+</span></span><span style="display:flex;"><span>            shared_dst[iybs <span style="color:#ff79c6">+</span> iqs <span style="color:#ff79c6">+</span> j<span style="color:#ff79c6">/</span>qr <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">0</span>] <span style="color:#ff79c6">=</span> tmp;
+</span></span><span style="display:flex;"><span>            tmp <span style="color:#ff79c6">=</span> v.y <span style="color:#ff79c6">*</span> y[row];
+</span></span><span style="display:flex;"><span>            shared_dst[iybs <span style="color:#ff79c6">+</span> iqs <span style="color:#ff79c6">+</span> j<span style="color:#ff79c6">/</span>qr <span style="color:#ff79c6">+</span> y_offset] <span style="color:#ff79c6">=</span> tmp;
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    __syncthreads();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd">int</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; i <span style="color:#ff79c6">&lt;</span> ncols; i <span style="color:#ff79c6">+=</span> GGML_CUDA_DMMV_X) {
+</span></span><span style="display:flex;"><span>        atomicAdd(<span style="color:#ff79c6">&amp;</span>dst[i<span style="color:#ff79c6">+</span>tid], shared_dst[i<span style="color:#ff79c6">+</span>tid]);
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4">// dst[i+tid] = shared_dst[i+tid]
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>In this operator, I noticed that the final atomicadd operation was very suspicious, and further, I replaced it with <code>dst[i+tid] += shared_dst[i+tid]; </code> Obviously, this will yield the wrong answer, but it will validate performance issues. As we expected, after replacement, the performance has increased from <strong>40 token/s to 85 token/s</strong>. This is a very obvious bottleneck.</p>
+<p>As shown in the above figure, there is no performance difference between nvidia and amd on atomicadd, so we speculate that the root cause of the performance problem is: <strong>When multiple threads attempt to access the same position in the local memory <code>dst</code> array simultaneously, it leads to decreased concurrency, almost linearly.</strong></p>
+<p>Algorithm optimization：</p>
+<p>Before：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#ff79c6">template</span> <span style="color:#ff79c6">&lt;</span><span style="color:#8be9fd">int</span> qk, <span style="color:#8be9fd">int</span> qr, dequantize_kernel_t dequantize_kernel<span style="color:#ff79c6">&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">static</span> __global__ <span style="color:#8be9fd">void</span> dequantize_mul_mat_axpy_sparse(<span style="color:#ff79c6">const</span> <span style="color:#8be9fd">void</span> <span style="color:#ff79c6">*</span> __restrict__ vx, <span style="color:#ff79c6">const</span> dfloat <span style="color:#ff79c6">*</span> __restrict__ y, <span style="color:#8be9fd">float</span> <span style="color:#ff79c6">*</span> __restrict__ dst, <span style="color:#ff79c6">const</span> <span style="color:#8be9fd">int</span> ncols, <span style="color:#ff79c6">const</span> <span style="color:#8be9fd">int</span> nrows, <span style="color:#8be9fd">int</span> <span style="color:#ff79c6">*</span>lst, <span style="color:#8be9fd">float</span> <span style="color:#ff79c6">*</span>idx) {
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4">// qk = quantized weights per x block
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>    <span style="color:#6272a4">// qr = number of quantized weights per data value in x block
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>    <span style="color:#ff79c6">const</span> <span style="color:#8be9fd">int</span> gpu_row <span style="color:#ff79c6">=</span> blockIdx.y<span style="color:#ff79c6">*</span>blockDim.y <span style="color:#ff79c6">+</span> threadIdx.y;
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">if</span> (gpu_row <span style="color:#ff79c6">&gt;=</span> nrows) {
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd">int</span> row <span style="color:#ff79c6">=</span> lst <span style="color:#ff79c6">?</span> lst[gpu_row] <span style="color:#ff79c6">:</span> gpu_row;
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">const</span> <span style="color:#8be9fd">int</span> tid <span style="color:#ff79c6">=</span> threadIdx.x;
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd">short</span> <span style="color:#ff79c6">*</span>d <span style="color:#ff79c6">=</span> (<span style="color:#8be9fd">short</span> <span style="color:#ff79c6">*</span>)((<span style="color:#8be9fd">char</span> <span style="color:#ff79c6">*</span>)vx <span style="color:#ff79c6">+</span> ncols <span style="color:#ff79c6">*</span> gpu_row <span style="color:#ff79c6">*</span> <span style="color:#bd93f9">2</span>);
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">if</span> (y[row] <span style="color:#ff79c6">==</span> <span style="color:#bd93f9">0</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">if</span> (idx[row] <span style="color:#ff79c6">&lt;</span> dev_sparse_threshold) {
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">const</span> <span style="color:#8be9fd">int</span> bid <span style="color:#ff79c6">=</span> blockIdx.y;
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">extern</span> __shared__ <span style="color:#8be9fd">float</span> shared_dst[]; <span style="color:#6272a4">// TODO:dynamic
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">const</span> <span style="color:#8be9fd">int</span> iter_stride <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">2</span><span style="color:#ff79c6">*</span>GGML_CUDA_DMMV_X;
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">const</span> <span style="color:#8be9fd">int</span> vals_per_iter <span style="color:#ff79c6">=</span> iter_stride <span style="color:#ff79c6">/</span> WARP_SIZE; <span style="color:#6272a4">// num quantized vals per thread and i iter
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>    <span style="color:#ff79c6">const</span> <span style="color:#8be9fd">int</span> y_offset <span style="color:#ff79c6">=</span> qr <span style="color:#ff79c6">==</span> <span style="color:#bd93f9">1</span> <span style="color:#ff79c6">?</span> <span style="color:#bd93f9">1</span> <span style="color:#ff79c6">:</span> qk<span style="color:#ff79c6">/</span><span style="color:#bd93f9">2</span>;
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">// partial sum for each thread
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>    <span style="color:#8be9fd">float</span> tmp <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0.0f</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd">int</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; i <span style="color:#ff79c6">&lt;</span> ncols; i <span style="color:#ff79c6">+=</span> GGML_CUDA_DMMV_X) {
+</span></span><span style="display:flex;"><span>        shared_dst[i<span style="color:#ff79c6">+</span>tid] <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    __syncthreads();
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd">int</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; i <span style="color:#ff79c6">&lt;</span> ncols; i <span style="color:#ff79c6">+=</span> iter_stride) {
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">const</span> <span style="color:#8be9fd">int</span> col <span style="color:#ff79c6">=</span> i <span style="color:#ff79c6">+</span> vals_per_iter<span style="color:#ff79c6">*</span>tid;
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">const</span> <span style="color:#8be9fd">int</span> ib <span style="color:#ff79c6">=</span> (gpu_row<span style="color:#ff79c6">*</span>ncols <span style="color:#ff79c6">+</span> col)<span style="color:#ff79c6">/</span>qk; <span style="color:#6272a4">// x block index
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>        <span style="color:#ff79c6">const</span> <span style="color:#8be9fd">int</span> iqs <span style="color:#ff79c6">=</span> (col<span style="color:#ff79c6">%</span>qk)<span style="color:#ff79c6">/</span>qr; <span style="color:#6272a4">// x quant index
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>        <span style="color:#ff79c6">const</span> <span style="color:#8be9fd">int</span> iybs <span style="color:#ff79c6">=</span> col <span style="color:#ff79c6">-</span> col<span style="color:#ff79c6">%</span>qk; <span style="color:#6272a4">// y block start index
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span> 
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">// processing &gt;2 values per i iter is faster for fast GPUs
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span><span style="color:#ff79c6">#pragma unroll
+</span></span></span><span style="display:flex;"><span><span style="color:#ff79c6"></span>        <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd">int</span> j <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; j <span style="color:#ff79c6">&lt;</span> vals_per_iter; j <span style="color:#ff79c6">+=</span> <span style="color:#bd93f9">2</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#6272a4">// process 2 vals per j iter
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span> 
+</span></span><span style="display:flex;"><span>            <span style="color:#6272a4">// dequantize
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>            <span style="color:#6272a4">// for qr = 2 the iqs needs to increase by 1 per j iter because 2 weights per data val
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>            dfloat2 v;
+</span></span><span style="display:flex;"><span>            dequantize_kernel(vx, ib, iqs <span style="color:#ff79c6">+</span> j<span style="color:#ff79c6">/</span>qr, v);
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>            <span style="color:#6272a4">// matrix multiplication
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>            <span style="color:#6272a4">// for qr = 2 the y index needs to increase by 1 per j iter because of y_offset = qk/2
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>            tmp <span style="color:#ff79c6">=</span> v.x <span style="color:#ff79c6">*</span> y[row];
+</span></span><span style="display:flex;"><span>            shared_dst[iybs <span style="color:#ff79c6">+</span> iqs <span style="color:#ff79c6">+</span> j<span style="color:#ff79c6">/</span>qr <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">0</span>] <span style="color:#ff79c6">=</span> tmp;
+</span></span><span style="display:flex;"><span>            tmp <span style="color:#ff79c6">=</span> v.y <span style="color:#ff79c6">*</span> y[row];
+</span></span><span style="display:flex;"><span>            shared_dst[iybs <span style="color:#ff79c6">+</span> iqs <span style="color:#ff79c6">+</span> j<span style="color:#ff79c6">/</span>qr <span style="color:#ff79c6">+</span> y_offset] <span style="color:#ff79c6">=</span> tmp;
+</span></span><span style="display:flex;"><span>           
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    __syncthreads();
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd">int</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; i <span style="color:#ff79c6">&lt;</span> ncols; i <span style="color:#ff79c6">+=</span> GGML_CUDA_DMMV_X) {
+</span></span><span style="display:flex;"><span>        atomicAdd(<span style="color:#ff79c6">&amp;</span>dst[i<span style="color:#ff79c6">+</span>tid], shared_dst[i<span style="color:#ff79c6">+</span>tid]);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">static</span> <span style="color:#8be9fd">void</span> <span style="color:#50fa7b">dequantize_axpy_sparse_batch_q4_0_cuda</span>(<span style="color:#ff79c6">const</span> <span style="color:#8be9fd">void</span> <span style="color:#ff79c6">*</span> vx, <span style="color:#ff79c6">const</span> dfloat <span style="color:#ff79c6">*</span> y, <span style="color:#8be9fd">float</span> <span style="color:#ff79c6">*</span> dst, <span style="color:#ff79c6">const</span> <span style="color:#8be9fd">int</span> ncols, <span style="color:#ff79c6">const</span> <span style="color:#8be9fd">int</span> nrows, <span style="color:#8be9fd">int</span> src1_rows, <span style="color:#8be9fd">int</span> src1_ncols, cudaStream_t stream, <span style="color:#8be9fd">int</span> <span style="color:#ff79c6">*</span>lst, <span style="color:#8be9fd">float</span> <span style="color:#ff79c6">*</span>idx) {
+</span></span><span style="display:flex;"><span>    GGML_ASSERT(ncols <span style="color:#ff79c6">%</span> GGML_CUDA_DMMV_X <span style="color:#ff79c6">==</span> <span style="color:#bd93f9">0</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">const</span> <span style="color:#8be9fd">int</span> block_num_y <span style="color:#ff79c6">=</span> (nrows <span style="color:#ff79c6">+</span> GGML_CUDA_MMV_Y <span style="color:#ff79c6">-</span> <span style="color:#bd93f9">1</span>) <span style="color:#ff79c6">/</span> GGML_CUDA_MMV_Y;
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">const</span> dim3 block_nums(<span style="color:#bd93f9">1</span>, block_num_y, <span style="color:#bd93f9">1</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">const</span> dim3 block_dims(WARP_SIZE, GGML_CUDA_MMV_Y, <span style="color:#bd93f9">1</span>);
+</span></span><span style="display:flex;"><span>    dequantize_mul_mat_axpy_sparse_batch<span style="color:#ff79c6">&lt;</span>QK4_0, QR4_0, dequantize_q4_0<span style="color:#ff79c6">&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">&lt;&lt;&lt;</span>block_nums, block_dims, ncols<span style="color:#ff79c6">*</span><span style="color:#ff79c6">sizeof</span>(<span style="color:#8be9fd">float</span>), stream<span style="color:#ff79c6">&gt;&gt;&gt;</span>(vx, y, dst, ncols, nrows, src1_rows, src1_ncols, lst, idx);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>After：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#ff79c6">template</span> <span style="color:#ff79c6">&lt;</span><span style="color:#8be9fd">int</span> qk, <span style="color:#8be9fd">int</span> qr, dequantize_kernel_t dequantize_kernel<span style="color:#ff79c6">&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">static</span> __global__ <span style="color:#8be9fd">void</span> my_1col_new_dequantize_mul_mat_axpy_sparse_batch(<span style="color:#ff79c6">const</span> <span style="color:#8be9fd">void</span> <span style="color:#ff79c6">*</span> __restrict__ vx, <span style="color:#ff79c6">const</span> dfloat <span style="color:#ff79c6">*</span> __restrict__ y, <span style="color:#8be9fd">float</span> <span style="color:#ff79c6">*</span> __restrict__ dst, <span style="color:#ff79c6">const</span> <span style="color:#8be9fd">int</span> ncols, <span style="color:#ff79c6">const</span> <span style="color:#8be9fd">int</span> nrows, <span style="color:#8be9fd">int</span> <span style="color:#ff79c6">*</span>lst, <span style="color:#8be9fd">float</span> <span style="color:#ff79c6">*</span>idx) {
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4">// printf(&#34;in 1col kernel\n&#34;);
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>    <span style="color:#8be9fd">int</span> warp_id <span style="color:#ff79c6">=</span> threadIdx.y;
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd">int</span> tid <span style="color:#ff79c6">=</span> threadIdx.x <span style="color:#ff79c6">+</span> blockIdx.x <span style="color:#ff79c6">*</span> <span style="color:#bd93f9">32</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd">int</span> col <span style="color:#ff79c6">=</span> tid <span style="color:#ff79c6">*</span> <span style="color:#bd93f9">2</span>;
+</span></span><span style="display:flex;"><span>    dfloat2 v;
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd">int</span> iqs <span style="color:#ff79c6">=</span> (col <span style="color:#ff79c6">%</span> qk) <span style="color:#ff79c6">/</span> qr;
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd">float</span> tmp[<span style="color:#bd93f9">2</span>];
+</span></span><span style="display:flex;"><span>    tmp[<span style="color:#bd93f9">0</span>] <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0.0</span>;
+</span></span><span style="display:flex;"><span>    tmp[<span style="color:#bd93f9">1</span>] <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0.0</span>;
+</span></span><span style="display:flex;"><span>    __shared__ <span style="color:#8be9fd">float</span> res[<span style="color:#bd93f9">64</span>];
+</span></span><span style="display:flex;"><span>    res[threadIdx.x] <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0.0</span>;
+</span></span><span style="display:flex;"><span>    res[threadIdx.x <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">32</span>] <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0.0</span>;
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">#pragma unroll 32
+</span></span></span><span style="display:flex;"><span><span style="color:#ff79c6"></span>    <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd">int</span> row <span style="color:#ff79c6">=</span> warp_id; row <span style="color:#ff79c6">&lt;</span> nrows; row <span style="color:#ff79c6">+=</span> <span style="color:#bd93f9">32</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd">int</span> raw_row <span style="color:#ff79c6">=</span> row;
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4">// int raw_row = row;
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>        dfloat y_row <span style="color:#ff79c6">=</span> y[raw_row];
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">if</span> (y_row <span style="color:#ff79c6">==</span> <span style="color:#bd93f9">0.0</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">continue</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">const</span> <span style="color:#8be9fd">int</span> ib <span style="color:#ff79c6">=</span> (row <span style="color:#ff79c6">*</span> ncols <span style="color:#ff79c6">+</span> col) <span style="color:#ff79c6">/</span> qk;
+</span></span><span style="display:flex;"><span>        dequantize_kernel(vx, ib, iqs, v);
+</span></span><span style="display:flex;"><span>        tmp[<span style="color:#bd93f9">0</span>] <span style="color:#ff79c6">+=</span> v.x <span style="color:#ff79c6">*</span> y_row;
+</span></span><span style="display:flex;"><span>        tmp[<span style="color:#bd93f9">1</span>] <span style="color:#ff79c6">+=</span> v.y <span style="color:#ff79c6">*</span> y_row;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">const</span> <span style="color:#8be9fd">int</span> adder_loc <span style="color:#ff79c6">=</span> threadIdx.x <span style="color:#ff79c6">%</span> <span style="color:#bd93f9">16</span> <span style="color:#ff79c6">+</span> threadIdx.x <span style="color:#ff79c6">/</span> <span style="color:#bd93f9">16</span> <span style="color:#ff79c6">*</span> <span style="color:#bd93f9">32</span>;
+</span></span><span style="display:flex;"><span>    atomicAdd(res <span style="color:#ff79c6">+</span> adder_loc, tmp[<span style="color:#bd93f9">0</span>]);
+</span></span><span style="display:flex;"><span>    atomicAdd(res <span style="color:#ff79c6">+</span> adder_loc <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">16</span>, tmp[<span style="color:#bd93f9">1</span>]);
+</span></span><span style="display:flex;"><span>    __syncthreads();
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">if</span> (warp_id <span style="color:#ff79c6">&lt;=</span> <span style="color:#bd93f9">1</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd">int</span> write_back_loc <span style="color:#ff79c6">=</span> warp_id <span style="color:#ff79c6">*</span> <span style="color:#bd93f9">32</span> <span style="color:#ff79c6">+</span> threadIdx.x;
+</span></span><span style="display:flex;"><span>        dst[write_back_loc <span style="color:#ff79c6">+</span> blockIdx.x <span style="color:#ff79c6">*</span> <span style="color:#bd93f9">64</span>] <span style="color:#ff79c6">=</span> res[write_back_loc];
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">static</span> <span style="color:#8be9fd">void</span> <span style="color:#50fa7b">dequantize_axpy_sparse_vec_q4_0_cuda</span>(<span style="color:#ff79c6">const</span> <span style="color:#8be9fd">void</span> <span style="color:#ff79c6">*</span> vx, <span style="color:#ff79c6">const</span> dfloat <span style="color:#ff79c6">*</span> y, <span style="color:#8be9fd">float</span> <span style="color:#ff79c6">*</span> dst, <span style="color:#ff79c6">const</span> <span style="color:#8be9fd">int</span> ncols, <span style="color:#ff79c6">const</span> <span style="color:#8be9fd">int</span> nrows, cudaStream_t stream, <span style="color:#8be9fd">int</span> <span style="color:#ff79c6">*</span>lst, <span style="color:#8be9fd">float</span> <span style="color:#ff79c6">*</span>idx)  {
+</span></span><span style="display:flex;"><span>    GGML_ASSERT(ncols <span style="color:#ff79c6">%</span> GGML_CUDA_DMMV_X <span style="color:#ff79c6">==</span> <span style="color:#bd93f9">0</span>);
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">const</span> dim3 block_dim <span style="color:#ff79c6">=</span> dim3(<span style="color:#bd93f9">32</span>, <span style="color:#bd93f9">32</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">const</span> <span style="color:#8be9fd">int</span> block_num <span style="color:#ff79c6">=</span> ncols <span style="color:#ff79c6">/</span> <span style="color:#bd93f9">64</span>;
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>    my_1col_new_dequantize_mul_mat_axpy_sparse_batch<span style="color:#ff79c6">&lt;</span>QK4_0, QR4_0, dequantize_q4_0<span style="color:#ff79c6">&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">&lt;&lt;&lt;</span>block_num, block_dim, <span style="color:#bd93f9">0</span>, stream<span style="color:#ff79c6">&gt;&gt;&gt;</span>(vx, y, dst, ncols, nrows, lst, idx);
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="7-final-optimization-result">7. Final Optimization Result</h2>
+<p><img alt="PowerInfer_output" src="/images/PowerInfer_output.png"></p>
+<h2 id="7-future-work">7. Future Work</h2>
+<p>We avoided atomicadd as much as possible through algorithms, but the objective fact is that AMD devices perform extremely poorly in situations of high concurrency atomicadd, while Nvidia&rsquo;s support is very good. This may be due to the lack of efficiency in implementing AMD atomicadd; It may also be because the compiler under the AMD toolchain is not intelligent enough to handle similar scenarios. And finding a more specific reason is that the follow-up project is worth doing, which is enough to significantly improve the efficiency of AMD machines in general scenarios.</p>
 
     </div>
     <div class="post-footer">
@@ -548,7 +1134,8 @@
                 <div class="grow"></div>
                 <div class="built-with">
     Built with <a href="https://gohugo.io/">Hugo</a> <b>·</b> Using the <a href="https://github.com/LucasVadilho/heyo-hugo-theme">heyo</a> theme
-</div>
+    
+    </div>
             </div>
         </div>
         

@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <title>使用Github Page&#43;Hugo搭建个人主页&amp;自定义修改网页组件心得 · Zongze Li</title>
+    <meta charset="utf-8">
+    
+    <meta name="generator" content="Hugo 0.123.8">
+    <meta property="og:title" content="使用Github Page&#43;Hugo搭建个人主页&amp;自定义修改网页组件心得" />
+<meta property="og:description" content="0. 引言 博0预备役选手，终于把拖延了很久的学术主页搭建拉上日程，由于不想用完全现成且使用率太高的模板，打算浅浅学一些前端知识配合Github Page和Hugo生成器操作一番（Hugo社区有许多好看且免费的主题！）实际搭建和部署的过程主要参考博主小绵尾巴：如何用 GitHub Pages &#43; Hugo 搭建个人博客分享的教程，其中细节和注意事项非常详细，推荐大家参考。本文旨在原本教程的基础上分享一些Hugo内置组件自定义更改的心得，以实现在原本主题的基础上添加更多个性化的内容的美化目的。
+1. Hugo安装及主题本地部署 环境基于Mac OS，Windows/Linux请参考安装Hugo
+# Install Hugo with Homebrew brew install hugo # Create site folder named &#39;page&#39; hugo new site page cd page git init # Select a Hugo theme, I used &#39;Personal Web:https://themes.gohugo.io/themes/personal-web&#39; as an example git submodule add https://github.com/bjacquemet/personal-web.git themes/personal-web # Copy some files to page directory cp themes/personal-web/exampleSite/config.toml ./hugo.toml cp -r themes/personal-web/exampleSite/content ./ cp -r themes/personal-web/exampleSite/static ./ cp -r themes/personal-web/archetypes ./ # Launch in local hugo server -D 接下来根据bind adress即可在本地打开所部署的网页，一般为http://localhost:1313/
+2. Hugo重要部件解析 2.1 hugo.toml 首先我们先明确Hugo生成网页的本质，它是用 Go 语言写的静态网站生成器，核心逻辑是通过预设的参数和配置文件加上我们自己写的 Markdown 文件，将其统一转化成 HTML 文件，并将生成的网页文件都放在工作目录下的public文件夹中（如果你按照上面的流程成功部署了网页，那你一定可以在public文件夹中找到所有生成的html文件），而我们之后借助Github Page要发布的网站实际就是public文件夹中的内容。
+理解上述后，我们就可以开始自定义修改网页内容了。
+首先，最重要的配置文件就是工作目录下的hugo.toml/config.toml，大多数情况下，我们对网页80%的修改都可以通过调整这之中的参数来完成，且本文件可读性较强，大多数内容都可以直观的看懂并修改，比如示例主题中的 [params.intro], [params.main], [params.sidebar], [params." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/blog/%E4%BD%BF%E7%94%A8Github-Page&#43;Hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E4%B8%BB%E9%A1%B5%E8%87%AA%E5%AE%9A%E4%B9%89%E4%BF%AE%E6%94%B9%E7%BD%91%E9%A1%B5%E7%BB%84%E4%BB%B6%E5%BF%83%E5%BE%97/" /><meta property="og:image" content="http://localhost:1313/images/profile.png" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2024-04-09T01:48:36+08:00" />
+<meta property="article:modified_time" content="2024-04-09T01:48:36+08:00" /><meta property="og:site_name" content="Zongze Li(李宗泽)" />
+
+
+
+
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description" content="">
+    
+    
+    
+    <link rel="stylesheet" type="text/css" href="http://localhost:1313/css/style.min.e461821b5d6b458c9ced36a9610ec2335c1a1fd5b1233aed405ed17881935188.css" integrity="sha256-5GGCG11rRYyc7TapYQ7CM1waH9WxIzrtQF7ReIGTUYg=" crossorigin="anonymous" type="text/css">
+
+    
+    
+    
+    <script type="text/javascript" src="http://localhost:1313/js/heyo-header.min.a3fa728a9f57833a31dfb45c48caaf1e4890c8c97f07bd7133fc2359745edb5d.js" integrity="sha256-o/pyip9Xgzox37RcSMqvHkiQyMl/B71xM/wjWXRe210=" crossorigin="anonymous"></script>
+
+    
+    
+    <link rel="stylesheet" type="text/css" href="http://localhost:1313/css/fonts.9398921f2d404983c2b7f9a68ddc72e3f5e58a3e38b0a8e4a70d75c12ebfb7c5.css" integrity="sha256-k5iSHy1ASYPCt/mmjdxy4/Xlij44sKjkpw11wS6/t8U=" crossorigin="anonymous">
+
+    
+    
+    
+    <script type="text/javascript" src="http://localhost:1313/js/sidebar-toc.min.788b639e2ec681549740b90b3b865d5f9e1789e3ca9c06ccc45d65655434c954.js" integrity="sha256-eItjni7GgVSXQLkLO4ZdX54XiePKnAbMxF1lZVQ0yVQ=" crossorigin="anonymous"></script>
+
+    
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.min.js" defer></script>
+
+        
+        
+        <script type="text/javascript" src="http://localhost:1313/js/sketch-graph.26b92ed9317bdc6f35642d588bdf3283f40998846e01cf4bee22a126907fbf3b.js" integrity="sha256-Jrku2TF73G81ZC1Yi98yg/QJmIRuAc9L7iKhJpB/vzs=" crossorigin="anonymous" defer></script>
+
+        
+        
+        <script type="text/javascript" src="http://localhost:1313/js/sketch-digitalRain.af8a7b5c4428cc62d5bf49bf2698d4112c2459ee0c22c1c753ab304aef69888a.js" integrity="sha256-r4p7XEQozGLVv0m/JpjUESwkWe4MIsHHU6swSu9piIo=" crossorigin="anonymous" defer></script>
+
+        
+        
+        <script type="text/javascript" src="http://localhost:1313/js/sketch-circleBrushStrokes.fe8fc3ee52e1d90e9236be8c36a27711efa024beb4da304829f95dfbb61d6e84.js" integrity="sha256-/o/D7lLh2Q6SNr6MNqJ3Ee&#43;gJL602jBIKfld&#43;7YdboQ=" crossorigin="anonymous" defer></script>
+
+        
+        
+        <script type="text/javascript" src="http://localhost:1313/js/sketch-meta.71b5202ea881c86ac19e4b55414656a5444204a4ba08ff7368a5aa99c0a60949.js" integrity="sha256-cbUgLqiByGrBnktVQUZWpURCBKS6CP9zaKWqmcCmCUk=" crossorigin="anonymous" defer></script>
+
+        
+        
+        <script type="text/javascript" src="http://localhost:1313/js/sidebar-sketch.min.2e95015880993ef9abcad62d111decea22406616931bce193254bf8af2339953.js" integrity="sha256-LpUBWICZPvmrytYtER3s6iJAZhaTG84ZMlS/ivIzmVM=" crossorigin="anonymous" defer></script>
+    
+    
+    
+    <link rel="shortcut icon" href="http://localhost:1313/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:1313/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicons/favicon-16x16.png">
+    <link rel="canonical" href="http://localhost:1313/blog/%E4%BD%BF%E7%94%A8Github-Page&#43;Hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E4%B8%BB%E9%A1%B5%E8%87%AA%E5%AE%9A%E4%B9%89%E4%BF%AE%E6%94%B9%E7%BD%91%E9%A1%B5%E7%BB%84%E4%BB%B6%E5%BF%83%E5%BE%97/">
+    
+    
+    
+    
+    
+
+    
+    <meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="http://localhost:1313/images/profile.png" /><meta name="twitter:title" content="使用Github Page&#43;Hugo搭建个人主页&amp;自定义修改网页组件心得"/>
+<meta name="twitter:description" content="0. 引言 博0预备役选手，终于把拖延了很久的学术主页搭建拉上日程，由于不想用完全现成且使用率太高的模板，打算浅浅学一些前端知识配合Github Page和Hugo生成器操作一番（Hugo社区有许多好看且免费的主题！）实际搭建和部署的过程主要参考博主小绵尾巴：如何用 GitHub Pages &#43; Hugo 搭建个人博客分享的教程，其中细节和注意事项非常详细，推荐大家参考。本文旨在原本教程的基础上分享一些Hugo内置组件自定义更改的心得，以实现在原本主题的基础上添加更多个性化的内容的美化目的。
+1. Hugo安装及主题本地部署 环境基于Mac OS，Windows/Linux请参考安装Hugo
+# Install Hugo with Homebrew brew install hugo # Create site folder named &#39;page&#39; hugo new site page cd page git init # Select a Hugo theme, I used &#39;Personal Web:https://themes.gohugo.io/themes/personal-web&#39; as an example git submodule add https://github.com/bjacquemet/personal-web.git themes/personal-web # Copy some files to page directory cp themes/personal-web/exampleSite/config.toml ./hugo.toml cp -r themes/personal-web/exampleSite/content ./ cp -r themes/personal-web/exampleSite/static ./ cp -r themes/personal-web/archetypes ./ # Launch in local hugo server -D 接下来根据bind adress即可在本地打开所部署的网页，一般为http://localhost:1313/
+2. Hugo重要部件解析 2.1 hugo.toml 首先我们先明确Hugo生成网页的本质，它是用 Go 语言写的静态网站生成器，核心逻辑是通过预设的参数和配置文件加上我们自己写的 Markdown 文件，将其统一转化成 HTML 文件，并将生成的网页文件都放在工作目录下的public文件夹中（如果你按照上面的流程成功部署了网页，那你一定可以在public文件夹中找到所有生成的html文件），而我们之后借助Github Page要发布的网站实际就是public文件夹中的内容。
+理解上述后，我们就可以开始自定义修改网页内容了。
+首先，最重要的配置文件就是工作目录下的hugo.toml/config.toml，大多数情况下，我们对网页80%的修改都可以通过调整这之中的参数来完成，且本文件可读性较强，大多数内容都可以直观的看懂并修改，比如示例主题中的 [params.intro], [params.main], [params.sidebar], [params."/>
+
+</head><body>
+        <div class="main">
+            <div class="page-top">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false" >
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    <ul class="nav" id="navMenu">
+        
+        
+            
+            <li><a  href="/"  title="">About</a></li>
+        
+            
+            <li><a  href="/project/"  title="">Projects</a></li>
+        
+            
+            <li><a  href="/blog/"  title="">Blog</a></li>
+        
+            
+            <li><a  href="/Doc/CV_Zongze_Li.pdf"  title="">CV</a></li>
+        
+        <li class="grow"></li>
+        
+        <li>
+            <a class="theme-switch" title="Switch Theme">
+                <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+            <div class="sidebar" id="sidebar">
+    
+    
+    <div class="middle-sidebar grow" id="middle-sidebar">
+        
+            
+            
+                
+            
+
+            
+                
+                
+                
+                
+                <div
+                    id="sidebar-sketch"
+                    data-sketch="Graph"
+                    data-sketch-starting="{
+    &#34;kind&#34;: &#34;katakana&#34;,
+    &#34;nStreams&#34;: 10
+  }"
+                    data-sketch-show-hover="false"></div>
+            
+        
+    </div>
+
+    <div class="footer">
+        <ul class="social-links">
+            
+            <li>
+                <a href="https://www.linkedin.com/in/zongze-li-45710a2a8/" target="_blank" rel="noopener noreferrer" rel="me" aria-label="Linkedin">
+                    <i class="fab fa-linkedin" aria-hidden="true"></i>
+                </a>
+            </li>
+            
+            <li>
+                <a href="https://github.com/freelulul" target="_blank" rel="noopener noreferrer" rel="me" aria-label="GitHub">
+                    <i class="fab fa-github" aria-hidden="true"></i>
+                </a>
+            </li>
+            
+            <li>
+                <a href="https://www.instagram.com/freelulul/" target="_blank" rel="noopener noreferrer" rel="me" aria-label="Instagram">
+                    <i class="fab fa-instagram" aria-hidden="true"></i>
+                </a>
+            </li>
+            
+            <li>
+                <a href="https://t.me/freelulul" target="_blank" rel="noopener noreferrer" rel="me" aria-label="Telegram">
+                    <i class="fab fa-telegram" aria-hidden="true"></i>
+                </a>
+            </li>
+            
+            <li>
+                <a href="mailto:zongzel@uchicago.edu" target="_blank" rel="noopener noreferrer" rel="me" aria-label="E-mail">
+                    <i class="fas fa-envelope" aria-hidden="true"></i>
+                </a>
+            </li>
+            
+        </ul>
+
+        <div class="by">2024 <b>·</b> Zongze Li</div>
+    </div>
+</div>
+            <div class="content">
+<div class="post">
+    
+    <div class="post-title">
+        <h1>使用Github Page&#43;Hugo搭建个人主页&amp;自定义修改网页组件心得</h1>
+        
+            <div class="post-header">
+    <div style="padding-top: 10px;">
+        <i class="far fa-calendar"></i><span class="date">Apr 9, 2024</span>
+        <i class="far fa-clock"></i><span class="reading-time">3 minutes</span>
+        
+
+
+    </div>
+</div>
+            
+            
+        
+    </div>
+    <div class="post-content">
+        <h1 id="0-引言">0. 引言</h1>
+<p>博0预备役选手，终于把拖延了很久的学术主页搭建拉上日程，由于不想用完全现成且使用率太高的模板，打算浅浅学一些前端知识配合Github Page和Hugo生成器操作一番（<a href="https://themes.gohugo.io/">Hugo社区</a>有许多好看且免费的主题！）实际搭建和部署的过程主要参考博主<a href="https://cuttontail.blog/blog/create-a-wesite-using-github-pages-and-hugo/#10-reference">小绵尾巴：如何用 GitHub Pages + Hugo 搭建个人博客</a>分享的教程，其中细节和注意事项非常详细，推荐大家参考。本文旨在原本教程的基础上分享一些Hugo内置组件自定义更改的心得，以实现在原本主题的基础上添加更多个性化的内容的美化目的。</p>
+<h2 id="1-hugo安装及主题本地部署">1. Hugo安装及主题本地部署</h2>
+<p>环境基于Mac OS，Windows/Linux请参考<a href="https://gohugo.io/installation/">安装Hugo</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#6272a4"># Install Hugo with Homebrew</span>
+</span></span><span style="display:flex;"><span>brew install hugo
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># Create site folder named &#39;page&#39;</span>
+</span></span><span style="display:flex;"><span>hugo new site page
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">cd</span> page
+</span></span><span style="display:flex;"><span>git init
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># Select a Hugo theme, I used &#39;Personal Web:https://themes.gohugo.io/themes/personal-web&#39; as an example</span>
+</span></span><span style="display:flex;"><span>git submodule add https://github.com/bjacquemet/personal-web.git themes/personal-web
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># Copy some files to page directory</span>
+</span></span><span style="display:flex;"><span>cp themes/personal-web/exampleSite/config.toml ./hugo.toml
+</span></span><span style="display:flex;"><span>cp -r themes/personal-web/exampleSite/content ./
+</span></span><span style="display:flex;"><span>cp -r themes/personal-web/exampleSite/static ./
+</span></span><span style="display:flex;"><span>cp -r themes/personal-web/archetypes ./
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># Launch in local</span>
+</span></span><span style="display:flex;"><span>hugo server -D
+</span></span></code></pre></div><p>接下来根据bind adress即可在本地打开所部署的网页，一般为http://localhost:1313/</p>
+<h2 id="2-hugo重要部件解析">2. Hugo重要部件解析</h2>
+<h3 id="21-hugotoml">2.1 hugo.toml</h3>
+<p>首先我们先明确Hugo生成网页的本质，它是用 Go 语言写的静态网站生成器，核心逻辑是通过预设的参数和配置文件加上我们自己写的 Markdown 文件，将其统一转化成 HTML 文件，并将生成的网页文件都放在工作目录下的public文件夹中（如果你按照上面的流程成功部署了网页，那你一定可以在public文件夹中找到所有生成的html文件），而我们之后借助Github Page要发布的网站实际就是public文件夹中的内容。</p>
+<p>理解上述后，我们就可以开始自定义修改网页内容了。</p>
+<p>首先，最重要的配置文件就是工作目录下的hugo.toml/config.toml，大多数情况下，我们对网页80%的修改都可以通过调整这之中的参数来完成，且本文件可读性较强，大多数内容都可以直观的看懂并修改，比如示例主题中的 <em>[params.intro]</em>, <em>[params.main]</em>, <em>[params.sidebar]</em>, <em>[params.social]</em>, <em>[params.contact]</em> 等可以用来修改网页上展示的自我介绍、主题、联系方式、侧边栏信息/颜色等。而在[menu] section中，我们可以很容易地对应到，这就是网页上可以跳转的其他目录的接口：</p>
+<p><img alt="web_exp1" src="/images/web_exp1.png"></p>
+<p>至于menu中实例的参数：identifier为标识符，用来区别title相同但内容不同的板块；name为显示在网页上的模块名称；url为板块链接，可以为外部链接也可以是内部链接，内部链接默认根目录 &lsquo;/&rsquo; 为/content；weight可以理解为板块在视图中的相对位置。</p>
+<p>此部分详细文档见：<a href="https://gohugo.io/getting-started/configuration/">configuration</a></p>
+<h3 id="22-content">2.2 /content</h3>
+<p>/content 目录为组成我们文档、博客的核心部分，本主题中其架构如下：</p>
+<p><img alt="web_exp3" src="/images/web_exp3.png"></p>
+<p>十分清晰的结构：最外层_index.md对应Home下Markdown的文件内容；三个文件夹about，portfolio，post分别对应三个menu，其中的Markdown文件则对应每个menu下独立的子内容。</p>
+<p>我们可以通过例如：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>hugo new ./post/xxx.md
+</span></span></code></pre></div><p>来在post section中增加文章。</p>
+<p>这部分需要注意的是每个Markdown文件的开头，都会有一段信息（Front matter），比如sample-project下的：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-markdown" data-lang="markdown"><span style="display:flex;"><span>title: Sample project
+</span></span><span style="display:flex;"><span>description: This is the description of our sample project
+</span></span><span style="display:flex;"><span>date: &#34;2019-05-02T19:47:09+02:00&#34;
+</span></span><span style="display:flex;"><span>jobDate: 2019
+</span></span><span style="display:flex;"><span>work: [design, architecture]
+</span></span><span style="display:flex;"><span>techs: [javascript, D3]
+</span></span><span style="display:flex;"><span>designs: [Photoshop]
+</span></span><span style="display:flex;"><span>thumbnail: sample-project/sample.jpg
+</span></span><span style="display:flex;"><span>projectUrl: https://www.sampleorganization.org
+</span></span><span style="display:flex;"><span>testimonial:
+</span></span><span style="display:flex;"><span>  name: John Doe
+</span></span><span style="display:flex;"><span>  role: CEO @Example
+</span></span><span style="display:flex;"><span>  image: sample-project/john.jpg
+</span></span><span style="display:flex;"><span>  text: Prow scuttle parrel provost Sail ho shrouds spirits boom mizzenmast yardarm. Pinnace holystone mizzenmast quarter crow&#39;s nest nipperkin
+</span></span></code></pre></div><p>这些信息会在后续HTMl render时起到重要作用，也是决定这篇post（markdown文件）如何转化为HTML的核心标识。我们可以通过改变/增删其中的内容来改变最终生成HTML的样子。</p>
+<p>此部分详细文档见：<a href="https://gohugo.io/content-management/front-matter/">front-matter</a></p>
+<p>了解以上这些已经足够将初始网页的内容全部自定义化为自己的信息，但如果想要进行更细的微调，还需要搞明白本身theme中的组件。</p>
+<h3 id="23-themesperson-web">2.3 themes/person-web</h3>
+<h4 id="231-架构">2.3.1 架构</h4>
+<p>原主题文件架构如下：</p>
+<p><img alt="web_exp2" src="/images/web_exp2.png"></p>
+<p>分别解析一下每个文件夹的内容：</p>
+<p>archetypes：规定通过 <em>hugo new</em> 指令生成markdown文件中front matter的格式。
+详见：<a href="https://gohugo.io/content-management/archetypes/">archetypes</a></p>
+<p>assets：储存布局信息，通常包括一些CSS，Js文件
+CSS(层叠样式表):用于定义网页的样式和布局, 通常被用来美化网页, 提高用户体验和页面可读性
+JavaScript(Js):是一种用于网页交互的脚本语言, 它可以用于实现动态效果、响应用户操作、修改网页内容等</p>
+<p>exampleSite：储存示例网页的内容（后续基本不会再用到这部分）</p>
+<p>images &amp; static：储存静态文件</p>
+<h4 id="232-layouts">2.3.2 layouts</h4>
+<p>layouts文件是网页组件的核心部分，其结构如下</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>./themes/personal-web/layouts
+</span></span><span style="display:flex;"><span>├── 404.html
+</span></span><span style="display:flex;"><span>├── _default
+</span></span><span style="display:flex;"><span>│   ├── baseof.html
+</span></span><span style="display:flex;"><span>│   ├── li.html
+</span></span><span style="display:flex;"><span>│   ├── list.html
+</span></span><span style="display:flex;"><span>│   └── single.html
+</span></span><span style="display:flex;"><span>├── designs
+</span></span><span style="display:flex;"><span>│   ├── list.html
+</span></span><span style="display:flex;"><span>│   └── terms.html
+</span></span><span style="display:flex;"><span>├── index.html
+</span></span><span style="display:flex;"><span>├── partials
+</span></span><span style="display:flex;"><span>│   ├── breadcrumb.html
+</span></span><span style="display:flex;"><span>│   ├── footer.html
+</span></span><span style="display:flex;"><span>│   ├── head
+</span></span><span style="display:flex;"><span>│   │   ├── head.html
+</span></span><span style="display:flex;"><span>│   │   ├── meta.html
+</span></span><span style="display:flex;"><span>│   │   └── style.html
+</span></span><span style="display:flex;"><span>│   ├── header.html
+</span></span><span style="display:flex;"><span>│   ├── portfolio
+</span></span><span style="display:flex;"><span>│   │   ├── item.html
+</span></span><span style="display:flex;"><span>│   │   ├── tags.html
+</span></span><span style="display:flex;"><span>│   │   └── testimonial.html
+</span></span><span style="display:flex;"><span>│   ├── post
+</span></span><span style="display:flex;"><span>│   │   ├── information.html
+</span></span><span style="display:flex;"><span>│   │   └── item.html
+</span></span><span style="display:flex;"><span>│   ├── sidebar
+</span></span><span style="display:flex;"><span>│   │   ├── menu.html
+</span></span><span style="display:flex;"><span>│   │   ├── sidebar.html
+</span></span><span style="display:flex;"><span>│   │   ├── social.html
+</span></span><span style="display:flex;"><span>│   │   └── style.html
+</span></span><span style="display:flex;"><span>│   └── svg.html
+</span></span><span style="display:flex;"><span>├── portfolio
+</span></span><span style="display:flex;"><span>│   ├── list.html
+</span></span><span style="display:flex;"><span>│   └── single.html
+</span></span><span style="display:flex;"><span>├── post
+</span></span><span style="display:flex;"><span>│   ├── list.html
+</span></span><span style="display:flex;"><span>│   └── single.html
+</span></span><span style="display:flex;"><span>├── robots.txt
+</span></span><span style="display:flex;"><span>├── shortcodes
+</span></span><span style="display:flex;"><span>│   ├── emoji.html
+</span></span><span style="display:flex;"><span>│   └── tweet-single.html
+</span></span><span style="display:flex;"><span>└── techs
+</span></span><span style="display:flex;"><span>    ├── list.html
+</span></span><span style="display:flex;"><span>    └── terms.html
+</span></span></code></pre></div><p>一层一层来看，首先是最外层的index.html和404.html。</p>
+<p>404.html顾名思义，是404界面的情况下的前端显示。</p>
+<p>index.html则对应初始网页的页面布局。
+什么是初始网页？即打开你的域名一开始弹出的界面，本地部署时也即http://localhost:1313/所展示的界面。可以做一个小实验，把index.html整个注释掉，你会发现http://localhost:1313/打开是空的，但只要你打开的是http://localhost:1313/post，那么网页就还会正常显示。
+一般来说这部分是你打算让访问你网站的人第一眼看到的内容，很值得自由发挥一下。</p>
+<p>接下来就是众多文件夹，看到这么多一开始总会让人头大，但是我们可以抓住其中出现最多的list.html和single.html。事实上，Hugo中组织自己的文章时主要就有两种方法：文件夹和文件。而两种组织方法显然分别需要两种前端格式来呈现，顾名思义，list.html对应了文件夹文档的前端呈现，single.html对应了文件夹中子文件（也即文章）的前端呈现。</p>
+<p>这样我们再返回去看，结构就会清晰起来。</p>
+<p>portfolio，post两部分分别规定了<strong>两个menu的组织方式</strong>，以post为例：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>{{ partial &#34;header&#34; .}}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#ff79c6">h1</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;title&#34;</span>&gt; {{ .Title }}&lt;/<span style="color:#ff79c6">h1</span>&gt;
+</span></span><span style="display:flex;"><span>  {{ .Content }}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#ff79c6">div</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;post-list&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    {{ range .Pages.ByPublishDate.Reverse }}
+</span></span><span style="display:flex;"><span>      {{ partial &#34;post/item&#34; .}}
+</span></span><span style="display:flex;"><span>    {{ end }}
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#ff79c6">div</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>{{ partial &#34;footer&#34; .}}
+</span></span></code></pre></div><p><img alt="web_exp4" src="/images/web_exp4.png"></p>
+<p>和对应里面每个<strong>子文件的组织方式</strong>，以post为例：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>{{ partial &#34;header&#34; .}}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#ff79c6">h1</span>&gt;{{ .Title }}&lt;/<span style="color:#ff79c6">h1</span>&gt;
+</span></span><span style="display:flex;"><span>{{ partial &#34;post/information&#34; . }}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>{{ .Content }}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>{{ partial &#34;footer&#34; .}}
+</span></span></code></pre></div><p><img alt="web_exp5" src="/images/web_exp5.png"></p>
+<p>紧接着，我们可以发现menu的html中似乎调用到了partials内的内容。我们又可以发现partials中也有很多子模块：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>./themes/personal-web/layouts/partials
+</span></span><span style="display:flex;"><span>├── breadcrumb.html
+</span></span><span style="display:flex;"><span>├── footer.html
+</span></span><span style="display:flex;"><span>├── head
+</span></span><span style="display:flex;"><span>│   ├── head.html
+</span></span><span style="display:flex;"><span>│   ├── meta.html
+</span></span><span style="display:flex;"><span>│   └── style.html
+</span></span><span style="display:flex;"><span>├── header.html
+</span></span><span style="display:flex;"><span>├── portfolio
+</span></span><span style="display:flex;"><span>│   ├── item.html
+</span></span><span style="display:flex;"><span>│   ├── tags.html
+</span></span><span style="display:flex;"><span>│   └── testimonial.html
+</span></span><span style="display:flex;"><span>├── post
+</span></span><span style="display:flex;"><span>│   ├── information.html
+</span></span><span style="display:flex;"><span>│   └── item.html
+</span></span><span style="display:flex;"><span>├── sidebar
+</span></span><span style="display:flex;"><span>│   ├── menu.html
+</span></span><span style="display:flex;"><span>│   ├── sidebar.html
+</span></span><span style="display:flex;"><span>│   ├── social.html
+</span></span><span style="display:flex;"><span>│   └── style.html
+</span></span><span style="display:flex;"><span>└── svg.html
+</span></span></code></pre></div><p>只要稍微在网页中通过F12查看元素名称+查看文件内的调用逻辑。我们就可以明白这是更细粒度模块的html文件。用户可以通过类似搭积木的方式自由组合/增删需要的组件。</p>
+<p>至于default里则是规定了非已有archive（如portfolio，post）等页面的默认组织方式。</p>
+<p>至此，我们就基本掌握了整个主题中重要组件的运行逻辑。</p>
+<h2 id="3-html编程">3. .html编程</h2>
+<p>这部分不做重点陈述，因为相信大多数人如果利用Hugo自建网页应该并没有重构所有代码部分的需求。我们在了解了上述所有文件组成的意义后，想要修改某部分内容时，只需定位到具体的.html文件，读懂代码意义即可自由改动。读懂代码意义以及编程可通过AI工具（如<a href="https://chat.openai.com/">GPT</a>），或参考<a href="https://gohugo.io/templates/">原文档</a>来完成。</p>
+<h2 id="4-github-page发布">4. Github Page发布</h2>
+<p>当本地调试完网页后，即可发布在Github Page中</p>
+<p>首先创建仓库，命名为 <em>username.github.io</em>， <em>username</em> 是自己的 GitHub 的用户名，同时勾选Public和Add a README file</p>
+<p>然后利用Hugo帮我们生成的/page/public 来部署网页</p>
+<p>记得要把工作目录下的 hugo.toml 文件中开头位置的 baseURL 设置为 <code>https://username.github.io</code>（如果有自己的域名，改为自己的域名即可）</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">cd</span> ./public
+</span></span><span style="display:flex;"><span>git init -b main
+</span></span><span style="display:flex;"><span>git remote add origin https://github.com/username/username.github.io.git
+</span></span><span style="display:flex;"><span>git pull --rebase origin main
+</span></span><span style="display:flex;"><span>git add .
+</span></span><span style="display:flex;"><span>git commit -m <span style="color:#f1fa8c">&#34;startup&#34;</span>
+</span></span><span style="display:flex;"><span>git push origin main
+</span></span></code></pre></div><p>完成后只要通过访问 <code>https://username.github.io</code> 即可访问自己的网站啦</p>
+<h2 id="5-结语">5. 结语</h2>
+<p>本文主要以记录回顾和分享为主，由于个人没有前端开发经验，所以其中一些描述可能并不精准，如有错误欢迎指出：)</p>
+
+    </div>
+    <div class="post-footer">
+        <div class="info">
+            
+            
+        </div>
+        
+
+
+    </div>
+    
+        
+    
+</div>
+
+                <div class="grow"></div>
+                <div class="built-with">
+    Built with <a href="https://gohugo.io/">Hugo</a> <b>·</b> Using the <a href="https://github.com/LucasVadilho/heyo-hugo-theme">heyo</a> theme
+    
+    </div>
+            </div>
+        </div>
+        
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha512-3M00D/rn8n+2ZVXBO9Hib0GKNpkm8MSUU/e2VNthDyBYxKWG+BftNYYcuEjXlyrSO637tidzMBXfE7sQm0INUg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<script type="text/javascript">
+            
+            
+            window.MathJax = {
+                tex: {
+                    inlineMath: [['$', '$'], ['\\(', '\\)']],
+                    displayMath: [['$$','$$'], ['\\[', '\\]']]
+                },
+                svg: {
+                    scale: 1.25,
+                }
+            };
+        </script><script defer type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.1.0/es5/tex-mml-svg.min.js" integrity="sha512-/mL9Gs6E5Bz6NtPOr9eY&#43;T8IIdJbo2JL3TudApzFFelwBXEc3TeFLU6kPq122TJROv7jkktuBRkz5h8vGzrsyA==" crossorigin="anonymous"></script>
+    </body>
+</html>

@@ -8,21 +8,28 @@
     <language>en</language>
     <managingEditor>zongzel@uchicago.edu (Zongze Li)</managingEditor>
     <webMaster>zongzel@uchicago.edu (Zongze Li)</webMaster>
-    <lastBuildDate>Fri, 05 Apr 2024 01:48:36 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 15 Apr 2024 01:44:02 +0800</lastBuildDate>
     <atom:link href="http://localhost:1313/blog/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>PowerInfer_AMD_Degub</title>
-      <link>http://localhost:1313/blog/PowerInfer_AMD_Degub/</link>
-      <pubDate>Fri, 05 Apr 2024 01:48:36 +0800</pubDate><author>zongzel@uchicago.edu (Zongze Li)</author>
-      <guid>http://localhost:1313/blog/PowerInfer_AMD_Degub/</guid>
-      <description>Environment: PyTorch version: 2.2.0a0+gitd925d94 Is debug build: False CUDA used to build PyTorch: N/A ROCM used to build PyTorch: 6.0.32830-d62f6a171 OS: Ubuntu 20.04.6 LTS (x86_64) GCC version: (Ubuntu 9.4.0-1ubuntu1~20.04.2) 9.4.0 Clang version: 17.0.0 (https://github.com/RadeonOpenCompute/llvm-project roc-6.0.0 23483 7208e8d15fbf218deb74483ea8c549c67ca4985e) CMake version: version 3.26.4 Libc version: glibc-2.31 Python version: 3.9.18 (main, Sep 11 2023, 13:41:44) [GCC 11.2.0] (64-bit runtime) Python platform: Linux-6.2.0-060200-generic-x86_64-with-glibc2.31 Is CUDA available: True CUDA runtime version: Could not collect CUDA_MODULE_LOADING set to: LAZY GPU models and configuration: Radeon RX 7900 XTX Nvidia driver version: Could not collect cuDNN version: Could not collect HIP runtime version: 6.0.32830 MIOpen runtime version: 3.0.0 Is XNNPACK available: True CPU: Architecture: x86_64 CPU op-mode(s): 32-bit, 64-bit Byte Order: Little Endian Address sizes: 48 bits physical, 48 bits virtual CPU(s): 24 On-line CPU(s) list: 0-23 Thread(s) per core: 2 Core(s) per socket: 12 Socket(s): 1 NUMA node(s): 1 Vendor ID: AuthenticAMD CPU family: 25 Model: 97 Model name: AMD Ryzen 9 7900X 12-Core Processor Stepping: 2 Frequency boost: enabled CPU MHz: 3000.</description>
-    </item>
     <item>
       <title>PowerInfer_AMD_Optimization</title>
       <link>http://localhost:1313/blog/PowerInfer_AMD_Optimization/</link>
-      <pubDate>Fri, 05 Apr 2024 01:44:02 +0800</pubDate><author>zongzel@uchicago.edu (Zongze Li)</author>
+      <pubDate>Mon, 15 Apr 2024 01:44:02 +0800</pubDate><author>zongzel@uchicago.edu (Zongze Li)</author>
       <guid>http://localhost:1313/blog/PowerInfer_AMD_Optimization/</guid>
-      <description>Environment: auprocm@auprocm-System-Product-Name:~$ python3 -m torch.utils.collect_env Collecting environment information... PyTorch version: 2.1.1+rocm5.6 Is debug build: False CUDA used to build PyTorch: N/A ROCM used to build PyTorch: 5.6.31061-8c743ae5d OS: Ubuntu 22.04.4 LTS (x86_64) GCC version: (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0 Clang version: Could not collect CMake version: version 3.22.1 Libc version: glibc-2.35 Python version: 3.10.12 (main, Nov 20 2023, 15:14:05) [GCC 11.4.0] (64-bit runtime) Python platform: Linux-6.2.0-060200-generic-x86_64-with-glibc2.35 Is CUDA available: True CUDA runtime version: Could not collect CUDA_MODULE_LOADING set to: LAZY GPU models and configuration: Radeon RX 7900 XTX Nvidia driver version: Could not collect cuDNN version: Could not collect HIP runtime version: 5.</description>
+      <description>Environment: aupxtx@aupxtx:~$ python3 -m torch.utils.collect_env Collecting environment information... PyTorch version: 2.3.0+rocm5.7 Is debug build: False CUDA used to build PyTorch: N/A ROCM used to build PyTorch: 5.7.31921-d1770ee1b OS: Ubuntu 22.04.3 LTS (x86_64) GCC version: (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0 Clang version: 17.0.0 (https://github.com/RadeonOpenCompute/llvm-project roc-6.0.2 24012 af27734ed982b52a9f1be0f035ac91726fc697e4) CMake version: version 3.22.1 Libc version: glibc-2.35 Python version: 3.10.12 (main, Nov 20 2023, 15:14:05) [GCC 11.4.0] (64-bit runtime) Python platform: Linux-6.2.0-26-generic-x86_64-with-glibc2.35 Is CUDA available: True CUDA runtime version: Could not collect CUDA_MODULE_LOADING set to: LAZY GPU models and configuration: Radeon RX 7900 XTX (gfx1100) Nvidia driver version: Could not collect cuDNN version: Could not collect HIP runtime version: 5.</description>
+    </item>
+    <item>
+      <title>使用Github Page&#43;Hugo搭建个人主页&amp;自定义修改网页组件心得</title>
+      <link>http://localhost:1313/blog/%E4%BD%BF%E7%94%A8Github-Page&#43;Hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E4%B8%BB%E9%A1%B5%E8%87%AA%E5%AE%9A%E4%B9%89%E4%BF%AE%E6%94%B9%E7%BD%91%E9%A1%B5%E7%BB%84%E4%BB%B6%E5%BF%83%E5%BE%97/</link>
+      <pubDate>Tue, 09 Apr 2024 01:48:36 +0800</pubDate><author>zongzel@uchicago.edu (Zongze Li)</author>
+      <guid>http://localhost:1313/blog/%E4%BD%BF%E7%94%A8Github-Page&#43;Hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E4%B8%BB%E9%A1%B5%E8%87%AA%E5%AE%9A%E4%B9%89%E4%BF%AE%E6%94%B9%E7%BD%91%E9%A1%B5%E7%BB%84%E4%BB%B6%E5%BF%83%E5%BE%97/</guid>
+      <description>0. 引言 博0预备役选手，终于把拖延了很久的学术主页搭建拉上日程，由于不想用完全现成且使用率太高的模板，打算浅浅学一些前端知识配合Github Page和Hugo生成器操作一番（Hugo社区有许多好看且免费的主题！）实际搭建和部署的过程主要参考博主小绵尾巴：如何用 GitHub Pages + Hugo 搭建个人博客分享的教程，其中细节和注意事项非常详细，推荐大家参考。本文旨在原本教程的基础上分享一些Hugo内置组件自定义更改的心得，以实现在原本主题的基础上添加更多个性化的内容的美化目的。&#xA;1. Hugo安装及主题本地部署 环境基于Mac OS，Windows/Linux请参考安装Hugo&#xA;# Install Hugo with Homebrew brew install hugo # Create site folder named &amp;#39;page&amp;#39; hugo new site page cd page git init # Select a Hugo theme, I used &amp;#39;Personal Web:https://themes.gohugo.io/themes/personal-web&amp;#39; as an example git submodule add https://github.com/bjacquemet/personal-web.git themes/personal-web # Copy some files to page directory cp themes/personal-web/exampleSite/config.toml ./hugo.toml cp -r themes/personal-web/exampleSite/content ./ cp -r themes/personal-web/exampleSite/static ./ cp -r themes/personal-web/archetypes ./ # Launch in local hugo server -D 接下来根据bind adress即可在本地打开所部署的网页，一般为http://localhost:1313/&#xA;2. Hugo重要部件解析 2.1 hugo.toml 首先我们先明确Hugo生成网页的本质，它是用 Go 语言写的静态网站生成器，核心逻辑是通过预设的参数和配置文件加上我们自己写的 Markdown 文件，将其统一转化成 HTML 文件，并将生成的网页文件都放在工作目录下的public文件夹中（如果你按照上面的流程成功部署了网页，那你一定可以在public文件夹中找到所有生成的html文件），而我们之后借助Github Page要发布的网站实际就是public文件夹中的内容。&#xA;理解上述后，我们就可以开始自定义修改网页内容了。&#xA;首先，最重要的配置文件就是工作目录下的hugo.toml/config.toml，大多数情况下，我们对网页80%的修改都可以通过调整这之中的参数来完成，且本文件可读性较强，大多数内容都可以直观的看懂并修改，比如示例主题中的 [params.intro], [params.main], [params.sidebar], [params.</description>
+    </item>
+    <item>
+      <title>PowerInfer_AMD_Debug_Log</title>
+      <link>http://localhost:1313/blog/PowerInfer_AMD_Debug_Log/</link>
+      <pubDate>Fri, 05 Apr 2024 01:48:36 +0800</pubDate><author>zongzel@uchicago.edu (Zongze Li)</author>
+      <guid>http://localhost:1313/blog/PowerInfer_AMD_Debug_Log/</guid>
+      <description>Environment: aupxtx@aupxtx:~$ python3 -m torch.utils.collect_env Collecting environment information... PyTorch version: 2.3.0+rocm5.7 Is debug build: False CUDA used to build PyTorch: N/A ROCM used to build PyTorch: 5.7.31921-d1770ee1b OS: Ubuntu 22.04.3 LTS (x86_64) GCC version: (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0 Clang version: 17.0.0 (https://github.com/RadeonOpenCompute/llvm-project roc-6.0.2 24012 af27734ed982b52a9f1be0f035ac91726fc697e4) CMake version: version 3.22.1 Libc version: glibc-2.35 Python version: 3.10.12 (main, Nov 20 2023, 15:14:05) [GCC 11.4.0] (64-bit runtime) Python platform: Linux-6.2.0-26-generic-x86_64-with-glibc2.35 Is CUDA available: True CUDA runtime version: Could not collect CUDA_MODULE_LOADING set to: LAZY GPU models and configuration: Radeon RX 7900 XTX (gfx1100) Nvidia driver version: Could not collect cuDNN version: Could not collect HIP runtime version: 5.</description>
     </item>
   </channel>
 </rss>
