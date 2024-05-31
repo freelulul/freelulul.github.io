@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>CJK on heyo</title>
-    <link>http://localhost:1313/tags/CJK/</link>
+    <link>https://freelulul.github.io/tags/CJK/</link>
     <description>Recent content in CJK on heyo</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <managingEditor>zongzel@uchicago.edu (Zongze Li)</managingEditor>
     <webMaster>zongzel@uchicago.edu (Zongze Li)</webMaster>
     <lastBuildDate>Tue, 12 Dec 2023 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/CJK/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://freelulul.github.io/tags/CJK/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>CJK Glyphs</title>
-      <link>http://localhost:1313/Doc/cjk/</link>
+      <link>https://freelulul.github.io/Doc/cjk/</link>
       <pubDate>Tue, 12 Dec 2023 00:00:00 +0000</pubDate><author>zongzel@uchicago.edu (Zongze Li)</author>
-      <guid>http://localhost:1313/Doc/cjk/</guid>
+      <guid>https://freelulul.github.io/Doc/cjk/</guid>
       <description>&lt;p&gt;Test post for CJK Glyphs.&lt;/p&gt;</description>
     </item>
   </channel>

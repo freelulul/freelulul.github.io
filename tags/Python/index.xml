@@ -2,26 +2,26 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Python on heyo</title>
-    <link>http://localhost:1313/tags/Python/</link>
+    <link>https://freelulul.github.io/tags/Python/</link>
     <description>Recent content in Python on heyo</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <managingEditor>zongzel@uchicago.edu (Zongze Li)</managingEditor>
     <webMaster>zongzel@uchicago.edu (Zongze Li)</webMaster>
     <lastBuildDate>Wed, 15 May 2024 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/Python/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://freelulul.github.io/tags/Python/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>PowerInfer with AMD</title>
-      <link>http://localhost:1313/project/PowerInfer/</link>
+      <link>https://freelulul.github.io/project/PowerInfer/</link>
       <pubDate>Wed, 15 May 2024 00:00:00 +0000</pubDate><author>zongzel@uchicago.edu (Zongze Li)</author>
-      <guid>http://localhost:1313/project/PowerInfer/</guid>
+      <guid>https://freelulul.github.io/project/PowerInfer/</guid>
       <description>&lt;p&gt;Multi-platform Support and Optimization of PowerInfer Inference Engine.&lt;/p&gt;&#xA;&lt;p&gt;This project builds upon the PowerInfer project, aiming to address its current lack of support for AMD series graphics cards and optimize its performance on AMD RDNA series GPUs.&lt;/p&gt;&#xA;&lt;p&gt;Through a series of optimizations on PowerInfer under the AMD toolchain, including operator optimization, IO optimization, and algorithm optimization, the AMD Radeon RX 7900 XTX GPU ultimately achieves a token generation rate from 24.52 tokens per second to 101.81 tokens per second on the Q4 quantized model.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Analysis and visualization of behavior patterns of pseudo base stations</title>
-      <link>http://localhost:1313/project/DV_proj/</link>
+      <link>https://freelulul.github.io/project/DV_proj/</link>
       <pubDate>Mon, 12 Dec 2022 00:00:00 +0000</pubDate><author>zongzel@uchicago.edu (Zongze Li)</author>
-      <guid>http://localhost:1313/project/DV_proj/</guid>
+      <guid>https://freelulul.github.io/project/DV_proj/</guid>
       <description>&lt;p&gt;QHNet Spam Message Visualization Project&lt;/p&gt;&#xA;&lt;p&gt;Fake base stations are a growing threat, sending spam messages impersonating banks and other institutions. QHNet&amp;rsquo;s mobile guardian app collects spam samples to combat this. With over 3 million records, we aim to visualize spam message patterns and propose solutions.&lt;/p&gt;</description>
     </item>
   </channel>

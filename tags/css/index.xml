@@ -2,26 +2,26 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Css on heyo</title>
-    <link>http://localhost:1313/tags/CSS/</link>
+    <link>https://freelulul.github.io/tags/CSS/</link>
     <description>Recent content in Css on heyo</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <managingEditor>zongzel@uchicago.edu (Zongze Li)</managingEditor>
     <webMaster>zongzel@uchicago.edu (Zongze Li)</webMaster>
     <lastBuildDate>Mon, 11 Dec 2023 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/CSS/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://freelulul.github.io/tags/CSS/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Custom JavaScript and CSS</title>
-      <link>http://localhost:1313/Doc/custom/</link>
+      <link>https://freelulul.github.io/Doc/custom/</link>
       <pubDate>Mon, 11 Dec 2023 00:00:00 +0000</pubDate><author>zongzel@uchicago.edu (Zongze Li)</author>
-      <guid>http://localhost:1313/Doc/custom/</guid>
+      <guid>https://freelulul.github.io/Doc/custom/</guid>
       <description>&lt;p&gt;With custom CSS and JavaScript you can change pretty much anything in &lt;a href=&#34;https://github.com/LucasVadilho/heyo-hugo-theme&#34;&gt;heyo&lt;/a&gt; appearance or functionality, and it&amp;rsquo;s pretty simple, too!&lt;/p&gt;</description>
     </item>
     <item>
       <title>Markdown Syntax Guide</title>
-      <link>http://localhost:1313/Doc/markdown-syntax/</link>
+      <link>https://freelulul.github.io/Doc/markdown-syntax/</link>
       <pubDate>Mon, 07 Aug 2023 00:00:00 +0000</pubDate><author>zongzel@uchicago.edu (Zongze Li)</author>
-      <guid>http://localhost:1313/Doc/markdown-syntax/</guid>
+      <guid>https://freelulul.github.io/Doc/markdown-syntax/</guid>
       <description>&lt;p&gt;This article offers a sample of basic Markdown syntax that can be used in Hugo content files, also it shows whether basic HTML elements are decorated with CSS in a Hugo theme.&lt;/p&gt;</description>
     </item>
   </channel>
