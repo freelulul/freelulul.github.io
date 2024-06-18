@@ -1,107 +1,173 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset
-      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
-            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
-
-
-<url>
-  <loc>https://freelulul.github.io/</loc>
-  <lastmod>2024-06-04T04:54:28+00:00</lastmod>
-  <priority>1.00</priority>
-</url>
-<url>
-  <loc>https://freelulul.github.io/project/</loc>
-  <lastmod>2024-06-04T04:54:28+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://freelulul.github.io/blog/</loc>
-  <lastmod>2024-06-04T04:54:28+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://freelulul.github.io/Doc/CV_Zongze_Li.pdf</loc>
-  <lastmod>2024-06-04T04:54:28+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://freelulul.github.io/project/PowerInfer/</loc>
-  <lastmod>2024-06-04T04:54:28+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://freelulul.github.io/categories/Intern/</loc>
-  <lastmod>2024-06-04T04:54:28+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://freelulul.github.io/tags/C/</loc>
-  <lastmod>2024-06-04T04:54:28+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://freelulul.github.io/tags/Python/</loc>
-  <lastmod>2024-06-04T04:54:28+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://freelulul.github.io/project/PintOS/</loc>
-  <lastmod>2024-06-04T04:54:28+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://freelulul.github.io/categories/Undergrad/</loc>
-  <lastmod>2024-06-04T04:54:28+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://freelulul.github.io/tags/Assembly/</loc>
-  <lastmod>2024-06-04T04:54:28+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://freelulul.github.io/project/DV_proj/</loc>
-  <lastmod>2024-06-04T04:54:28+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://freelulul.github.io/project/Self-Driving/</loc>
-  <lastmod>2024-06-04T04:54:28+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://freelulul.github.io/tags/Unity/</loc>
-  <lastmod>2024-06-04T04:54:28+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://freelulul.github.io/project/Running-Dinosaur/</loc>
-  <lastmod>2024-06-04T04:54:28+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://freelulul.github.io/tags/RISC-V/</loc>
-  <lastmod>2024-06-04T04:54:28+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://freelulul.github.io/project/Elevator/</loc>
-  <lastmod>2024-06-04T04:54:28+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://freelulul.github.io/tags/Matlab/</loc>
-  <lastmod>2024-06-04T04:54:28+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://freelulul.github.io/blog/PowerInfer_AMD_Debug_Log/</loc>
-  <lastmod>2024-06-04T04:54:28+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
-
-
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://freelulul.github.io/blog/</loc>
+    <lastmod>2024-06-08T01:48:36+08:00</lastmod>
+  </url><url>
+    <loc>https://freelulul.github.io/blog/Hetero_Comp_AIsys_intro/</loc>
+    <lastmod>2024-06-08T01:48:36+08:00</lastmod>
+  </url><url>
+    <loc>https://freelulul.github.io/blog/NPUBase_AIsys_intro/</loc>
+    <lastmod>2024-05-27T01:48:36+08:00</lastmod>
+  </url><url>
+    <loc>https://freelulul.github.io/</loc>
+    <lastmod>2024-05-15T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://freelulul.github.io/tags/C/</loc>
+    <lastmod>2024-05-15T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://freelulul.github.io/tags/C&#43;&#43;/</loc>
+    <lastmod>2024-05-15T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://freelulul.github.io/categories/</loc>
+    <lastmod>2024-05-15T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://freelulul.github.io/categories/Intern/</loc>
+    <lastmod>2024-05-15T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://freelulul.github.io/project/PowerInfer/</loc>
+    <lastmod>2024-05-15T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://freelulul.github.io/project/</loc>
+    <lastmod>2024-05-15T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://freelulul.github.io/tags/Python/</loc>
+    <lastmod>2024-05-15T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://freelulul.github.io/tags/</loc>
+    <lastmod>2024-05-15T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://freelulul.github.io/blog/GPUBase_AIsys_intro/</loc>
+    <lastmod>2024-05-15T01:48:36+08:00</lastmod>
+  </url><url>
+    <loc>https://freelulul.github.io/blog/PowerInfer_AMD_Optimization/</loc>
+    <lastmod>2024-04-15T01:44:02+08:00</lastmod>
+  </url><url>
+    <loc>https://freelulul.github.io/blog/%E4%BD%BF%E7%94%A8Github-Page&#43;Hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E4%B8%BB%E9%A1%B5%E8%87%AA%E5%AE%9A%E4%B9%89%E4%BF%AE%E6%94%B9%E7%BD%91%E9%A1%B5%E7%BB%84%E4%BB%B6%E5%BF%83%E5%BE%97/</loc>
+    <lastmod>2024-04-09T01:48:36+08:00</lastmod>
+  </url><url>
+    <loc>https://freelulul.github.io/blog/PowerInfer_AMD_Debug_Log/</loc>
+    <lastmod>2024-04-05T01:48:36+08:00</lastmod>
+  </url><url>
+    <loc>https://freelulul.github.io/publications/</loc>
+    <lastmod>2024-04-04T21:27:21+08:00</lastmod>
+  </url><url>
+    <loc>https://freelulul.github.io/tags/CJK/</loc>
+    <lastmod>2023-12-12T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://freelulul.github.io/Doc/cjk/</loc>
+    <lastmod>2023-12-12T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://freelulul.github.io/Doc/</loc>
+    <lastmod>2023-12-12T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://freelulul.github.io/categories/heyo/</loc>
+    <lastmod>2023-12-12T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://freelulul.github.io/tags/theme/</loc>
+    <lastmod>2023-12-12T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://freelulul.github.io/tags/CSS/</loc>
+    <lastmod>2023-12-11T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://freelulul.github.io/Doc/custom/</loc>
+    <lastmod>2023-12-11T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://freelulul.github.io/tags/customization/</loc>
+    <lastmod>2023-12-11T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://freelulul.github.io/tags/JS/</loc>
+    <lastmod>2023-12-11T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://freelulul.github.io/tags/creative-coding/</loc>
+    <lastmod>2023-08-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://freelulul.github.io/tags/html/</loc>
+    <lastmod>2023-08-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://freelulul.github.io/tags/javascript/</loc>
+    <lastmod>2023-08-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://freelulul.github.io/tags/markdown/</loc>
+    <lastmod>2023-08-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://freelulul.github.io/Doc/markdown-syntax/</loc>
+    <lastmod>2023-08-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://freelulul.github.io/tags/p5js/</loc>
+    <lastmod>2023-08-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://freelulul.github.io/series/</loc>
+    <lastmod>2023-08-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://freelulul.github.io/Doc/sketches/</loc>
+    <lastmod>2023-08-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://freelulul.github.io/categories/syntax/</loc>
+    <lastmod>2023-08-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://freelulul.github.io/tags/themes/</loc>
+    <lastmod>2023-08-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://freelulul.github.io/categories/themes/</loc>
+    <lastmod>2023-08-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://freelulul.github.io/series/Themes-Guide/</loc>
+    <lastmod>2023-08-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://freelulul.github.io/Doc/thumbnail/</loc>
+    <lastmod>2023-08-06T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://freelulul.github.io/tags/shortcodes/</loc>
+    <lastmod>2023-08-06T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://freelulul.github.io/Doc/callouts/</loc>
+    <lastmod>2023-08-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://freelulul.github.io/Doc/toc/</loc>
+    <lastmod>2023-08-04T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://freelulul.github.io/Doc/rendering-math-stuff/</loc>
+    <lastmod>2023-08-03T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://freelulul.github.io/Doc/about/</loc>
+    <lastmod>2023-08-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://freelulul.github.io/Doc/badges/</loc>
+    <lastmod>2023-08-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://freelulul.github.io/tags/Assembly/</loc>
+    <lastmod>2023-01-21T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://freelulul.github.io/project/PintOS/</loc>
+    <lastmod>2023-01-21T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://freelulul.github.io/categories/Undergrad/</loc>
+    <lastmod>2023-01-21T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://freelulul.github.io/project/DV_proj/</loc>
+    <lastmod>2022-12-12T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://freelulul.github.io/tags/C</loc>
+    <lastmod>2022-12-04T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://freelulul.github.io/project/Self-Driving/</loc>
+    <lastmod>2022-12-04T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://freelulul.github.io/tags/Unity/</loc>
+    <lastmod>2022-12-04T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://freelulul.github.io/tags/RISC-V/</loc>
+    <lastmod>2022-05-19T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://freelulul.github.io/project/Running-Dinosaur/</loc>
+    <lastmod>2022-05-19T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://freelulul.github.io/project/Elevator/</loc>
+    <lastmod>2022-05-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://freelulul.github.io/tags/Matlab/</loc>
+    <lastmod>2022-05-02T00:00:00+00:00</lastmod>
+  </url>
 </urlset>
