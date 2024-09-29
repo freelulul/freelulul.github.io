@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<html lang="en" data-theme="light"><head>
     <title>PowerInfer_AMD_Debug_Log · Zongze Li</title>
     <meta charset="utf-8">
     
     <meta name="generator" content="Hugo 0.135.0">
-    <meta property="og:url" content="http://localhost:1313/blog/PowerInfer_AMD_Debug_Log/">
+    <meta property="og:url" content="https://freelulul.github.io/blog/PowerInfer_AMD_Debug_Log/">
   <meta property="og:site_name" content="heyo">
   <meta property="og:title" content="PowerInfer_AMD_Debug_Log">
   <meta property="og:description" content="Environment: aupxtx@aupxtx:~$ python3 -m torch.utils.collect_env Collecting environment information... PyTorch version: 2.3.0&#43;rocm5.7 Is debug build: False CUDA used to build PyTorch: N/A ROCM used to build PyTorch: 5.7.31921-d1770ee1b OS: Ubuntu 22.04.3 LTS (x86_64) GCC version: (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0 Clang version: 17.0.0 (https://github.com/RadeonOpenCompute/llvm-project roc-6.0.2 24012 af27734ed982b52a9f1be0f035ac91726fc697e4) CMake version: version 3.22.1 Libc version: glibc-2.35 Python version: 3.10.12 (main, Nov 20 2023, 15:14:05) [GCC 11.4.0] (64-bit runtime) Python platform: Linux-6.2.0-26-generic-x86_64-with-glibc2.35 Is CUDA available: True CUDA runtime version: Could not collect CUDA_MODULE_LOADING set to: LAZY GPU models and configuration: Radeon RX 7900 XTX (gfx1100) Nvidia driver version: Could not collect cuDNN version: Could not collect HIP runtime version: 5.7.31921 MIOpen runtime version: 2.20.0 Is XNNPACK available: True CPU: Architecture: x86_64 CPU op-mode(s): 32-bit, 64-bit Address sizes: 48 bits physical, 48 bits virtual Byte Order: Little Endian CPU(s): 16 On-line CPU(s) list: 0-15 Vendor ID: AuthenticAMD Model name: AMD Ryzen 7 7800X3D 8-Core Processor CPU family: 25 Model: 97 Thread(s) per core: 2 Core(s) per socket: 8 Socket(s): 1 Stepping: 2 Frequency boost: enabled CPU max MHz: 5049.0229 CPU min MHz: 3000.0000 BogoMIPS: 8399.69 Flags: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good amd_lbr_v2 nopl nonstop_tsc cpuid extd_apicid aperfmperf rapl pni pclmulqdq monitor ssse3 fma cx16 sse4_1 sse4_2 movbe popcnt aes xsave avx f16c rdrand lahf_lm cmp_legacy svm extapic cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw ibs skinit wdt tce topoext perfctr_core perfctr_nb bpext perfctr_llc mwaitx cpb cat_l3 cdp_l3 hw_pstate ssbd mba perfmon_v2 ibrs ibpb stibp vmmcall fsgsbase bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local avx512_bf16 clzero irperf xsaveerptr rdpru wbnoinvd cppc arat npt lbrv svm_lock nrip_save tsc_scale vmcb_clean flushbyasid decodeassists pausefilter pfthreshold avic v_vmsave_vmload vgif x2avic v_spec_ctrl avx512vbmi umip pku ospke avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq rdpid overflow_recov succor smca fsrm flush_l1d Virtualization: AMD-V L1d cache: 256 KiB (8 instances) L1i cache: 256 KiB (8 instances) L2 cache: 8 MiB (8 instances) L3 cache: 96 MiB (1 instance) NUMA node(s): 1 NUMA node0 CPU(s): 0-15 Vulnerability Itlb multihit: Not affected Vulnerability L1tf: Not affected Vulnerability Mds: Not affected Vulnerability Meltdown: Not affected Vulnerability Mmio stale data: Not affected Vulnerability Retbleed: Not affected Vulnerability Spec store bypass: Mitigation; Speculative Store Bypass disabled via prctl Vulnerability Spectre v1: Mitigation; usercopy/swapgs barriers and __user pointer sanitization Vulnerability Spectre v2: Mitigation; Retpolines, IBPB conditional, IBRS_FW, STIBP always-on, RSB filling, PBRSB-eIBRS Not affected Vulnerability Srbds: Not affected Vulnerability Tsx async abort: Not affected Versions of relevant libraries: [pip3] numpy==1.26.3 [pip3] pytorch-triton-rocm==2.3.0 [pip3] torch==2.3.0&#43;rocm5.7 [pip3] torchaudio==2.3.0&#43;rocm5.7 [pip3] torchvision==0.18.0&#43;rocm5.7 Debug Log 1. Fail to generate GPU split ............................................. invoking powerinfer Python module to generate gpu split for 59036.48 MiB of VRAM Traceback (most recent call last): File &#34;/usr/lib/python3.8/runpy.py&#34;, line 194, in _run_module_as_main return _run_code(code, main_globals, None, File &#34;/usr/lib/python3.8/runpy-py&#34;, line 87, in _run_code exec(code, run_globals) File &#34;/home/xxx/.local/lib/python3.8/site-packages/powerinfer/__main__.py&#34;, line 5, in &lt;module&gt; from .export_split import export_split File &#34;/home/xxx/.local/lib/python3.8/site-packages/powerinfer/export_split.py&#34;, line 50, in &lt;module&gt; def export_split(activations_path: str, output_path: str, solved_list: list[int], vram_capacity: int): TypeError: &#39;type&#39; object is not subscriptable l1m_load_gpu_split_with_budget: error: failed to generate gpu split llm_load_gpu_split: error: failed to generate gpu split, an empty one will be used offload_ffn_split: applying augmentation to model - please wait ... ................................ done (6.43 ms) 1lm_load_gpu_split: offloaded 0.00 MiB of FFN weights to GPU llama_new_context_with_model: n_ctx = 512 llama_new_context_with_model: freq_base = 10000.0 llama new context with model: freq scale = 1 llama_kv_cache_init: offloading v cache to GPU llama kv cache init: offloading k cache to GPU llama kv cache init: VRAM kv self = 256.00 MB 11ama_new_context_with_model: kv self size = 256.00 MB llama_build_graph: non-view tensors processed: 548/836 Initial Python version is 3.8.xx, which not satisfied with Pre-requisites.">
@@ -13,7 +13,7 @@
     <meta property="article:section" content="blog">
     <meta property="article:published_time" content="2024-04-05T01:48:36+08:00">
     <meta property="article:modified_time" content="2024-04-05T01:48:36+08:00">
-    <meta property="og:image" content="http://localhost:1313/images/profile.png">
+    <meta property="og:image" content="https://freelulul.github.io/images/profile.png">
 
 
     <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -21,21 +21,21 @@
     
     
     
-    <link rel="stylesheet" type="text/css" href="http://localhost:1313/css/style.min.e461821b5d6b458c9ced36a9610ec2335c1a1fd5b1233aed405ed17881935188.css" integrity="sha256-5GGCG11rRYyc7TapYQ7CM1waH9WxIzrtQF7ReIGTUYg=" crossorigin="anonymous" type="text/css">
+    <link rel="stylesheet" type="text/css" href="https://freelulul.github.io/css/style.min.e461821b5d6b458c9ced36a9610ec2335c1a1fd5b1233aed405ed17881935188.css" integrity="sha256-5GGCG11rRYyc7TapYQ7CM1waH9WxIzrtQF7ReIGTUYg=" crossorigin="anonymous" type="text/css">
 
     
     
     
-    <script type="text/javascript" src="http://localhost:1313/js/heyo-header.min.a3fa728a9f57833a31dfb45c48caaf1e4890c8c97f07bd7133fc2359745edb5d.js" integrity="sha256-o/pyip9Xgzox37RcSMqvHkiQyMl/B71xM/wjWXRe210=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://freelulul.github.io/js/heyo-header.min.a3fa728a9f57833a31dfb45c48caaf1e4890c8c97f07bd7133fc2359745edb5d.js" integrity="sha256-o/pyip9Xgzox37RcSMqvHkiQyMl/B71xM/wjWXRe210=" crossorigin="anonymous"></script>
 
     
     
-    <link rel="stylesheet" type="text/css" href="http://localhost:1313/css/fonts.9398921f2d404983c2b7f9a68ddc72e3f5e58a3e38b0a8e4a70d75c12ebfb7c5.css" integrity="sha256-k5iSHy1ASYPCt/mmjdxy4/Xlij44sKjkpw11wS6/t8U=" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://freelulul.github.io/css/fonts.9398921f2d404983c2b7f9a68ddc72e3f5e58a3e38b0a8e4a70d75c12ebfb7c5.css" integrity="sha256-k5iSHy1ASYPCt/mmjdxy4/Xlij44sKjkpw11wS6/t8U=" crossorigin="anonymous">
 
     
     
     
-    <script type="text/javascript" src="http://localhost:1313/js/sidebar-toc.min.788b639e2ec681549740b90b3b865d5f9e1789e3ca9c06ccc45d65655434c954.js" integrity="sha256-eItjni7GgVSXQLkLO4ZdX54XiePKnAbMxF1lZVQ0yVQ=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://freelulul.github.io/js/sidebar-toc.min.788b639e2ec681549740b90b3b865d5f9e1789e3ca9c06ccc45d65655434c954.js" integrity="sha256-eItjni7GgVSXQLkLO4ZdX54XiePKnAbMxF1lZVQ0yVQ=" crossorigin="anonymous"></script>
 
     
         
@@ -43,31 +43,31 @@
 
         
         
-        <script type="text/javascript" src="http://localhost:1313/js/sketch-graph.26b92ed9317bdc6f35642d588bdf3283f40998846e01cf4bee22a126907fbf3b.js" integrity="sha256-Jrku2TF73G81ZC1Yi98yg/QJmIRuAc9L7iKhJpB/vzs=" crossorigin="anonymous" defer></script>
+        <script type="text/javascript" src="https://freelulul.github.io/js/sketch-graph.26b92ed9317bdc6f35642d588bdf3283f40998846e01cf4bee22a126907fbf3b.js" integrity="sha256-Jrku2TF73G81ZC1Yi98yg/QJmIRuAc9L7iKhJpB/vzs=" crossorigin="anonymous" defer></script>
 
         
         
-        <script type="text/javascript" src="http://localhost:1313/js/sketch-digitalRain.af8a7b5c4428cc62d5bf49bf2698d4112c2459ee0c22c1c753ab304aef69888a.js" integrity="sha256-r4p7XEQozGLVv0m/JpjUESwkWe4MIsHHU6swSu9piIo=" crossorigin="anonymous" defer></script>
+        <script type="text/javascript" src="https://freelulul.github.io/js/sketch-digitalRain.af8a7b5c4428cc62d5bf49bf2698d4112c2459ee0c22c1c753ab304aef69888a.js" integrity="sha256-r4p7XEQozGLVv0m/JpjUESwkWe4MIsHHU6swSu9piIo=" crossorigin="anonymous" defer></script>
 
         
         
-        <script type="text/javascript" src="http://localhost:1313/js/sketch-circleBrushStrokes.fe8fc3ee52e1d90e9236be8c36a27711efa024beb4da304829f95dfbb61d6e84.js" integrity="sha256-/o/D7lLh2Q6SNr6MNqJ3Ee&#43;gJL602jBIKfld&#43;7YdboQ=" crossorigin="anonymous" defer></script>
+        <script type="text/javascript" src="https://freelulul.github.io/js/sketch-circleBrushStrokes.fe8fc3ee52e1d90e9236be8c36a27711efa024beb4da304829f95dfbb61d6e84.js" integrity="sha256-/o/D7lLh2Q6SNr6MNqJ3Ee&#43;gJL602jBIKfld&#43;7YdboQ=" crossorigin="anonymous" defer></script>
 
         
         
-        <script type="text/javascript" src="http://localhost:1313/js/sketch-meta.71b5202ea881c86ac19e4b55414656a5444204a4ba08ff7368a5aa99c0a60949.js" integrity="sha256-cbUgLqiByGrBnktVQUZWpURCBKS6CP9zaKWqmcCmCUk=" crossorigin="anonymous" defer></script>
+        <script type="text/javascript" src="https://freelulul.github.io/js/sketch-meta.71b5202ea881c86ac19e4b55414656a5444204a4ba08ff7368a5aa99c0a60949.js" integrity="sha256-cbUgLqiByGrBnktVQUZWpURCBKS6CP9zaKWqmcCmCUk=" crossorigin="anonymous" defer></script>
 
         
         
-        <script type="text/javascript" src="http://localhost:1313/js/sidebar-sketch.min.2e95015880993ef9abcad62d111decea22406616931bce193254bf8af2339953.js" integrity="sha256-LpUBWICZPvmrytYtER3s6iJAZhaTG84ZMlS/ivIzmVM=" crossorigin="anonymous" defer></script>
+        <script type="text/javascript" src="https://freelulul.github.io/js/sidebar-sketch.min.2e95015880993ef9abcad62d111decea22406616931bce193254bf8af2339953.js" integrity="sha256-LpUBWICZPvmrytYtER3s6iJAZhaTG84ZMlS/ivIzmVM=" crossorigin="anonymous" defer></script>
     
     
     
-    <link rel="shortcut icon" href="http://localhost:1313/favicons/favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:1313/favicons/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicons/favicon-16x16.png">
-    <link rel="canonical" href="http://localhost:1313/blog/PowerInfer_AMD_Debug_Log/">
+    <link rel="shortcut icon" href="https://freelulul.github.io/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://freelulul.github.io/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://freelulul.github.io/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://freelulul.github.io/favicons/favicon-16x16.png">
+    <link rel="canonical" href="https://freelulul.github.io/blog/PowerInfer_AMD_Debug_Log/">
     
     
     
@@ -77,7 +77,7 @@
     
     
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="http://localhost:1313/images/profile.png">
+  <meta name="twitter:image" content="https://freelulul.github.io/images/profile.png">
   <meta name="twitter:title" content="PowerInfer_AMD_Debug_Log">
   <meta name="twitter:description" content="Environment: aupxtx@aupxtx:~$ python3 -m torch.utils.collect_env Collecting environment information... PyTorch version: 2.3.0&#43;rocm5.7 Is debug build: False CUDA used to build PyTorch: N/A ROCM used to build PyTorch: 5.7.31921-d1770ee1b OS: Ubuntu 22.04.3 LTS (x86_64) GCC version: (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0 Clang version: 17.0.0 (https://github.com/RadeonOpenCompute/llvm-project roc-6.0.2 24012 af27734ed982b52a9f1be0f035ac91726fc697e4) CMake version: version 3.22.1 Libc version: glibc-2.35 Python version: 3.10.12 (main, Nov 20 2023, 15:14:05) [GCC 11.4.0] (64-bit runtime) Python platform: Linux-6.2.0-26-generic-x86_64-with-glibc2.35 Is CUDA available: True CUDA runtime version: Could not collect CUDA_MODULE_LOADING set to: LAZY GPU models and configuration: Radeon RX 7900 XTX (gfx1100) Nvidia driver version: Could not collect cuDNN version: Could not collect HIP runtime version: 5.7.31921 MIOpen runtime version: 2.20.0 Is XNNPACK available: True CPU: Architecture: x86_64 CPU op-mode(s): 32-bit, 64-bit Address sizes: 48 bits physical, 48 bits virtual Byte Order: Little Endian CPU(s): 16 On-line CPU(s) list: 0-15 Vendor ID: AuthenticAMD Model name: AMD Ryzen 7 7800X3D 8-Core Processor CPU family: 25 Model: 97 Thread(s) per core: 2 Core(s) per socket: 8 Socket(s): 1 Stepping: 2 Frequency boost: enabled CPU max MHz: 5049.0229 CPU min MHz: 3000.0000 BogoMIPS: 8399.69 Flags: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good amd_lbr_v2 nopl nonstop_tsc cpuid extd_apicid aperfmperf rapl pni pclmulqdq monitor ssse3 fma cx16 sse4_1 sse4_2 movbe popcnt aes xsave avx f16c rdrand lahf_lm cmp_legacy svm extapic cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw ibs skinit wdt tce topoext perfctr_core perfctr_nb bpext perfctr_llc mwaitx cpb cat_l3 cdp_l3 hw_pstate ssbd mba perfmon_v2 ibrs ibpb stibp vmmcall fsgsbase bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local avx512_bf16 clzero irperf xsaveerptr rdpru wbnoinvd cppc arat npt lbrv svm_lock nrip_save tsc_scale vmcb_clean flushbyasid decodeassists pausefilter pfthreshold avic v_vmsave_vmload vgif x2avic v_spec_ctrl avx512vbmi umip pku ospke avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq rdpid overflow_recov succor smca fsrm flush_l1d Virtualization: AMD-V L1d cache: 256 KiB (8 instances) L1i cache: 256 KiB (8 instances) L2 cache: 8 MiB (8 instances) L3 cache: 96 MiB (1 instance) NUMA node(s): 1 NUMA node0 CPU(s): 0-15 Vulnerability Itlb multihit: Not affected Vulnerability L1tf: Not affected Vulnerability Mds: Not affected Vulnerability Meltdown: Not affected Vulnerability Mmio stale data: Not affected Vulnerability Retbleed: Not affected Vulnerability Spec store bypass: Mitigation; Speculative Store Bypass disabled via prctl Vulnerability Spectre v1: Mitigation; usercopy/swapgs barriers and __user pointer sanitization Vulnerability Spectre v2: Mitigation; Retpolines, IBPB conditional, IBRS_FW, STIBP always-on, RSB filling, PBRSB-eIBRS Not affected Vulnerability Srbds: Not affected Vulnerability Tsx async abort: Not affected Versions of relevant libraries: [pip3] numpy==1.26.3 [pip3] pytorch-triton-rocm==2.3.0 [pip3] torch==2.3.0&#43;rocm5.7 [pip3] torchaudio==2.3.0&#43;rocm5.7 [pip3] torchvision==0.18.0&#43;rocm5.7 Debug Log 1. Fail to generate GPU split ............................................. invoking powerinfer Python module to generate gpu split for 59036.48 MiB of VRAM Traceback (most recent call last): File &#34;/usr/lib/python3.8/runpy.py&#34;, line 194, in _run_module_as_main return _run_code(code, main_globals, None, File &#34;/usr/lib/python3.8/runpy-py&#34;, line 87, in _run_code exec(code, run_globals) File &#34;/home/xxx/.local/lib/python3.8/site-packages/powerinfer/__main__.py&#34;, line 5, in &lt;module&gt; from .export_split import export_split File &#34;/home/xxx/.local/lib/python3.8/site-packages/powerinfer/export_split.py&#34;, line 50, in &lt;module&gt; def export_split(activations_path: str, output_path: str, solved_list: list[int], vram_capacity: int): TypeError: &#39;type&#39; object is not subscriptable l1m_load_gpu_split_with_budget: error: failed to generate gpu split llm_load_gpu_split: error: failed to generate gpu split, an empty one will be used offload_ffn_split: applying augmentation to model - please wait ... ................................ done (6.43 ms) 1lm_load_gpu_split: offloaded 0.00 MiB of FFN weights to GPU llama_new_context_with_model: n_ctx = 512 llama_new_context_with_model: freq_base = 10000.0 llama new context with model: freq scale = 1 llama_kv_cache_init: offloading v cache to GPU llama kv cache init: offloading k cache to GPU llama kv cache init: VRAM kv self = 256.00 MB 11ama_new_context_with_model: kv self size = 256.00 MB llama_build_graph: non-view tensors processed: 548/836 Initial Python version is 3.8.xx, which not satisfied with Pre-requisites.">
 
