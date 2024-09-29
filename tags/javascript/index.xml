@@ -2,26 +2,26 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>JavaScript on heyo</title>
-    <link>https://freelulul.github.io/tags/javascript/</link>
+    <link>http://localhost:1313/tags/javascript/</link>
     <description>Recent content in JavaScript on heyo</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>en</language>
     <managingEditor>zongzel@uchicago.edu (Zongze Li)</managingEditor>
     <webMaster>zongzel@uchicago.edu (Zongze Li)</webMaster>
     <lastBuildDate>Mon, 07 Aug 2023 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://freelulul.github.io/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Sketches!</title>
-      <link>https://freelulul.github.io/Doc/sketches/</link>
+      <link>http://localhost:1313/Doc/sketches/</link>
       <pubDate>Mon, 07 Aug 2023 00:00:00 +0000</pubDate><author>zongzel@uchicago.edu (Zongze Li)</author>
-      <guid>https://freelulul.github.io/Doc/sketches/</guid>
+      <guid>http://localhost:1313/Doc/sketches/</guid>
       <description>&lt;p&gt;Sketches are the pretty visualizations in &lt;a href=&#34;https://github.com/LucasVadilho/heyo-hugo-theme&#34;&gt;heyo&lt;/a&gt;&amp;rsquo;s sidebar. The default ones were built using &lt;a href=&#34;https://p5js.org/&#34;&gt;p5.js&lt;/a&gt; &amp;ndash; a javascript library for creative coding.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Analysis and visualization of behavior patterns of pseudo base stations</title>
-      <link>https://freelulul.github.io/project/DV_proj/</link>
+      <link>http://localhost:1313/project/DV_proj/</link>
       <pubDate>Mon, 12 Dec 2022 00:00:00 +0000</pubDate><author>zongzel@uchicago.edu (Zongze Li)</author>
-      <guid>https://freelulul.github.io/project/DV_proj/</guid>
+      <guid>http://localhost:1313/project/DV_proj/</guid>
       <description>&lt;p&gt;QHNet Spam Message Visualization Project&lt;/p&gt;&#xA;&lt;p&gt;Fake base stations are a growing threat, sending spam messages impersonating banks and other institutions. QHNet&amp;rsquo;s mobile guardian app collects spam samples to combat this. With over 3 million records, we aim to visualize spam message patterns and propose solutions.&lt;/p&gt;</description>
     </item>
   </channel>

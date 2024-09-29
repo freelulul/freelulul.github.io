@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Assembly on heyo</title>
-    <link>https://freelulul.github.io/tags/Assembly/</link>
+    <link>http://localhost:1313/tags/Assembly/</link>
     <description>Recent content in Assembly on heyo</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>en</language>
     <managingEditor>zongzel@uchicago.edu (Zongze Li)</managingEditor>
     <webMaster>zongzel@uchicago.edu (Zongze Li)</webMaster>
     <lastBuildDate>Sat, 21 Jan 2023 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://freelulul.github.io/tags/Assembly/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/Assembly/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>PintOS</title>
-      <link>https://freelulul.github.io/project/PintOS/</link>
+      <link>http://localhost:1313/project/PintOS/</link>
       <pubDate>Sat, 21 Jan 2023 00:00:00 +0000</pubDate><author>zongzel@uchicago.edu (Zongze Li)</author>
-      <guid>https://freelulul.github.io/project/PintOS/</guid>
+      <guid>http://localhost:1313/project/PintOS/</guid>
       <description>&lt;p&gt;Stanford Pintos Operating Systems Project&lt;/p&gt;&#xA;&lt;p&gt;In this project, we dive into operating systems development using the Pintos framework. Our goal is to implement core features like process scheduling, virtual memory, and file systems. Through hands-on work, we gain practical experience in system programming and deepen our understanding of OS design principles.&lt;/p&gt;</description>
     </item>
   </channel>

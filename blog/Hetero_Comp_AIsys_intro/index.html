@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light"><head>
+<html lang="en" data-theme="light"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
     <title>Hetero_Comp_AIsys_intro · Zongze Li</title>
     <meta charset="utf-8">
     
-    <meta name="generator" content="Hugo 0.123.8">
-    <meta property="og:title" content="Hetero_Comp_AIsys_intro" />
-<meta property="og:description" content="超异构计算(DONE) 在这一节中我们要从更远的视角来看看计算机架构发展的黄金 10 年，主要将围绕异构计算和超异构来展开。在开始具体内容前，我们非常推荐您观看以下两个视频：
+    <meta name="generator" content="Hugo 0.135.0">
+    <meta property="og:url" content="http://localhost:1313/blog/Hetero_Comp_AIsys_intro/">
+  <meta property="og:site_name" content="heyo">
+  <meta property="og:title" content="Hetero_Comp_AIsys_intro">
+  <meta property="og:description" content=" 超异构计算(DONE) 在这一节中我们要从更远的视角来看看计算机架构发展的黄金 10 年，主要将围绕异构计算和超异构来展开。在开始具体内容前，我们非常推荐您观看以下两个视频：
 计算机架构的新黄金时代：A New Golden Age for Computer Architecture
 编译器的黄金时代：The Golden Age of Compiler Design in an Era of HW/SW Co-design
 他们可以让您更细致的了解计算机体系结构和编译器的发展历程和重要节点。接下来让我们先简述一下关于 AI 芯片发展的阶段。
@@ -27,13 +29,13 @@ AI 芯片发展 人工智能的发展与芯片算力的提升密不可分，可�
 而将各部分组件有机结合的异构芯片就可以更好的处理复杂情况，如下图，我们可以看到 GPU、NPU、Quad Cluster 等等硬件均被集合在一起，通过芯片外的 CPU 等等进行协同控制，这样就可以在多种任务的处理和切换时实现非常好的效果。
 计算体系迎来异构 异构计算的出现和发展源于传统冯·诺依曼结构计算机受制于存储和计算单元之间的数据交换瓶颈，难以满足日益增长的计算需求，加之半导体工艺的发展使得 CPU 主频提升受到物理和功耗的限制，性能提升趋于缓慢。
 为了突破单核 CPU 性能的瓶颈，业界开始探索并行计算技术，通过多核处理器或集群计算机实现高性能计算，然而并行计算中的微处理器仍受冯·诺依曼结构的制约，在处理数据密集型任务时，计算速度和性价比不尽如人意。
-随着深度学习等人工智能技术的兴起，对计算能力提出了更高的要求，传统的 CPU 在处理神经网络训练和推理任务时，性能和效率远不及专门设计的 AI 芯片，如 GPU 和 NPU 等。异构计算通过集成不同类型的计算单元，发挥各自的计算优势，实现更高的性能和能效，AI 芯片在处理特定任务时，计算效率远超传统 CPU，有望成为未来计算机体系的标配。" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://freelulul.github.io/blog/Hetero_Comp_AIsys_intro/" /><meta property="og:image" content="https://freelulul.github.io/images/profile.png" /><meta property="article:section" content="blog" />
-<meta property="article:published_time" content="2024-06-08T01:48:36+08:00" />
-<meta property="article:modified_time" content="2024-06-08T01:48:36+08:00" /><meta property="og:site_name" content="Zongze Li(李宗泽)" />
-
-
+随着深度学习等人工智能技术的兴起，对计算能力提出了更高的要求，传统的 CPU 在处理神经网络训练和推理任务时，性能和效率远不及专门设计的 AI 芯片，如 GPU 和 NPU 等。异构计算通过集成不同类型的计算单元，发挥各自的计算优势，实现更高的性能和能效，AI 芯片在处理特定任务时，计算效率远超传统 CPU，有望成为未来计算机体系的标配。">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="blog">
+    <meta property="article:published_time" content="2024-06-08T01:48:36+08:00">
+    <meta property="article:modified_time" content="2024-06-08T01:48:36+08:00">
+    <meta property="og:image" content="http://localhost:1313/images/profile.png">
 
 
     <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -41,21 +43,21 @@ AI 芯片发展 人工智能的发展与芯片算力的提升密不可分，可�
     
     
     
-    <link rel="stylesheet" type="text/css" href="https://freelulul.github.io/css/style.min.e461821b5d6b458c9ced36a9610ec2335c1a1fd5b1233aed405ed17881935188.css" integrity="sha256-5GGCG11rRYyc7TapYQ7CM1waH9WxIzrtQF7ReIGTUYg=" crossorigin="anonymous" type="text/css">
+    <link rel="stylesheet" type="text/css" href="http://localhost:1313/css/style.min.e461821b5d6b458c9ced36a9610ec2335c1a1fd5b1233aed405ed17881935188.css" integrity="sha256-5GGCG11rRYyc7TapYQ7CM1waH9WxIzrtQF7ReIGTUYg=" crossorigin="anonymous" type="text/css">
 
     
     
     
-    <script type="text/javascript" src="https://freelulul.github.io/js/heyo-header.min.a3fa728a9f57833a31dfb45c48caaf1e4890c8c97f07bd7133fc2359745edb5d.js" integrity="sha256-o/pyip9Xgzox37RcSMqvHkiQyMl/B71xM/wjWXRe210=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="http://localhost:1313/js/heyo-header.min.a3fa728a9f57833a31dfb45c48caaf1e4890c8c97f07bd7133fc2359745edb5d.js" integrity="sha256-o/pyip9Xgzox37RcSMqvHkiQyMl/B71xM/wjWXRe210=" crossorigin="anonymous"></script>
 
     
     
-    <link rel="stylesheet" type="text/css" href="https://freelulul.github.io/css/fonts.9398921f2d404983c2b7f9a68ddc72e3f5e58a3e38b0a8e4a70d75c12ebfb7c5.css" integrity="sha256-k5iSHy1ASYPCt/mmjdxy4/Xlij44sKjkpw11wS6/t8U=" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="http://localhost:1313/css/fonts.9398921f2d404983c2b7f9a68ddc72e3f5e58a3e38b0a8e4a70d75c12ebfb7c5.css" integrity="sha256-k5iSHy1ASYPCt/mmjdxy4/Xlij44sKjkpw11wS6/t8U=" crossorigin="anonymous">
 
     
     
     
-    <script type="text/javascript" src="https://freelulul.github.io/js/sidebar-toc.min.788b639e2ec681549740b90b3b865d5f9e1789e3ca9c06ccc45d65655434c954.js" integrity="sha256-eItjni7GgVSXQLkLO4ZdX54XiePKnAbMxF1lZVQ0yVQ=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="http://localhost:1313/js/sidebar-toc.min.788b639e2ec681549740b90b3b865d5f9e1789e3ca9c06ccc45d65655434c954.js" integrity="sha256-eItjni7GgVSXQLkLO4ZdX54XiePKnAbMxF1lZVQ0yVQ=" crossorigin="anonymous"></script>
 
     
         
@@ -63,31 +65,31 @@ AI 芯片发展 人工智能的发展与芯片算力的提升密不可分，可�
 
         
         
-        <script type="text/javascript" src="https://freelulul.github.io/js/sketch-graph.26b92ed9317bdc6f35642d588bdf3283f40998846e01cf4bee22a126907fbf3b.js" integrity="sha256-Jrku2TF73G81ZC1Yi98yg/QJmIRuAc9L7iKhJpB/vzs=" crossorigin="anonymous" defer></script>
+        <script type="text/javascript" src="http://localhost:1313/js/sketch-graph.26b92ed9317bdc6f35642d588bdf3283f40998846e01cf4bee22a126907fbf3b.js" integrity="sha256-Jrku2TF73G81ZC1Yi98yg/QJmIRuAc9L7iKhJpB/vzs=" crossorigin="anonymous" defer></script>
 
         
         
-        <script type="text/javascript" src="https://freelulul.github.io/js/sketch-digitalRain.af8a7b5c4428cc62d5bf49bf2698d4112c2459ee0c22c1c753ab304aef69888a.js" integrity="sha256-r4p7XEQozGLVv0m/JpjUESwkWe4MIsHHU6swSu9piIo=" crossorigin="anonymous" defer></script>
+        <script type="text/javascript" src="http://localhost:1313/js/sketch-digitalRain.af8a7b5c4428cc62d5bf49bf2698d4112c2459ee0c22c1c753ab304aef69888a.js" integrity="sha256-r4p7XEQozGLVv0m/JpjUESwkWe4MIsHHU6swSu9piIo=" crossorigin="anonymous" defer></script>
 
         
         
-        <script type="text/javascript" src="https://freelulul.github.io/js/sketch-circleBrushStrokes.fe8fc3ee52e1d90e9236be8c36a27711efa024beb4da304829f95dfbb61d6e84.js" integrity="sha256-/o/D7lLh2Q6SNr6MNqJ3Ee&#43;gJL602jBIKfld&#43;7YdboQ=" crossorigin="anonymous" defer></script>
+        <script type="text/javascript" src="http://localhost:1313/js/sketch-circleBrushStrokes.fe8fc3ee52e1d90e9236be8c36a27711efa024beb4da304829f95dfbb61d6e84.js" integrity="sha256-/o/D7lLh2Q6SNr6MNqJ3Ee&#43;gJL602jBIKfld&#43;7YdboQ=" crossorigin="anonymous" defer></script>
 
         
         
-        <script type="text/javascript" src="https://freelulul.github.io/js/sketch-meta.71b5202ea881c86ac19e4b55414656a5444204a4ba08ff7368a5aa99c0a60949.js" integrity="sha256-cbUgLqiByGrBnktVQUZWpURCBKS6CP9zaKWqmcCmCUk=" crossorigin="anonymous" defer></script>
+        <script type="text/javascript" src="http://localhost:1313/js/sketch-meta.71b5202ea881c86ac19e4b55414656a5444204a4ba08ff7368a5aa99c0a60949.js" integrity="sha256-cbUgLqiByGrBnktVQUZWpURCBKS6CP9zaKWqmcCmCUk=" crossorigin="anonymous" defer></script>
 
         
         
-        <script type="text/javascript" src="https://freelulul.github.io/js/sidebar-sketch.min.2e95015880993ef9abcad62d111decea22406616931bce193254bf8af2339953.js" integrity="sha256-LpUBWICZPvmrytYtER3s6iJAZhaTG84ZMlS/ivIzmVM=" crossorigin="anonymous" defer></script>
+        <script type="text/javascript" src="http://localhost:1313/js/sidebar-sketch.min.2e95015880993ef9abcad62d111decea22406616931bce193254bf8af2339953.js" integrity="sha256-LpUBWICZPvmrytYtER3s6iJAZhaTG84ZMlS/ivIzmVM=" crossorigin="anonymous" defer></script>
     
     
     
-    <link rel="shortcut icon" href="https://freelulul.github.io/favicons/favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" sizes="180x180" href="https://freelulul.github.io/favicons/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="https://freelulul.github.io/favicons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="https://freelulul.github.io/favicons/favicon-16x16.png">
-    <link rel="canonical" href="https://freelulul.github.io/blog/Hetero_Comp_AIsys_intro/">
+    <link rel="shortcut icon" href="http://localhost:1313/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:1313/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicons/favicon-16x16.png">
+    <link rel="canonical" href="http://localhost:1313/blog/Hetero_Comp_AIsys_intro/">
     
     
     
@@ -95,9 +97,11 @@ AI 芯片发展 人工智能的发展与芯片算力的提升密不可分，可�
     
 
     
-    <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="https://freelulul.github.io/images/profile.png" /><meta name="twitter:title" content="Hetero_Comp_AIsys_intro"/>
-<meta name="twitter:description" content="超异构计算(DONE) 在这一节中我们要从更远的视角来看看计算机架构发展的黄金 10 年，主要将围绕异构计算和超异构来展开。在开始具体内容前，我们非常推荐您观看以下两个视频：
+    
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="http://localhost:1313/images/profile.png">
+  <meta name="twitter:title" content="Hetero_Comp_AIsys_intro">
+  <meta name="twitter:description" content=" 超异构计算(DONE) 在这一节中我们要从更远的视角来看看计算机架构发展的黄金 10 年，主要将围绕异构计算和超异构来展开。在开始具体内容前，我们非常推荐您观看以下两个视频：
 计算机架构的新黄金时代：A New Golden Age for Computer Architecture
 编译器的黄金时代：The Golden Age of Compiler Design in an Era of HW/SW Co-design
 他们可以让您更细致的了解计算机体系结构和编译器的发展历程和重要节点。接下来让我们先简述一下关于 AI 芯片发展的阶段。
@@ -119,7 +123,7 @@ AI 芯片发展 人工智能的发展与芯片算力的提升密不可分，可�
 而将各部分组件有机结合的异构芯片就可以更好的处理复杂情况，如下图，我们可以看到 GPU、NPU、Quad Cluster 等等硬件均被集合在一起，通过芯片外的 CPU 等等进行协同控制，这样就可以在多种任务的处理和切换时实现非常好的效果。
 计算体系迎来异构 异构计算的出现和发展源于传统冯·诺依曼结构计算机受制于存储和计算单元之间的数据交换瓶颈，难以满足日益增长的计算需求，加之半导体工艺的发展使得 CPU 主频提升受到物理和功耗的限制，性能提升趋于缓慢。
 为了突破单核 CPU 性能的瓶颈，业界开始探索并行计算技术，通过多核处理器或集群计算机实现高性能计算，然而并行计算中的微处理器仍受冯·诺依曼结构的制约，在处理数据密集型任务时，计算速度和性价比不尽如人意。
-随着深度学习等人工智能技术的兴起，对计算能力提出了更高的要求，传统的 CPU 在处理神经网络训练和推理任务时，性能和效率远不及专门设计的 AI 芯片，如 GPU 和 NPU 等。异构计算通过集成不同类型的计算单元，发挥各自的计算优势，实现更高的性能和能效，AI 芯片在处理特定任务时，计算效率远超传统 CPU，有望成为未来计算机体系的标配。"/>
+随着深度学习等人工智能技术的兴起，对计算能力提出了更高的要求，传统的 CPU 在处理神经网络训练和推理任务时，性能和效率远不及专门设计的 AI 芯片，如 GPU 和 NPU 等。异构计算通过集成不同类型的计算单元，发挥各自的计算优势，实现更高的性能和能效，AI 芯片在处理特定任务时，计算效率远超传统 CPU，有望成为未来计算机体系的标配。">
 
 </head><body>
         <div class="main">
@@ -147,7 +151,6 @@ AI 芯片发展 人工智能的发展与芯片算力的提升密不可分，可�
             <li><a  href="/Doc/CV_Zongze_Li.pdf"  title="">CV</a></li>
         
         <li class="grow"></li>
-        
         <li>
             <a class="theme-switch" title="Switch Theme">
                 <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
