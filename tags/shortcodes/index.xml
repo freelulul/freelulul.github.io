@@ -2,33 +2,33 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Shortcodes on heyo</title>
-    <link>https://freelulul.github.io/tags/shortcodes/</link>
+    <link>http://localhost:1313/tags/shortcodes/</link>
     <description>Recent content in Shortcodes on heyo</description>
     <generator>Hugo</generator>
     <language>en</language>
     <managingEditor>zongzel@uchicago.edu (Zongze Li)</managingEditor>
     <webMaster>zongzel@uchicago.edu (Zongze Li)</webMaster>
     <lastBuildDate>Sun, 06 Aug 2023 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://freelulul.github.io/tags/shortcodes/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/shortcodes/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Post Thumbnail</title>
-      <link>https://freelulul.github.io/Doc/thumbnail/</link>
+      <link>http://localhost:1313/Doc/thumbnail/</link>
       <pubDate>Sun, 06 Aug 2023 00:00:00 +0000</pubDate><author>zongzel@uchicago.edu (Zongze Li)</author>
-      <guid>https://freelulul.github.io/Doc/thumbnail/</guid>
+      <guid>http://localhost:1313/Doc/thumbnail/</guid>
       <description>&lt;p&gt;You can now add thumbnails to your posts in &lt;a href=&#34;https://github.com/LucasVadilho/heyo-hugo-theme&#34;&gt;heyo&lt;/a&gt;!&lt;/p&gt;</description>
     </item>
     <item>
       <title>Callout shortcode</title>
-      <link>https://freelulul.github.io/Doc/callouts/</link>
+      <link>http://localhost:1313/Doc/callouts/</link>
       <pubDate>Sat, 05 Aug 2023 00:00:00 +0000</pubDate><author>zongzel@uchicago.edu (Zongze Li)</author>
-      <guid>https://freelulul.github.io/Doc/callouts/</guid>
+      <guid>http://localhost:1313/Doc/callouts/</guid>
       <description>&lt;p&gt;Check it out, &lt;a href=&#34;https://github.com/LucasVadilho/heyo-hugo-theme&#34;&gt;heyo&lt;/a&gt; has callouts now!&lt;/p&gt;</description>
     </item>
     <item>
       <title>Badges</title>
-      <link>https://freelulul.github.io/Doc/badges/</link>
+      <link>http://localhost:1313/Doc/badges/</link>
       <pubDate>Tue, 01 Aug 2023 00:00:00 +0000</pubDate><author>zongzel@uchicago.edu (Zongze Li)</author>
-      <guid>https://freelulul.github.io/Doc/badges/</guid>
+      <guid>http://localhost:1313/Doc/badges/</guid>
       <description>&lt;p&gt;This article will show you how to add and customize badges in your posts.&lt;/p&gt;</description>
     </item>
   </channel>

@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>C&#43;&#43; on heyo</title>
-    <link>https://freelulul.github.io/tags/C&#43;&#43;/</link>
+    <link>http://localhost:1313/tags/C&#43;&#43;/</link>
     <description>Recent content in C&#43;&#43; on heyo</description>
     <generator>Hugo</generator>
     <language>en</language>
     <managingEditor>zongzel@uchicago.edu (Zongze Li)</managingEditor>
     <webMaster>zongzel@uchicago.edu (Zongze Li)</webMaster>
     <lastBuildDate>Wed, 15 May 2024 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://freelulul.github.io/tags/C++/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/C++/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>PowerInfer with AMD</title>
-      <link>https://freelulul.github.io/project/PowerInfer/</link>
+      <link>http://localhost:1313/project/PowerInfer/</link>
       <pubDate>Wed, 15 May 2024 00:00:00 +0000</pubDate><author>zongzel@uchicago.edu (Zongze Li)</author>
-      <guid>https://freelulul.github.io/project/PowerInfer/</guid>
+      <guid>http://localhost:1313/project/PowerInfer/</guid>
       <description>&lt;p&gt;Multi-platform Support and Optimization of PowerInfer Inference Engine.&lt;/p&gt;&#xA;&lt;p&gt;This project builds upon the PowerInfer project, aiming to address its current lack of support for AMD series graphics cards and optimize its performance on AMD RDNA series GPUs.&lt;/p&gt;&#xA;&lt;p&gt;Through a series of optimizations on PowerInfer under the AMD toolchain, including operator optimization, IO optimization, and algorithm optimization, the AMD Radeon RX 7900 XTX GPU ultimately achieves a token generation rate from 24.52 tokens per second to 101.81 tokens per second on the Q4 quantized model.&lt;/p&gt;</description>
     </item>
   </channel>
