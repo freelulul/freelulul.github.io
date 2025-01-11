@@ -8,8 +8,15 @@
     <language>en</language>
     <managingEditor>zongzel@uchicago.edu (Zongze Li)</managingEditor>
     <webMaster>zongzel@uchicago.edu (Zongze Li)</webMaster>
-    <lastBuildDate>Sat, 08 Jun 2024 01:48:36 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 02 Jan 2025 01:48:36 +0800</lastBuildDate>
     <atom:link href="https://freelulul.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>LLMInference_Survey_Note</title>
+      <link>https://freelulul.github.io/blog/LLMInference_Survey_Note/</link>
+      <pubDate>Thu, 02 Jan 2025 01:48:36 +0800</pubDate><author>zongzel@uchicago.edu (Zongze Li)</author>
+      <guid>https://freelulul.github.io/blog/LLMInference_Survey_Note/</guid>
+      <description>&lt;p&gt;本文是一篇现阶段的&lt;a href=&#34;https://arxiv.org/abs/2402.16363&#34;&gt;大模型推理综述&lt;/a&gt;调查，主要贡献：&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;系统性地整理了最新的（2024.5）推理加速技巧，如model compression (e.g., quantization), algorithm improvements (e.g., speculative decoding), and both system and hardware-level enhancements (e.g., operator fusion)&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;&lt;img alt=&#34;image-20241205190519776&#34; src=&#34;https://freelulul.github.io/images/image-20241205190519776-1735029725421-11.png&#34;&gt;&lt;/p&gt;&#xA;&lt;ol start=&#34;2&#34;&gt;&#xA;&lt;li&gt;提出一个基于 Roofline 模型的框架，可以通过此模型分析各方法对内存访问与计算的影响，这提供了对模型实际部署中的指导，如内存需求、计算瓶颈及硬件选择问题&lt;/li&gt;&#xA;&lt;li&gt;开源了分析工具 &lt;a href=&#34;https://github.com/hahnyuan/LLM-Viewer&#34;&gt;LLM-Viewer&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;&lt;img alt=&#34;image-20241205191040862&#34; src=&#34;https://freelulul.github.io/images/image-20241205191040862-1735029725421-12.png&#34;&gt;&lt;/p&gt;&#xA;&lt;h2 id=&#34;1-delve-into-llm-inference-and-deployment&#34;&gt;1 Delve into LLM Inference and Deployment&lt;/h2&gt;&#xA;&lt;h3 id=&#34;11-llm-inference&#34;&gt;1.1 LLM Inference&lt;/h3&gt;&#xA;&lt;p&gt;现阶段大语言模型（LLM）普遍采用的Transformer decoder架构，包括embedding layer、多层Transformer和prediction head。embedding将输入tokens转化为hidden states，Transformer层通过Masked Multi-Head Attention（MHA）和多层感知机（MLP）模块处理hidden states，最终由prediction head生成下一个token。&lt;/p&gt;&#xA;&lt;p&gt;推理过程分为两阶段：Prefill Stage和Decode Stage。Prefill Stage以prompt序列为输入，生成每个Transformer层的Key-Value Cache（KV cache），每个 Transformer 层都配备了自己独有的 KV 缓存，用于存储关键信息，为Decode Stage的后续token生成奠定基础。&lt;/p&gt;&#xA;&lt;h4 id=&#34;111-prefill-stage&#34;&gt;1.1.1 Prefill Stage&lt;/h4&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;输入：Prompt序列 $(X_{\text{pre}} \in \mathbb{R}^{n \times d})$ （d是隐藏层大小，n是prompt序列长度）&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;生成 KV cache：&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;$$&#xA;Q_{\text{pre}} = X_{\text{pre}} \cdot W_q, \quad K_{\text{pre}} = X_{\text{pre}} \cdot W_k, \quad V_{\text{pre}} = X_{\text{pre}} \cdot W_v&#xA;$$&lt;/p&gt;&#xA;&lt;p&gt;其中 $K_{\text{pre}}, V_{\text{pre}}$ 存储到 KV cache。&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;MHA计算：&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;$$&#xA;O_{\text{pre}} = \text{softmax}\left(\frac{Q_{\text{pre}} \cdot K_{\text{pre}}^T}{\sqrt{d}}\right) \cdot V_{\text{pre}} \cdot W_o + X_{\text{pre}}&#xA;$$&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Hetero_Comp_AIsys_intro</title>
       <link>https://freelulul.github.io/blog/Hetero_Comp_AIsys_intro/</link>
