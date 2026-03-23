@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Inference on heyo</title>
+    <link>https://freelulul.github.io/tags/LLM-Inference/</link>
+    <description>Recent content in LLM Inference on heyo</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <managingEditor>zongzel@uchicago.edu (Zongze Li)</managingEditor>
+    <webMaster>zongzel@uchicago.edu (Zongze Li)</webMaster>
+    <lastBuildDate>Wed, 28 Jan 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://freelulul.github.io/tags/LLM-Inference/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>PPD: Prefill-Decode Disaggregation for Multi-turn LLM Serving</title>
+      <link>https://freelulul.github.io/project/PPD/</link>
+      <pubDate>Wed, 28 Jan 2026 00:00:00 +0000</pubDate><author>zongzel@uchicago.edu (Zongze Li)</author>
+      <guid>https://freelulul.github.io/project/PPD/</guid>
+      <description>&lt;p&gt;Not All Prefills Are Equal: PPD Disaggregation for Multi-turn LLM Serving.&lt;/p&gt;&#xA;&lt;p&gt;We identify that in multi-turn LLM serving, repeated KV transfers between prefill and decode nodes saturate the bandwidth. We propose PPD disaggregation, a dynamic routing system that determines when to process subsequent turns locally on decode nodes. Our approach reduces Turn 2+ time-to-first-token (TTFT) by 68% while maintaining competitive time-per-output-token (TPOT).&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

@@ -8,8 +8,15 @@
     <language>en</language>
     <managingEditor>zongzel@uchicago.edu (Zongze Li)</managingEditor>
     <webMaster>zongzel@uchicago.edu (Zongze Li)</webMaster>
-    <lastBuildDate>Thu, 02 Jan 2025 01:48:36 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 28 Jan 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://freelulul.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>PPD: Prefill-Decode Disaggregation for Multi-turn LLM Serving</title>
+      <link>https://freelulul.github.io/project/PPD/</link>
+      <pubDate>Wed, 28 Jan 2026 00:00:00 +0000</pubDate><author>zongzel@uchicago.edu (Zongze Li)</author>
+      <guid>https://freelulul.github.io/project/PPD/</guid>
+      <description>&lt;p&gt;Not All Prefills Are Equal: PPD Disaggregation for Multi-turn LLM Serving.&lt;/p&gt;&#xA;&lt;p&gt;We identify that in multi-turn LLM serving, repeated KV transfers between prefill and decode nodes saturate the bandwidth. We propose PPD disaggregation, a dynamic routing system that determines when to process subsequent turns locally on decode nodes. Our approach reduces Turn 2+ time-to-first-token (TTFT) by 68% while maintaining competitive time-per-output-token (TPOT).&lt;/p&gt;</description>
+    </item>
     <item>
       <title>LLMInference_Survey_Note</title>
       <link>https://freelulul.github.io/blog/LLMInference_Survey_Note/</link>
@@ -71,7 +78,7 @@
       <link>https://freelulul.github.io/publications/</link>
       <pubDate>Thu, 04 Apr 2024 21:27:21 +0800</pubDate><author>zongzel@uchicago.edu (Zongze Li)</author>
       <guid>https://freelulul.github.io/publications/</guid>
-      <description>&lt;p&gt;111&lt;/p&gt;</description>
+      <description>&lt;h2 id=&#34;2026&#34;&gt;2026&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;strong&gt;Not All Prefills Are Equal: PPD Disaggregation for Multi-turn LLM Serving&lt;/strong&gt;&#xA;&lt;br&gt;&lt;strong&gt;Zongze Li&lt;/strong&gt;, Jingyu Liu, Zach Xu, Yineng Zhang, Tahseen Rabbani, Ce Zhang&#xA;&lt;br&gt;arXiv preprint, 2026&#xA;&lt;br&gt;&lt;a href=&#34;https://arxiv.org/abs/2603.13358&#34;&gt;[Paper]&lt;/a&gt; &lt;a href=&#34;https://github.com/freelulul/vllm-ppd&#34;&gt;[Code]&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
     </item>
     <item>
       <title>CJK Glyphs</title>

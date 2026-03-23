@@ -8,8 +8,29 @@
     <language>en</language>
     <managingEditor>zongzel@uchicago.edu (Zongze Li)</managingEditor>
     <webMaster>zongzel@uchicago.edu (Zongze Li)</webMaster>
-    <lastBuildDate>Wed, 15 May 2024 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 28 Jan 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://freelulul.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>LLM Inference</title>
+      <link>https://freelulul.github.io/tags/LLM-Inference/</link>
+      <pubDate>Wed, 28 Jan 2026 00:00:00 +0000</pubDate><author>zongzel@uchicago.edu (Zongze Li)</author>
+      <guid>https://freelulul.github.io/tags/LLM-Inference/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Python</title>
+      <link>https://freelulul.github.io/tags/Python/</link>
+      <pubDate>Wed, 28 Jan 2026 00:00:00 +0000</pubDate><author>zongzel@uchicago.edu (Zongze Li)</author>
+      <guid>https://freelulul.github.io/tags/Python/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>VLLM</title>
+      <link>https://freelulul.github.io/tags/vLLM/</link>
+      <pubDate>Wed, 28 Jan 2026 00:00:00 +0000</pubDate><author>zongzel@uchicago.edu (Zongze Li)</author>
+      <guid>https://freelulul.github.io/tags/vLLM/</guid>
+      <description></description>
+    </item>
     <item>
       <title>C</title>
       <link>https://freelulul.github.io/tags/C/</link>
@@ -22,13 +43,6 @@
       <link>https://freelulul.github.io/tags/C&#43;&#43;/</link>
       <pubDate>Wed, 15 May 2024 00:00:00 +0000</pubDate><author>zongzel@uchicago.edu (Zongze Li)</author>
       <guid>https://freelulul.github.io/tags/C&#43;&#43;/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Python</title>
-      <link>https://freelulul.github.io/tags/Python/</link>
-      <pubDate>Wed, 15 May 2024 00:00:00 +0000</pubDate><author>zongzel@uchicago.edu (Zongze Li)</author>
-      <guid>https://freelulul.github.io/tags/Python/</guid>
       <description></description>
     </item>
     <item>
