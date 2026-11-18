@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Agents on heyo</title>
+    <link>https://freelulul.github.io/tags/LLM-Agents/</link>
+    <description>Recent content in LLM Agents on heyo</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <managingEditor>zongzel@uchicago.edu (Zongze Li)</managingEditor>
+    <webMaster>zongzel@uchicago.edu (Zongze Li)</webMaster>
+    <lastBuildDate>Tue, 17 Nov 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://freelulul.github.io/tags/LLM-Agents/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>RAG in a Trenchcoat: Lightweight Agentic Memory (BRIDGE)</title>
+      <link>https://freelulul.github.io/project/RAG-in-a-Trenchcoat/</link>
+      <pubDate>Tue, 17 Nov 2026 00:00:00 +0000</pubDate><author>zongzel@uchicago.edu (Zongze Li)</author>
+      <guid>https://freelulul.github.io/project/RAG-in-a-Trenchcoat/</guid>
+      <description>&lt;p&gt;We show that a deliberately minimal RAG memory is enough on today&amp;rsquo;s agentic-memory benchmarks: BRIDGE, which combines chained observation notes, hybrid BM25/dense retrieval, and chronological context rendering, matches the leading systems on LongMemEval-S and BEAM and beats the best memory baseline on EverMemBench by 5.7–6.3 points. To measure what memory enables an agent to do rather than what it retrieves, we introduce five adversarial probes for implicit rule application, pattern induction, and multi-turn consistency. No architecture wins everywhere: atomic-fact extractors win rule application, while BRIDGE leads the strongest baseline by 33 points on procedural pattern induction.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

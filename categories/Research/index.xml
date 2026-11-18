@@ -8,14 +8,28 @@
     <language>en</language>
     <managingEditor>zongzel@uchicago.edu (Zongze Li)</managingEditor>
     <webMaster>zongzel@uchicago.edu (Zongze Li)</webMaster>
-    <lastBuildDate>Wed, 28 Jan 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 17 Nov 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://freelulul.github.io/categories/Research/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>RAG in a Trenchcoat: Lightweight Agentic Memory (BRIDGE)</title>
+      <link>https://freelulul.github.io/project/RAG-in-a-Trenchcoat/</link>
+      <pubDate>Tue, 17 Nov 2026 00:00:00 +0000</pubDate><author>zongzel@uchicago.edu (Zongze Li)</author>
+      <guid>https://freelulul.github.io/project/RAG-in-a-Trenchcoat/</guid>
+      <description>&lt;p&gt;We show that a deliberately minimal RAG memory is enough on today&amp;rsquo;s agentic-memory benchmarks: BRIDGE, which combines chained observation notes, hybrid BM25/dense retrieval, and chronological context rendering, matches the leading systems on LongMemEval-S and BEAM and beats the best memory baseline on EverMemBench by 5.7–6.3 points. To measure what memory enables an agent to do rather than what it retrieves, we introduce five adversarial probes for implicit rule application, pattern induction, and multi-turn consistency. No architecture wins everywhere: atomic-fact extractors win rule application, while BRIDGE leads the strongest baseline by 33 points on procedural pattern induction.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>SEIS: Self-Evolving Inference Systems</title>
+      <link>https://freelulul.github.io/project/SEIS/</link>
+      <pubDate>Sat, 03 Oct 2026 00:00:00 +0000</pubDate><author>zongzel@uchicago.edu (Zongze Li)</author>
+      <guid>https://freelulul.github.io/project/SEIS/</guid>
+      <description>&lt;p&gt;Instead of optimizing one part of an inference system at a time, SEIS applies agentic self-evolution to optimize an entire LLM inference engine end-to-end, through iterative sessions that inherit code and reports from earlier ones. Serving Qwen3-0.6B on H100, the evolved engine reaches 3.27× the throughput of the original mini-sglang and beats vLLM, TensorRT-LLM, and SGLang in single-request serving. We validate the numerical fidelity and downstream task accuracy of the evolved engine, and identify reward-hacking failures in automated inference-system optimization.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>PPD: Prefill-Decode Disaggregation for Multi-turn LLM Serving</title>
       <link>https://freelulul.github.io/project/PPD/</link>
       <pubDate>Wed, 28 Jan 2026 00:00:00 +0000</pubDate><author>zongzel@uchicago.edu (Zongze Li)</author>
       <guid>https://freelulul.github.io/project/PPD/</guid>
-      <description>&lt;p&gt;Not All Prefills Are Equal: PPD Disaggregation for Multi-turn LLM Serving.&lt;/p&gt;&#xA;&lt;p&gt;We identify that in multi-turn LLM serving, repeated KV transfers between prefill and decode nodes saturate the bandwidth. We propose PPD disaggregation, a dynamic routing system that determines when to process subsequent turns locally on decode nodes. Our approach reduces Turn 2+ time-to-first-token (TTFT) by 68% while maintaining competitive time-per-output-token (TPOT).&lt;/p&gt;</description>
+      <description>&lt;p&gt;We identify that in multi-turn LLM serving, repeated KV transfers between prefill and decode nodes saturate the bandwidth. We propose PPD disaggregation, a dynamic routing system that determines when to process subsequent turns locally on decode nodes. Our approach reduces Turn 2+ time-to-first-token (TTFT) by 68% while maintaining competitive time-per-output-token (TPOT).&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

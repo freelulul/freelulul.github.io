@@ -8,13 +8,48 @@
     <language>en</language>
     <managingEditor>zongzel@uchicago.edu (Zongze Li)</managingEditor>
     <webMaster>zongzel@uchicago.edu (Zongze Li)</webMaster>
-    <lastBuildDate>Wed, 28 Jan 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 17 Nov 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://freelulul.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Agent Memory</title>
+      <link>https://freelulul.github.io/tags/Agent-Memory/</link>
+      <pubDate>Tue, 17 Nov 2026 00:00:00 +0000</pubDate><author>zongzel@uchicago.edu (Zongze Li)</author>
+      <guid>https://freelulul.github.io/tags/Agent-Memory/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>LLM Agents</title>
+      <link>https://freelulul.github.io/tags/LLM-Agents/</link>
+      <pubDate>Tue, 17 Nov 2026 00:00:00 +0000</pubDate><author>zongzel@uchicago.edu (Zongze Li)</author>
+      <guid>https://freelulul.github.io/tags/LLM-Agents/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>RAG</title>
+      <link>https://freelulul.github.io/tags/RAG/</link>
+      <pubDate>Tue, 17 Nov 2026 00:00:00 +0000</pubDate><author>zongzel@uchicago.edu (Zongze Li)</author>
+      <guid>https://freelulul.github.io/tags/RAG/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>AI Agents</title>
+      <link>https://freelulul.github.io/tags/AI-Agents/</link>
+      <pubDate>Sat, 03 Oct 2026 00:00:00 +0000</pubDate><author>zongzel@uchicago.edu (Zongze Li)</author>
+      <guid>https://freelulul.github.io/tags/AI-Agents/</guid>
+      <description></description>
+    </item>
     <item>
       <title>LLM Inference</title>
       <link>https://freelulul.github.io/tags/LLM-Inference/</link>
-      <pubDate>Wed, 28 Jan 2026 00:00:00 +0000</pubDate><author>zongzel@uchicago.edu (Zongze Li)</author>
+      <pubDate>Sat, 03 Oct 2026 00:00:00 +0000</pubDate><author>zongzel@uchicago.edu (Zongze Li)</author>
       <guid>https://freelulul.github.io/tags/LLM-Inference/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>SGLang</title>
+      <link>https://freelulul.github.io/tags/SGLang/</link>
+      <pubDate>Sat, 03 Oct 2026 00:00:00 +0000</pubDate><author>zongzel@uchicago.edu (Zongze Li)</author>
+      <guid>https://freelulul.github.io/tags/SGLang/</guid>
       <description></description>
     </item>
     <item>
